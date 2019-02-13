@@ -30,8 +30,37 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
+  # S3 Storage
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_protocol: 'http',
+    s3_credentials: {
+      bucket: 'vncdn',
+      access_key_id: 'BKIKJAA5BMMU2RHO6IBB',
+      secret_access_key: 'V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12',
+      s3_region: 'us-east-1',
+      s3_host_name: 'http://103.90.220.124'
+    },
+    s3_options: {
+      endpoint: "http://103.90.220.124",
+      force_path_style: true
+    },
+    url: ':s3_host_name'
+  }
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
+
+  # Use SMTP to sending mail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :address              => "103.90.220.60",
+  :port                 => 25,
+  :domain               => "mail.vnetwork.vn",
+  :user_name            => "no-reply@vnetwork.vn",
+  :password             => "noreply123",
+  :authentication       => false,
+  :enable_starttls_auto => false }
 
   config.action_mailer.perform_caching = false
 
