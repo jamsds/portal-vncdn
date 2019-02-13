@@ -31,6 +31,16 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Bootstrap 4
+gem 'bootstrap'
+
+# jQuery
+gem 'jquery-rails'
+
+# WYSIWYG Editor
+gem "wysiwyg-rails"
+gem "froala-editor-sdk"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
