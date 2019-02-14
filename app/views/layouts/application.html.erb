@@ -11,7 +11,17 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="no-scroll">
+    <div class="main__heading">
+      <div class="free-trial-message">
+        trial.message
+      </div>
+      <div class="portal__main-navigation">
+        navigation
+      </div>
+    </div>
+    <div class="main__content">
+      <%= yield %>
+    </div>
   </body>
 </html>
