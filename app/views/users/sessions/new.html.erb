@@ -2,6 +2,11 @@
   <div class="container">
     <div class="wrapper mt-5">
       <h2>User :: Log in</h2>
+
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %> mb-0"><%= value %></div>
+      <% end %>
+
       <div class="signin_form">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       
