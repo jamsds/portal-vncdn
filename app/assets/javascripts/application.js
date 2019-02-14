@@ -21,6 +21,9 @@
 //= require libs/froala/froala_editor.pkgd.min
 //= require libs/froala/froala_function
 
+// Apps
+//= require layouts/portal
+
 $(document).on('turbolinks:load', function() {
-	
+
 });
