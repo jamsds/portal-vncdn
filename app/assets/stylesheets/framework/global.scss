@@ -241,6 +241,12 @@ a.btn {
   a {
     color: inherit;
   }
+  &-notice,
+  &-alert {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+  }
 }
 
 .lds-ring {
