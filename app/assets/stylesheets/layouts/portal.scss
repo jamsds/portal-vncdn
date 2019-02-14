@@ -60,6 +60,11 @@
 							margin-bottom: 1rem;
 							background-color: $gray;
 							border: 1px solid $gray-nd;
+							&.warning {
+								color: #856404;
+								background-color: #fff3cd;
+								border-color: #ffeeba;
+							}
 						}
 						&-card {
 							&-col-4 {

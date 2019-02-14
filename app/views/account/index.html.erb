@@ -1,0 +1,24 @@
+<div class="portal__main-left">
+	<div class="panel">
+		<div class="panel__heading">
+			panel.account.heading
+		</div>
+		<div class="panel__list">
+			panel.account.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary">
+	<div class="dashboard">
+		<div class="dashboard__heading">
+			account.heading
+		</div>
+		<div class="dashboard__container">
+			<% if current_user.phone.nil? %>
+			<div class="dashboard__container-message warning">
+				dashboard.container.message
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
