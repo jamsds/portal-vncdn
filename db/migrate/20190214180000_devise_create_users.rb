@@ -7,6 +7,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string      :email,                   null: false, default: ""
       t.string      :encrypted_password,      null: false, default: ""
 
+      ## User Information
+      t.string      :username
+
       t.string 	    :name
       t.string 	    :phone
       t.string 	    :company
@@ -24,12 +27,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer     :uuid
       t.string      :parent_uuid
 
-      ## Seller
+      ## Sale Support
       t.integer     :admin_id
-
-      ## Payment
-      t.integer     :credit
-      t.string      :status
 
       ## Reseller Branding
       t.attachment  :logo

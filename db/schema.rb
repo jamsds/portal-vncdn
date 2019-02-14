@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180000) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "username"
     t.string "name"
     t.string "phone"
     t.string "company"
@@ -26,8 +27,6 @@ ActiveRecord::Schema.define(version: 2019_02_14_180000) do
     t.integer "uuid"
     t.string "parent_uuid"
     t.integer "admin_id"
-    t.integer "credit"
-    t.string "status"
     t.string "logo_file_name"
     t.string "logo_content_type"
     t.bigint "logo_file_size"

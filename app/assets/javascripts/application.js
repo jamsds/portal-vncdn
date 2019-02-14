@@ -13,7 +13,7 @@
 // MomentJs
 // require libs/moment.min
 
-// require libs/md5
+//= require libs/md5
 
 // Editor
 // require libs/froala/codemirror.min
