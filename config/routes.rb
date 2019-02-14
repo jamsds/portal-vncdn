@@ -10,12 +10,15 @@ Rails.application.routes.draw do
 
   # API
   namespace :api do
-  	scope 'v1.1', as: :v1 do
-			get '/', to: "v1#index"
+    scope 'v1.1', as: :v1 do
+      get '/', to: "v1#index"
 
-	    # Web Acceleration Service
-	    get '/listDomain', to: "v1#listDomain"
-	  end
+      # Customer
+      post '/createCustomer', to: "v1#createCustomer"
+
+      # Web Acceleration Service
+      get '/listDomain', to: "v1#listDomain"
+    end
   end
 
   # Authenticator

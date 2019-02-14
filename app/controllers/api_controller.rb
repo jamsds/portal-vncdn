@@ -7,8 +7,10 @@ class ApiController < ApplicationController
 
 	# Set Request Method
 	before_action :get_method, only: [:listDomain]
+	before_action :post_method, only: [:createCustomer]
 
 	# Set End Point Request
+	before_action :base_endpoint, only: [:createCustomer]
 	before_action :cdn_endpoint, only: [:listDomain]
 	
 	# Swiftfederation Config
@@ -108,14 +110,142 @@ class ApiController < ApplicationController
 				$UUID = ""
 			end
 
+			if !params[:propertyId].nil?
+				@propertyId = params[:propertyId]
+			end
+
+			if !params[:id].nil?
+				@id = params[:id]
+			end
+
+			if !params[:lfdName].nil?
+				@lfdName = params[:lfdName]
+			end
+
+			if !params[:originUrl].nil?
+				@originUrl = params[:originUrl]
+			end
+
+			if !params[:ftpPassword].nil?
+				@ftpPassword = params[:ftpPassword]
+			end
+
+			if !params[:ftpPasswordRepeat].nil?
+				@ftpPasswordRepeat = params[:ftpPasswordRepeat]
+			end
+
+			if !params[:streamingService].nil?
+				@streamingService = params[:streamingService]
+			end
+
+			if !params[:active].nil?
+				@active = params[:active]
+			end
+
+			if !params[:name].nil?
+				@name = params[:name]
+			end
+
+			if !params[:type].nil?
+				@type = params[:type]
+			end
+
+			if !params[:matchType].nil?
+				@matchType = params[:matchType]
+			end
+
+			if !params[:url].nil?
+				@url = params[:url]
+			end
+
+			if !params[:subnet].nil?
+				@subnet = params[:subnet]
+			end
+
+			if !params[:location].nil?
+				@location = params[:location]
+			end
+
+			if !params[:hostHeader].nil?
+				@hostHeader = params[:hostHeader]
+			end
+
+			if !params[:ttl].nil?
+				@ttl = params[:ttl]
+			end
+
+			if !params[:ignoreClientNoCache].nil?
+				@ignoreClientNoCache = params[:ignoreClientNoCache]
+			end
+
+			if !params[:ignoreOriginNoCache].nil?
+				@ignoreOriginNoCache = params[:ignoreOriginNoCache]
+			end
+
+			if !params[:ignoreQueryString].nil?
+				@ignoreQueryString = params[:ignoreQueryString]
+			end
+
+			if !params[:redirectionURL].nil?
+				@redirectionURL = params[:redirectionURL]
+			end
+
+			if !params[:statusCode].nil?
+				@statusCode = params[:statusCode]
+			end
+
+			if !params[:domains].nil?
+				@domains = params[:domains]
+			end
+
+			if !params[:startTime].nil?
+				@startTime = params[:startTime]
+			end
+
+			if !params[:endTime].nil?
+				@endTime = params[:endTime]
+			end
+
+			if !params[:interval].nil?
+				@interval = params[:interval]
+			end
+
+			if !params[:urlPath].nil?
+				@urlPath = params[:urlPath]
+			end
+
+			if !params[:serviceType].nil?
+				@serviceType = params[:serviceType]
+			end
+
 			$X_SPD_DATE = Time.now.utc.strftime("%Y%m%dT%H%M%SZ")
+		end
+
+		def base_endpoint
+			$END_POINT = 'https://base-api.swiftfederation.com'
 		end
 
 		def cdn_endpoint
 			$END_POINT = 'https://cdn-api.swiftfederation.com'
 		end
 
+		def vod_endpoint
+			$END_POINT = 'https://vms-api.swiftfederation.com'
+		end
+
 		def get_method
 			$METHOD = "GET"
+		end
+
+		def post_method
+			$METHOD = "POST"
+		end
+
+		def put_method
+			$METHOD = "PUT"
+		end
+
+		def delete_method
+			$METHOD = "DELETE"
 		end
 end
