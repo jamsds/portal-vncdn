@@ -4,7 +4,7 @@
 			<h2>Resend confirmation instructions</h2>
 
 			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %> mb-0"><%= value %></div>
+				<div class="alert alert-<%= key %> mb-0 mt-3"><%= value %></div>
 			<% end %>
 
 			<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
