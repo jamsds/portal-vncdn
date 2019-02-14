@@ -11,7 +11,7 @@ class DefaultController < ApplicationController
 	end
 
 	def delivery
-		@requestURI = "/api/v1.1/listDomain/?uuid=#{current_user.uuid}"
-		@response = JSON.parse(ApiController::SyncProcess.new("#{@requestURI}").getRequest())
+		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
+		@response = JSON.parse(ApiController::RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   end
 end
