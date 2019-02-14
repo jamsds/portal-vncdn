@@ -13,7 +13,5 @@ class DefaultController < ApplicationController
 	def delivery
 		@requestURI = "/api/v1.1/listDomain/?uuid=#{current_user.uuid}"
 		@response = JSON.parse(ApiController::SyncProcess.new("#{@requestURI}").getRequest())
-
-		puts @response
   end
 end
