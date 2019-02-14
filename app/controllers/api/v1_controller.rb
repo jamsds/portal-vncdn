@@ -10,8 +10,14 @@ class Api::V1Controller < ApiController
 	end
 
 	## Web Acceleration
-	def listDomain
+	def listDelivery
 		@requestURI = "/v1.0/customers/#{$UUID}/domains"
+		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+	end
+
+	## File Download
+	def listDownload
+		@requestURI = "/v1.0/customers/#{$UUID}/filedownloads"
 		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 	end
 end

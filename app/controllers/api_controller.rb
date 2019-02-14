@@ -6,12 +6,12 @@ class ApiController < ApplicationController
 	before_action :set_variables
 
 	# Set Request Method
-	before_action :get_method, only: [:listDomain]
+	before_action :get_method, only: [:listDelivery, :listDownload]
 	before_action :post_method, only: [:createCustomer]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:createCustomer]
-	before_action :cdn_endpoint, only: [:listDomain]
+	before_action :cdn_endpoint, only: [:listDelivery, :listDownload]
 
 	# Swiftfederation Config
 	$ACCESS_KEY_ID = '0cavp8cG1vd149Oy'
@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     end
 
     def postRequest
-      url = URI("http://id.demo.vncdn.vn"+@requestURI)
+      url = URI("http://127.0.0.1:3000"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Post.new(url)
@@ -33,7 +33,7 @@ class ApiController < ApplicationController
     end
 
     def getRequest
-      url = URI("http://id.demo.vncdn.vn"+@requestURI)
+      url = URI("http://127.0.0.1:3000"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Get.new(url)

@@ -20,7 +20,10 @@ Rails.application.routes.draw do
       post '/createCustomer', to: "v1#createCustomer"
 
       # Web Acceleration Service
-      get '/listDomain', to: "v1#listDomain"
+      get '/listDelivery', to: "v1#listDelivery"
+
+      # File Download Acceleration
+      get '/listDownload', to: "v1#listDownload"
     end
   end
 
