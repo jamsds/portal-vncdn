@@ -12,6 +12,9 @@
   </head>
 
   <body class="no-scroll">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %> mb-0"><%= value %></div>
+    <% end %>
     <% if user_signed_in? %>
     <div class="main__heading">
       <div class="free-trial-message">
