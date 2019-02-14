@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     end
 
     def postRequest
-      url = URI("http://id.demo.vncdn.vn/"+@requestURI)
+      url = URI("http://id.demo.vncdn.vn"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Post.new(url)
@@ -33,7 +33,7 @@ class ApiController < ApplicationController
     end
 
     def getRequest
-      url = URI("http://id.demo.vncdn.vn/"+@requestURI)
+      url = URI("http://id.demo.vncdn.vn"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Get.new(url)
@@ -106,6 +106,8 @@ class ApiController < ApplicationController
 		def set_variables
 			if user_signed_in?
 				$UUID = current_user.uuid
+			elsif
+				$UUID = params[:uuid]
 			else
 				$UUID = ""
 			end
