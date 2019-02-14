@@ -2,9 +2,11 @@ class DefaultController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@requestURI = "/api/v1.1/createCustomer/?name=#{current_user.username}"
-		@response = JSON.parse(ApiController::SyncProcess.new("#{@requestURI}").postRequest())
+		if current_user.uuid.nil?
+			@requestURI = "/api/v1.1/createCustomer/?name=#{current_user.username}"
+			@response = JSON.parse(ApiController::SyncProcess.new("#{@requestURI}").postRequest())
 
-		puts @response
+			current_user.update(uuid: @response["id"])
+		end
 	end
 end
