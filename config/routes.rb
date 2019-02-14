@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get '/api', to: "default#api"
 
   # Authenticator
-  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords" }
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords", confirmations: 'users/confirmations' }
 end
