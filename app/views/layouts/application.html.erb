@@ -12,6 +12,7 @@
   </head>
 
   <body class="no-scroll">
+    <% if action_name != "new" %>
     <div class="main__heading">
       <div class="free-trial-message">
         trial.message
@@ -20,6 +21,7 @@
         navigation
       </div>
     </div>
+    <% end %>
     <div class="main__content">
       <%= yield %>
     </div>

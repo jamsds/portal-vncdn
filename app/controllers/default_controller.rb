@@ -1,4 +1,6 @@
 class DefaultController < ApplicationController
+	before_action :authenticate_user!
+	
 	def index
 		@requestURI = "/api"
 		response = ApplicationController::SyncProcess.new("#{@requestURI}").getRequest()
