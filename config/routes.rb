@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # Reseller Management
   get '/reseller', to: "reseller#index"
 
+  # Content Delivery Network(CDN)
+  get '/delivery', to: "default#delivery"
+
   # API
   namespace :api do
     scope 'v1.1', as: :v1 do

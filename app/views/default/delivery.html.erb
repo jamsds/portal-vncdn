@@ -1,0 +1,31 @@
+<div class="portal__main-left">
+	<div class="panel">
+		<div class="panel__heading">
+			panel.delivery.heading
+		</div>
+		<div class="panel__list">
+			panel.delivery.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary">
+	<div class="dashboard">
+		<div class="dashboard__heading">
+			delivery.heading
+		</div>
+		<div class="dashboard__container">
+			<% if current_user.phone.nil? %>
+			<div class="dashboard__container-message warning">
+				dashboard.container.message
+			</div>
+			<% end %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card">
+					<div class="dashboard__container-card-item">
+						dashboard.card.info
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
