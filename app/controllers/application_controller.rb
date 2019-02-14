@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
 
     def postRequest
-      url = URI("http://127.0.0.1:3000"+@requestURI)
+      url = URI("http://id.demo.vncdn.vn"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Post.new(url)
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     end
 
     def getRequest
-      url = URI("http://127.0.0.1:3000"+@requestURI)
+      url = URI("http://id.demo.vncdn.vn"+@requestURI)
 
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Get.new(url)
