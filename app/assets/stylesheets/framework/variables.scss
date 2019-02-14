@@ -1,0 +1,42 @@
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}  
+}
+
+$dark: #111111;
+
+$black: #333333;
+$black-nd: #3a3a3a;
+$black-3nd: #555555;
+$black-4nd: #5a5a5a;
+$black-5nd: #777777;
+$black-6nd: #7a7a7a;
+$black-7nd: #b1b1b1;
+
+$gray: #f1f1f1;
+$gray-nd: #e1e1e1;
+
+$silver: #f8f8f8;
+$light: #ffffff;
+
+$primary: #F51702;
+$primary-nd: #B11E00;
+
+$blue: #071295;
+$blue-nd: #007BFF;
+
+$border: 1px solid #f1f1f1;
+
+$gradient-default: linear-gradient(45deg, rgba(0,0,0,.025) 0%, rgba(0,0,0,.05) 50%, rgba(0,0,0,.1) 75%);
+$gradient-top: linear-gradient(to top, #f1f1f1 , #ffffff);
+$shadow-default: 0 5px 15px rgba(0,0,0,.15);
+$shadow-top: 0 -5px 15px rgba(0,0,0,.15);
