@@ -12,6 +12,9 @@ class DefaultController < ApplicationController
 
 	def delivery
 		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
-		@response = JSON.parse(ApiController::RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		@delivery = JSON.parse(ApiController::RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
+		@download = JSON.parse(ApiController::RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   end
 end

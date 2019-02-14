@@ -27,12 +27,18 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Domain</th>
+										<th>Domain/File Download Name</th>
 										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
-									<% @response.each do |item| %>
+									<% @delivery.each do |item| %>
+									<tr>
+										<td><%= item["name"] %></td>
+										<td><%= item["active"] %></td>
+									</tr>
+									<% end %>
+									<% @download.each do |item| %>
 									<tr>
 										<td><%= item["name"] %></td>
 										<td><%= item["active"] %></td>
