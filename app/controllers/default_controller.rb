@@ -44,9 +44,11 @@ class DefaultController < ApplicationController
 	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:00Z")
 
   	if params[:range].nil?
-	    startTime = endTime - 1.hours
-	  elsif params[:range] == "4"
-	  	startTime = endTime - 4.hours
+	    startTime = endTime - 4.hours
+	  elsif params[:range] == "1"
+	  	startTime = endTime - 1.hours
+	  elsif params[:range] == "8"
+	  	startTime = endTime - 8.hours
 	  elsif params[:range] == "24"
 	  	startTime = endTime - 1.days
 	  end
