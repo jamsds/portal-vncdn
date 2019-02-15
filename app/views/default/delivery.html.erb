@@ -40,14 +40,14 @@
 									<tr>
 										<td><%= item["name"] %></td>
 										<td>Website Acceleration</td>
-										<td><%= item["active"] %></td>
+										<td><% if item["active"] == true %>Active<% end %></td>
 									</tr>
 									<% end %>
 									<% @download.each do |item| %>
 									<tr>
 										<td><%= item["name"] %></td>
 										<td>Large File Download</td>
-										<td><%= item["active"] %></td>
+										<td><% if item["active"] == true %>Active<% end %></td>
 									</tr>
 									<% end %>
 								</tbody>
@@ -82,25 +82,29 @@
 				<div class="dashboard__container-card">
 					<div class="dashboard__container-card-item">
 						<div class="delivery">
-							<%= form_tag(delivery_add_url, method: "post") do |f| %>
-								<div class="form-group">
-								  <%= label_tag(:deliveryUrl, "Delivery Domain Name") %>
-								  <%= text_field_tag(:deliveryUrl, "", class: 'form-control') %>
-								  <small id="domainlHelp" class="form-text text-muted">Domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid domain name. E.g: 'www.domain.com'.</small>
-								</div>
-								<div class="form-group">
-								  <%= label_tag(:originUrl, "Delivery Domain Name") %>
-								  <%= text_field_tag(:originUrl, "", class: 'form-control') %>
-								  <small id="domainlHelp" class="form-text text-muted">Origin domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid origin serer host name or IP. E.g: 'origin.domain.com'.</small>
-								</div>
-								<div class="custom-control custom-checkbox">
-									<%= check_box_tag(:streamingService, "false", false, class: 'custom-control-input') %>
-									<%= label_tag(:streamingService, "Enable Streaming", class: 'custom-control-label') %>
-								</div>
+							<% if params[:deliveryType].nil? %>
+								<%= form_tag(delivery_add_url, method: "post") do |f| %>
+									<div class="form-group">
+									  <%= label_tag(:deliveryUrl, "Delivery Domain Name") %>
+									  <%= text_field_tag(:deliveryUrl, "", class: 'form-control') %>
+									  <small id="domainlHelp" class="form-text text-muted">Domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid domain name. E.g: 'www.domain.com'.</small>
+									</div>
+									<div class="form-group">
+									  <%= label_tag(:originUrl, "Delivery Domain Name") %>
+									  <%= text_field_tag(:originUrl, "", class: 'form-control') %>
+									  <small id="domainlHelp" class="form-text text-muted">Origin domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid origin serer host name or IP. E.g: 'origin.domain.com'.</small>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<%= check_box_tag(:streamingService, "false", false, class: 'custom-control-input') %>
+										<%= label_tag(:streamingService, "Enable Streaming", class: 'custom-control-label') %>
+									</div>
 
-								<div class="text-left mt-3">
-	  							<%= submit_tag("Submit", class: 'btn btn-default primary') %>
-	  						</div>
+									<div class="text-left mt-3">
+		  							<%= submit_tag("Submit", class: 'btn btn-default primary') %>
+		  						</div>
+								<% end %>
+							<% else %>
+								
 							<% end %>
 						</div>
 					</div>
