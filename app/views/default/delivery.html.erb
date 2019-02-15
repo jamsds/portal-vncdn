@@ -33,6 +33,7 @@
 										<th>Domain</th>
 										<th>Scenario Type</th>
 										<th>Status</th>
+										<th>Operation</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -41,6 +42,7 @@
 											<td><a href="<%= delivery_url %>/<%= item["id"] %>/d"><%= item["name"] %></a></td>
 											<td>Website Acceleration</td>
 											<td><% if item["active"] == true %>Active<% end %></td>
+											<td><a href="<%= delivery_url %>/<%= item["id"] %>/d/edit">Edit</a></td>
 										</tr>
 									<% end %>
 									<% @download.each do |item| %>
@@ -48,6 +50,7 @@
 											<td><a href="<%= delivery_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
 											<td>Large File Download</td>
 											<td><% if item["active"] == true %>Active<% end %></td>
+											<td><a href="<%= delivery_url %>/<%= item["id"] %>/f/edit">Edit</a></td>
 										</tr>
 									<% end %>
 								</tbody>

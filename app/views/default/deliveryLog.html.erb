@@ -26,7 +26,7 @@
 					<div class="dashboard__container-table-content mt-3">
 						<div class="dashboard__container-card mt-3">
 							<div class="dashboard__container-card-item">
-								<table class="table mb-0">
+								<table class="table">
 									<thead>
 										<tr>
 											<th>Log File Name</th>
@@ -36,12 +36,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<% @timestamps.zip(@items).each do |time, item| %>
+										<% @logItems.each do |time, item| %>
 											<tr>
 												<td><%= item["name"] %></td>
 												<td><%= number_to_human_size(item["size"], separator: ".", delimiter: ",") %></td>
 												<td><%= time %></td>
-												<td><a href="<%= item["url"] %>" class="btn btn-default primary outline btn-sm">Download</a></td>
+												<td><a href="<%= item["url"] %>" class="primary">Download</a></td>
 											</tr>
 										<% end %>
 									</tbody>

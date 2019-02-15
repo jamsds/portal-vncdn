@@ -41,6 +41,9 @@ gem 'jquery-rails'
 gem "wysiwyg-rails"
 gem "froala-editor-sdk"
 
+# Pagination
+gem 'will_paginate'
+
 # Authenticator
 gem 'devise'
 

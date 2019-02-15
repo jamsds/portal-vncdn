@@ -1,13 +1,16 @@
 class DefaultController < ApplicationController
+	require 'will_paginate/array'
+
 	before_action :authenticate_user!
 
 	# Set Request Method
 	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport, :deliveryLog]
 	before_action :get_method, only: [:delivery, :deliveryDetail]
+	before_action :put_method, only: [:deliveryUpdate]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryUpdate]
 
 	def index
 		if current_user.uuid.nil?
@@ -33,6 +36,21 @@ class DefaultController < ApplicationController
   	if params[:type] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+  	elsif params[:type] == "f"
+	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		end
+  end
+
+  def deliveryEdit
+  	if params[:type] == "d"
+	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			@deliveryUrl =  @response["name"]
+			@originUrl =  @response["originUrl"]
+			@streamingService = @response["streamingService"]
+			@deliveryStatus = @response["active"]
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
@@ -95,8 +113,6 @@ class DefaultController < ApplicationController
 			end
 		end
 
-		puts @totalValues
-
 		@maxBandwidth = @bandwidthValue.map(&:to_i).max
 		@avgBandwidth = @maxBandwidth/@totalValues
   end
@@ -133,7 +149,8 @@ class DefaultController < ApplicationController
 			end
 		end
 
-		puts @items
+		@logItems = @timestamps.zip(@items)
+		# @logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => 10)
   end
 
   def deliveryAdd
@@ -149,6 +166,18 @@ class DefaultController < ApplicationController
 
 		if @response
 			redirect_to delivery_path
+		end
+  end
+
+  def deliveryUpdate
+  	if params[:ftpPassword].nil?
+	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":#{params[:deliveryStatus]}}"
+			@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+			if @response
+				redirect_to delivery_path
+			end
 		end
   end
 end
