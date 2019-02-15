@@ -60,7 +60,7 @@
 						border-bottom: $border;
 					}
 					&__container {
-						height: 100vh;
+						height: calc(100vh - (155px));
 						padding: 1rem;
 						overflow-y: scroll;
 						background-color: $silver;
@@ -167,7 +167,6 @@
 					width: 100%;
 					.dashboard {
 						&__container {
-							height: calc(100vh - (155px));
 							&-card {
 								&-col-4,
 								&-col-8 {

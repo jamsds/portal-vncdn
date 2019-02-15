@@ -44,11 +44,11 @@ class DefaultController < ApplicationController
 	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:00Z")
 
   	if params[:range].nil?
-	    startTime = endTime - 1.days
+	    startTime = endTime - 1.hours
 	  elsif params[:range] == "4"
 	  	startTime = endTime - 4.hours
-	  elsif params[:range] == "1"
-	  	startTime = endTime - 1.hours
+	  elsif params[:range] == "24"
+	  	startTime = endTime - 1.days
 	  end
 
 	  @startTime = startTime.strftime("%Y-%m-%dT%H:%M:00Z")
@@ -67,7 +67,18 @@ class DefaultController < ApplicationController
 			end
 		end
 
-		puts @timestamp
+		@requestURI = "/v1.0/report/origin_request_number"
+		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+		@request = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@requestValue = ""
+
+		@request.each do |item|
+			item["originReqNums"].each do |stamp|
+				@requestValue << "#{stamp["value"]},"
+			end
+		end
+		
   end
 
   def deliveryAdd
