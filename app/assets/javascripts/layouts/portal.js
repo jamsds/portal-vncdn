@@ -1,3 +1,6 @@
+//= require libs/echart.min
+//= require libs/moment.min
+
 $(document).on('turbolinks:load', function() {
 	$(".account").click(function(){
 	  $(".account-panel").toggleClass("show");

@@ -1,0 +1,33 @@
+<div class="portal__main-heading">
+	<a href="<%= delivery_url %>" class="back">Back</a>
+</div>
+<div class="portal__main-left">
+	<div class="panel">
+		<div class="panel__list">
+			panel.delivery.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary">
+	<div class="dashboard">
+		<div class="dashboard__container">
+			<% if current_user.phone.nil? %>
+			<div class="dashboard__container-message">
+				dashboard.container.message
+			</div>
+			<% end %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-table">
+					<div class="dashboard__container-table-select clearfix">
+						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Detail</a>
+						<a href="<%= request.fullpath %>/reports?domain=<%= @response["name"] %>" class="dashboard__container-table-select-item">Reports</a>
+					</div>
+					<div class="dashboard__container-table-content mt-3">
+
+						<%= @response["name"] %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

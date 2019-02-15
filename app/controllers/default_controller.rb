@@ -2,12 +2,12 @@ class DefaultController < ApplicationController
 	before_action :authenticate_user!
 
 	# Set Request Method
-	before_action :post_method, only: [:index, :deliveryAdd]
-	before_action :get_method, only: [:delivery]
+	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport]
+	before_action :get_method, only: [:delivery, :deliveryDetail]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery, :deliveryAdd]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd]
 
 	def index
 		if current_user.uuid.nil?
@@ -27,6 +27,47 @@ class DefaultController < ApplicationController
 			@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
 			@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 		end
+  end
+
+  def deliveryDetail
+  	if params[:type] == "d"
+	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+  	elsif params[:type] == "f"
+	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		end
+  end
+
+  def deliveryReport
+  	endTime = Time.now.utc 
+	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:00Z")
+
+  	if params[:range].nil?
+	    startTime = endTime - 1.days
+	  elsif params[:range] == "4"
+	  	startTime = endTime - 4.hours
+	  elsif params[:range] == "1"
+	  	startTime = endTime - 1.hours
+	  end
+
+	  @startTime = startTime.strftime("%Y-%m-%dT%H:%M:00Z")
+
+  	@requestURI = "/v1.1/report/volume"
+		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+		@bandwidth = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@timestamp = []
+		@bandwidthValue = ""
+
+		@bandwidth.each do |item|
+			item["volumes"].each do |stamp|
+				@timestamp << "#{stamp["timestamp"]}"
+				@bandwidthValue << "#{stamp["value"]},"
+			end
+		end
+
+		puts @timestamp
   end
 
   def deliveryAdd

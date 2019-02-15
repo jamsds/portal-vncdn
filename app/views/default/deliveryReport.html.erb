@@ -1,0 +1,103 @@
+<div class="portal__main-heading">
+	<a href="<%= delivery_url %>" class="back">Back</a>
+</div>
+<div class="portal__main-left">
+	<div class="panel">
+		<div class="panel__list">
+			panel.delivery.report.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary">
+	<div class="dashboard">
+		<div class="dashboard__container">
+			<% if current_user.phone.nil? %>
+			<div class="dashboard__container-message">
+				dashboard.container.message
+			</div>
+			<% end %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-table">
+					<div class="dashboard__container-table-select clearfix">
+						<a href="<%= delivery_url %>/<%= params[:propertyId] %>/<%= params[:type] %>" class="dashboard__container-table-select-item">Detail</a>
+						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Reports</a>
+					</div>
+					<div class="dashboard__container-table-content mt-3">
+						<div id="bandwidth" style="width:100%; height:300px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function beautifyDateTime(param) {
+		return moment(param).format("HH:mm");
+	}
+
+	function formatVolumeUnit(param) {
+    var volumeUnit = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB", "NB", "DB", "CB", "XB"];
+    var i = 0;
+
+    while (param > 1000) {
+      param = param / 1000;
+      ++i;
+    }
+    param = (Math.round(param * 100) / 100).toFixed(2) + " " + volumeUnit[i];
+    return param;
+  }
+
+  var usageChart = echarts.init(document.getElementById('bandwidth'));
+  var option = {
+		tooltip: {
+			trigger: 'axis',
+	  	formatter: function (params) {
+        return formatVolumeUnit(params[0].data);
+      }
+		},
+    legend: {
+      data:['Bandwidth']
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: [
+      	<% @timestamp.each do |time| %>
+      		"<%= time %>",
+      	<% end %>
+      ],
+      axisLabel: {
+      	formatter: function (value, index) {
+          return beautifyDateTime(value);
+        }
+      }
+    },
+    grid: {
+      left: '2%',
+      right: '2%',
+      bottom: '15px',
+      containLabel: true
+  	},
+    yAxis: {
+    	type: 'value',
+      axisLabel: {
+      	formatter: function (value, index) {
+          return formatVolumeUnit(value);
+        }
+      }
+    },
+    color: [
+    	"#f68100"
+    ],
+    series: [
+    	{
+        name:'Bandwidth',
+        type:'line',
+        stack: 'Bandwidth',
+        data:[<%= @bandwidthValue %>]
+      }
+    ]
+  };
+  usageChart.setOption(option);
+</script>

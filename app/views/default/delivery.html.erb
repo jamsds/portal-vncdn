@@ -1,4 +1,4 @@
-<% if params[:deliveryAction].nil? %>
+<% if params[:deliveryAction].nil? && params[:propertyId].nil? %>
 <div class="portal__main-left">
 	<div class="panel">
 		<div class="panel__heading">
@@ -25,30 +25,30 @@
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card">
 					<div class="dashboard__container-card-item">
-						delivery.list.domain
+						<h5>Delivery/File Download Domain List</h5>
 						<div class="delivery mt-3">
 							<table class="table mb-0">
 								<thead>
 									<tr>
-										<th>Domain/File Download Name</th>
+										<th>Domain</th>
 										<th>Scenario Type</th>
 										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
 									<% @delivery.each do |item| %>
-									<tr>
-										<td><%= item["name"] %></td>
-										<td>Website Acceleration</td>
-										<td><% if item["active"] == true %>Active<% end %></td>
-									</tr>
+										<tr>
+											<td><a href="<%= delivery_url %>/<%= item["id"] %>/d"><%= item["name"] %></a></td>
+											<td>Website Acceleration</td>
+											<td><% if item["active"] == true %>Active<% end %></td>
+										</tr>
 									<% end %>
 									<% @download.each do |item| %>
-									<tr>
-										<td><%= item["name"] %></td>
-										<td>Large File Download</td>
-										<td><% if item["active"] == true %>Active<% end %></td>
-									</tr>
+										<tr>
+											<td><a href="<%= delivery_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
+											<td>Large File Download</td>
+											<td><% if item["active"] == true %>Active<% end %></td>
+										</tr>
 									<% end %>
 								</tbody>
 							</table>

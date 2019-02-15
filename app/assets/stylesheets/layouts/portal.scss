@@ -76,6 +76,36 @@
 								border-color: #ffeeba;
 							}
 						}
+						&-table {
+							&-select {
+								border-bottom: 1px solid $gray-nd;
+								&-item {
+									display: block;
+									float: left;
+									font-size: 0.875rem;
+									color: $black-3nd;
+									margin-right: 1rem;
+									padding: 0.75rem 0;
+									text-decoration: none;
+									position: relative;
+									&:after {
+										content: " ";
+										width: 100%;
+										height: 3px;
+										position: absolute;
+										bottom: -1px;
+										left: 0;
+										background-color: transparent;
+									}
+									&.active {
+										color: $primary;
+										&:after {
+											background-color: $primary;
+										}
+									}
+								}
+							}
+						}
 						&-card {
 							&-col-4 {
 								width: calc((100% * 1/3) - 1rem);
@@ -110,6 +140,9 @@
 									box-shadow: $shadow-default;
 								}
 							}
+						}
+						&.light {
+							background-color: $light;
 						}
 					}
 				}

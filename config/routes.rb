@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   # Content Delivery Network(CDN)
   get '/delivery', to: "default#delivery"
+  get '/delivery/:propertyId/:type', to: "default#deliveryDetail"
+  get '/delivery/:propertyId/:type/reports', to: "default#deliveryReport"
+
   post '/delivery/add', to: "default#deliveryAdd"
 
   # API
