@@ -7,6 +7,10 @@
 
 @import 'layouts/portal';
 
+:root {
+  --app-height: 100%;
+}
+
 .turbolinks-progress-bar {
   height: 3px;
   background-color: $primary;
