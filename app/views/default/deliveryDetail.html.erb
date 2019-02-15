@@ -21,7 +21,7 @@
 					<div class="dashboard__container-table-select clearfix">
 						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Details</a>
 						<a href="<%= request.fullpath %>/reports?domain=<%= @response["name"] %>" class="dashboard__container-table-select-item">Reports</a>
-						<a href="<%= request.fullpath %>/logs?domain=<%= params[:domain] %>" class="dashboard__container-table-select-item">Logs</a>
+						<a href="<%= request.fullpath %>/logs?domain=<%= @response["name"] %>" class="dashboard__container-table-select-item">Logs</a>
 					</div>
 					<div class="dashboard__container-table-content mt-3">
 						<%= @response["name"] %>
