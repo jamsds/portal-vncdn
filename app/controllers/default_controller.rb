@@ -30,9 +30,15 @@ class DefaultController < ApplicationController
   end
 
   def deliveryAdd
-  	@requestURI = "/v1.0/domains"
-		@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
-		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+  	if params[:ftpPassword].nil?
+	  	@requestURI = "/v1.0/domains"
+			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		else
+			@requestURI = "/v1.0/filedownloads"
+			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"\",\"ftpPassword\":\"#{params[:ftpPassword]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		end
 
 		if @response
 			redirect_to delivery_path
