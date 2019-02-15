@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # Content Delivery Network(CDN)
   get '/delivery', to: "default#delivery"
+  post '/delivery/add', to: "default#deliveryAdd"
 
   # API
   namespace :api do

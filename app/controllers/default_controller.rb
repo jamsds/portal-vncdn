@@ -2,12 +2,12 @@ class DefaultController < ApplicationController
 	before_action :authenticate_user!
 
 	# Set Request Method
-	before_action :post_method, only: [:index]
+	before_action :post_method, only: [:index, :deliveryAdd]
 	before_action :get_method, only: [:delivery]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryAdd]
 
 	def index
 		if current_user.uuid.nil?
@@ -26,6 +26,16 @@ class DefaultController < ApplicationController
 
 			@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
 			@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		end
+  end
+
+  def deliveryAdd
+  	@requestURI = "/v1.0/domains"
+		@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
+		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		if @response
+			redirect_to delivery_path
 		end
   end
 end
