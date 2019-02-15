@@ -45,6 +45,10 @@
     return param + '%';
   }
 
+  function formatRequest(param) {
+    return param;
+  }
+
 	function formatVolumeUnit(param) {
     var volumeUnit = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB", "NB", "DB", "CB", "XB"];
     var i = 0;
@@ -131,11 +135,11 @@
   	tooltip: {
 	  	trigger: 'axis',
 	  	formatter: function (params) {
-        return formatHitRateUnit(params[0].data);
+        return formatRequest(params[0].data);
       }
 	  },
 	  legend: {
-      data:['Hit Rate']
+      data:['Request Origin']
     },
     grid: {
     	left: '2%',
@@ -178,7 +182,7 @@
       }
     },
     series: [{
-      name: 'Hit Rate',
+      name: 'Request Origin',
       type: 'line',
       data:[<%= @requestValue %>],
       itemStyle: {
