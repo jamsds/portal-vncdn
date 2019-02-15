@@ -84,8 +84,8 @@
 						<div class="delivery">
 							<h5>Add a Domain/File Download</h5>
 							<div class="delivery__select-type mt-3">
-								<a href="<%= delivery_url %>?deliveryAction=create" class="btn <% if params[:deliveryType].nil? %>btn-default primary outline<% else %>btn-default<% end %>"><span>Website Acceleration</span></a>
-								<a href="<%= delivery_url %>?deliveryAction=create&deliveryType=download" class="btn btn-default<% if params[:deliveryType].present? %>btn-default primary outline<% else %>btn-default<% end %>"><span>Large File Download</span></a>
+								<a href="<%= delivery_url %>?deliveryAction=create" class="btn <% if params[:deliveryType].nil? %>btn-default primary outline<% else %>btn-light<% end %>"><span>Website Acceleration</span></a>
+								<a href="<%= delivery_url %>?deliveryAction=create&deliveryType=download" class="btn btn-default <% if params[:deliveryType].present? %>btn-default primary outline<% else %>btn-light<% end %>"><span>Large File Download</span></a>
 							</div>
 							<% if params[:deliveryType].nil? %>
 								<%= form_tag(delivery_add_url, method: "post", class: 'mt-3') do |f| %>
