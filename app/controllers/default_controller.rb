@@ -55,15 +55,15 @@ class DefaultController < ApplicationController
 
   	@requestURI = "/v1.1/report/volume"
 		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
-		@bandwidth = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		@traffic = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		@timestamp = []
-		@bandwidthValue = ""
+		@trafficValue = ""
 
-		@bandwidth.each do |item|
+		@traffic.each do |item|
 			item["volumes"].each do |stamp|
 				@timestamp << "#{stamp["timestamp"]}"
-				@bandwidthValue << "#{stamp["value"]},"
+				@trafficValue << "#{stamp["value"]},"
 			end
 		end
 

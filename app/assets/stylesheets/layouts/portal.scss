@@ -118,7 +118,6 @@
 							}
 							&-item {
 								padding: 1rem;
-								margin-bottom: 1rem;
 								border-radius: 0.25rem;
 								box-shadow: 0 1px 3px rgba(0,0,0,.15);
 								background-color: $light;
@@ -138,6 +137,9 @@
 								}
 								&:hover {
 									box-shadow: $shadow-default;
+								}
+								&:not(:last-child) {
+									margin-bottom: 1rem;
 								}
 							}
 						}
