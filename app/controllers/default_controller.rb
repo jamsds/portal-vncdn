@@ -58,12 +58,13 @@ class DefaultController < ApplicationController
 		@traffic = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		@timestamp = []
-		@trafficValue = ""
+		@trafficValue = []
+		@totalValues = 0
 
 		@traffic.each do |item|
 			item["volumes"].each do |stamp|
-				@timestamp << "#{stamp["timestamp"]}"
-				@trafficValue << "#{stamp["value"]},"
+				@timestamp << stamp["timestamp"]
+				@trafficValue << stamp["value"]
 			end
 		end
 
@@ -71,14 +72,31 @@ class DefaultController < ApplicationController
 		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
 		@request = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@requestValue = ""
+		@requestValue = []
 
 		@request.each do |item|
 			item["originReqNums"].each do |stamp|
-				@requestValue << "#{stamp["value"]},"
+				@requestValue << stamp["value"]
 			end
 		end
 		
+		@bandwidthValue = []
+
+		@requestURI = "/v1.0/report/origin_bandwidth"
+		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+		@bandwith = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@bandwith.each do |item|
+			item["originBandwidths"].each do |stamp|
+				@totalValues += 1
+				@bandwidthValue << stamp["value"]
+			end
+		end
+
+		puts @totalValues
+
+		@maxBandwidth = @bandwidthValue.map(&:to_i).max
+		@avgBandwidth = @maxBandwidth/@totalValues
   end
 
   def deliveryAdd
