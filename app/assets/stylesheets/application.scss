@@ -6,3 +6,8 @@
 @import 'framework/global';
 
 @import 'layouts/portal';
+
+.turbolinks-progress-bar {
+  height: 3px;
+  background-color: $primary;
+}

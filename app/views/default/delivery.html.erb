@@ -4,7 +4,8 @@
 			panel.delivery.heading
 		</div>
 		<div class="panel__list">
-			panel.delivery.list
+			<a href="<%= delivery_url %>" class="panel__list-item">Domain/File Download Name</a>
+			<a href="<%= delivery_url %>?deliveryAction=create" class="panel__list-item">New Domain/File Download Name</a>
 		</div>
 	</div>
 </div>
@@ -21,6 +22,7 @@
 			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card">
+					<% if params[:deliveryAction].nil? %>
 					<div class="dashboard__container-card-item">
 						delivery.list.domain
 						<div class="delivery mt-3">
@@ -48,6 +50,7 @@
 							</table>
 						</div>
 					</div>
+					<% end %>
 				</div>
 			</div>
 		</div>

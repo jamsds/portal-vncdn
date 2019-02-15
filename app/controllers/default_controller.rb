@@ -20,10 +20,12 @@ class DefaultController < ApplicationController
 	end
 
 	def delivery
-		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
-		@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		if params[:deliveryAction].nil?
+			@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
+			@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
-		@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+			@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
+			@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		end
   end
 end
