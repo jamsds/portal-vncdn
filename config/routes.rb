@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/delivery', to: "default#delivery"
   get '/delivery/:propertyId/:type', to: "default#deliveryDetail"
   get '/delivery/:propertyId/:type/reports', to: "default#deliveryReport"
+  get '/delivery/:propertyId/:type/logs', to: "default#deliveryLog"
 
   post '/delivery/add', to: "default#deliveryAdd"
 

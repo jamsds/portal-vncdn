@@ -1,0 +1,56 @@
+<div class="portal__main-heading">
+	<a href="<%= delivery_url %>" class="back">Back</a>
+</div>
+<div class="portal__main-left">
+	<div class="panel">
+		<div class="panel__list">
+			panel.delivery.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary">
+	<div class="dashboard">
+		<div class="dashboard__container">
+			<% if current_user.phone.nil? %>
+			<div class="dashboard__container-message">
+				dashboard.container.message
+			</div>
+			<% end %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-table">
+					<div class="dashboard__container-table-select clearfix">
+						<a href="<%= delivery_url %>/<%= params[:propertyId] %>/<%= params[:type] %>" class="dashboard__container-table-select-item">Details</a>
+						<a href="<%= delivery_url %>/<%= params[:propertyId] %>/<%= params[:type] %>/reports?domain=<%= params[:domain] %>" class="dashboard__container-table-select-item">Reports</a>
+						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Logs</a>
+					</div>
+					<div class="dashboard__container-table-content mt-3">
+						<div class="dashboard__container-card mt-3">
+							<div class="dashboard__container-card-item">
+								<table class="table mb-0">
+									<thead>
+										<tr>
+											<th>Log File Name</th>
+											<th>Size</th>
+											<th>Log Date</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% @timestamps.zip(@items).each do |time, item| %>
+											<tr>
+												<td><%= item["name"] %></td>
+												<td><%= number_to_human_size(item["size"], separator: ".", delimiter: ",") %></td>
+												<td><%= time %></td>
+												<td><a href="<%= item["url"] %>" class="btn btn-default primary outline btn-sm">Download</a></td>
+											</tr>
+										<% end %>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

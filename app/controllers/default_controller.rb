@@ -2,12 +2,12 @@ class DefaultController < ApplicationController
 	before_action :authenticate_user!
 
 	# Set Request Method
-	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport]
+	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport, :deliveryLog]
 	before_action :get_method, only: [:delivery, :deliveryDetail]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog]
 
 	def index
 		if current_user.uuid.nil?
@@ -99,6 +99,41 @@ class DefaultController < ApplicationController
 
 		@maxBandwidth = @bandwidthValue.map(&:to_i).max
 		@avgBandwidth = @maxBandwidth/@totalValues
+  end
+
+  def deliveryLog
+  	endTime = Time.now.utc 
+	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+  	if params[:range].nil?
+	    startTime = endTime - 4.hours
+	  elsif params[:range] == "1"
+	  	startTime = endTime - 1.hours
+	  elsif params[:range] == "8"
+	  	startTime = endTime - 8.hours
+	  elsif params[:range] == "24"
+	  	startTime = endTime - 1.days
+	  end
+
+	  @startTime = startTime.strftime("%Y-%m-%dT%H:05:00Z")
+
+  	@requestURI = "/v1.1/log/list"
+		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\"}"
+		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@timestamps = []
+		@items = []
+
+		@response.each do |response|
+			response["logs"].each do |log|
+				@timestamps << log["timestamp"]
+				log["values"].each do |item|
+					@items << item
+				end
+			end
+		end
+
+		puts @items
   end
 
   def deliveryAdd
