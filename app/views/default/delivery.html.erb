@@ -73,16 +73,16 @@
 										<% if !item["f5WafEnabled"].nil? %>
 											<tr>
 												<td><a href="<%= delivery_url %>/<%= item["id"] %>/d"><%= item["name"] %></a></td>
-												<td>Website Acceleration</td>
+												<td><span>Website Acceleration</span></td>
 												<td><% if item["active"] == true %>Active<% end %></td>
-												<td><div class="btn btn-sm" onclick="window.location = '<%= delivery_url %>/<%= item["id"] %>/d/edit'"><span>Edit</span></div></td>
+												<td><a href="<%= delivery_url %>/<%= item["id"] %>/d/edit" class="btn btn-sm">Edit</a></td>
 											</tr>
 										<% else %>
 											<tr>
 												<td><a href="<%= delivery_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
-												<td>Large File Download</td>
+												<td><span>Large File Download</span></td>
 												<td><% if item["active"] == true %>Active<% end %></td>
-												<td><div class="btn btn-sm" onclick="window.location = '<%= delivery_url %>/<%= item["id"] %>/f/edit'"><span>Edit</span></div></td>
+												<td><a href="<%= delivery_url %>/<%= item["id"] %>/f/edit" class="btn btn-sm">Edit</a></td>
 											</tr>
 										<% end %>
 									<% end %>

@@ -77,7 +77,15 @@ table {
       font-size: 0.875rem;
       vertical-align: middle;
       a {
+        color: $black;
         font-size: 0.875rem;
+        text-decoration: none;
+        &:hover {
+          color: $primary
+        }
+      }
+      span {
+        color: $black-6nd;
       }
     }
     thead {

@@ -267,15 +267,12 @@
 									tbody {
 										td {
 											.btn {
-												border: 1px solid $black-5nd;
-												color: $black-5nd;
+												border: 1px solid $blue-nd;
+												color: $blue-nd;
 												padding: 0.1rem 0.25rem;
 												font-size: 0.75rem;
 												.modify_ic {
 													margin-right: 0.25rem;
-												}
-												&:hover {
-													background-color: $gray;
 												}
 											}
 										}
