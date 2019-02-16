@@ -79,6 +79,11 @@ table {
         font-size: 0.875rem;
       }
     }
+    thead {
+      th, td {
+        border-top: none;
+      }
+    }
   }
 }
 
