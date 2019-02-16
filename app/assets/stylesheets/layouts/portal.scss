@@ -44,6 +44,39 @@
 							color: $black-3nd;
 							font-size: 0.875rem;
 						}
+						&.create {
+							padding: 0;
+							&-notice {
+								span.notice {
+									font-size: 0.875rem
+								}
+							}
+							.create__options {
+								&-list {
+									&-item {
+										padding: 1rem;
+										cursor: pointer;
+										h6 {
+											color: $black-nd;
+											margin-bottom: 0;
+										}
+										small {
+											color: $black-5nd;
+										}
+										&.active {
+											background-color: $silver;
+											h6 {
+												color: $primary;
+											}
+										}
+										&-ic {
+											float: left;
+											margin-right: 1rem;
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 				&.expanded {
