@@ -285,6 +285,76 @@ a.btn {
   }
 }
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 20px;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .3s;
+  transition: .3s;
+  &:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 1px;
+    bottom: 1px;
+    background-color: $light;
+    -webkit-transition: .3s;
+    transition: .3s;
+  }
+}
+
+input {
+  &:checked + .slider {
+    background-color: $primary;
+  }
+  &:focus + .slider {
+    box-shadow: 0 0 1px $gray;
+  }
+  &:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+  }
+}
+
+.switch-group {
+  .switch {
+    float: left;
+    margin-bottom: 0;
+  }
+  &-label {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+  }
+}
+
+/* Rounded sliders */
+
+.slider.round {
+  border-radius: 34px;
+  &:before {
+    border-radius: 50%;
+  }
+}
+
 @keyframes selected { 
   0% {
     transform: scale(0.5);
