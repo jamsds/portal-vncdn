@@ -173,13 +173,13 @@
 									display: -webkit-flex;
 									@include transition(background-color .5s ease);
 									.add_ic, .reload_ic {
-										margin-right: 0.25rem;
+										margin-right: 0.5rem;
 										path {
 											fill: $primary;
 										}
 									}
 									.pause_ic {
-										margin-right: 0.25rem;
+										margin-right: 0.5rem;
 										path {
 											fill: $gray-nd;
 										}
