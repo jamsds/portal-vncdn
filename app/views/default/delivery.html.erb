@@ -26,7 +26,7 @@
 					<div class="dashboard__container-card-item">
 						<h5>Delivery/File Download Domain List</h5>
 						<div class="delivery mt-3">
-							<table class="table mb-0">
+							<table class="table">
 								<thead>
 									<tr>
 										<th>Domain</th>
@@ -36,7 +36,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% @delivery.each do |item| %>
+									<% @domainItems.each do |item| %>
 										<tr>
 											<td><a href="<%= delivery_url %>/<%= item["id"] %>/d"><%= item["name"] %></a></td>
 											<td>Website Acceleration</td>
@@ -44,16 +44,9 @@
 											<td><a href="<%= delivery_url %>/<%= item["id"] %>/d/edit">Edit</a></td>
 										</tr>
 									<% end %>
-									<% @download.each do |item| %>
-										<tr>
-											<td><a href="<%= delivery_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
-											<td>Large File Download</td>
-											<td><% if item["active"] == true %>Active<% end %></td>
-											<td><a href="<%= delivery_url %>/<%= item["id"] %>/f/edit">Edit</a></td>
-										</tr>
-									<% end %>
 								</tbody>
 							</table>
+							<%= will_paginate @domainItems %>
 						</div>
 					</div>
 				</div>

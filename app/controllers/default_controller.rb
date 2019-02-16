@@ -23,11 +23,26 @@ class DefaultController < ApplicationController
 	end
 
 	def delivery
+		@domainList = []
+		@totalItem = 0
+
 		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
 		@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
+		@delivery.each do |delivery|
+			@totalItem += 1
+			@domainList << delivery
+		end
+
 		@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
 		@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		@download.each do |download|
+			@totalItem += 1
+			@domainList << download
+		end
+
+		@domainItems = @domainList.paginate(:page => params[:page], :per_page => 5)
   end
 
   def deliveryDetail
