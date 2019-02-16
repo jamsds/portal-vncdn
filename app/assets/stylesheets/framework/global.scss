@@ -84,16 +84,6 @@ table {
       span {
         color: $black-6nd;
       }
-      &:first-child {
-        width: 15px;
-        padding: 0.5rem 0;
-        .custom-checkbox {
-          input {
-            display: none;
-            visibility: hidden;
-          }
-        }
-      }
     }
     thead {
       th, td {
