@@ -43,8 +43,6 @@ class DefaultController < ApplicationController
 			@domainList << download
 		end
 
-		puts @domainList
-
 		@domainItems = @domainList.paginate(:page => params[:page], :per_page => params[:per_page])
   end
 
