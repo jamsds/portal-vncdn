@@ -24,13 +24,11 @@ class DefaultController < ApplicationController
 
 	def delivery
 		@domainList = []
-		@totalItem = 0
 
 		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
 		@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		@delivery.each do |delivery|
-			@totalItem += 1
 			@domainList << delivery
 		end
 
@@ -38,7 +36,6 @@ class DefaultController < ApplicationController
 		@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		@download.each do |download|
-			@totalItem += 1
 			@domainList << download
 		end
 
@@ -141,6 +138,14 @@ class DefaultController < ApplicationController
 
 	  @startTime = startTime.strftime("%Y-%m-%dT%H:05:00Z")
 
+	  if params[:domain].nil?
+	  	params[:domain] = params[:for]
+	  end
+
+	  if params[:per_page].nil?
+	  	params[:per_page] = 10
+	  end
+
   	@requestURI = "/v1.1/log/list"
 		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\"}"
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
@@ -157,8 +162,7 @@ class DefaultController < ApplicationController
 			end
 		end
 
-		@logItems = @timestamps.zip(@items)
-		# @logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => 10)
+		@logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => params[:per_page])
   end
 
   def deliveryAdd
