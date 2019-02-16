@@ -80,9 +80,6 @@ table {
         color: $black;
         font-size: 0.875rem;
         text-decoration: none;
-        &:hover {
-          color: $primary
-        }
       }
       span {
         color: $black-6nd;
@@ -91,6 +88,13 @@ table {
     thead {
       th, td {
         border-top: none;
+      }
+    }
+    tbody {
+      tr {
+        &:hover {
+          background-color: $silver;
+        }
       }
     }
   }
@@ -368,6 +372,7 @@ input {
   &-label {
     float: left;
     margin-bottom: 0;
+    font-size: 0.875rem;
     margin-left: 0.5rem;
   }
 }
