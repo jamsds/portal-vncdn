@@ -54,10 +54,10 @@
 			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-table">
+					<div class="dashboard__container-table-search">
+						<input type="" name="" id="search" class="dashboard__container-table-search-input" placeholder="Filter Domain">
+					</div>
 					<div class="dashboard__container-table-content">
-						<div class="dashboard__container-table-search">
-							<input type="" name="" id="search" class="dashboard__container-table-search-input" placeholder="Filter Domain">
-						</div>
 						<div class="delivery mt-3">
 							<table class="table croped mb-0">
 								<thead>
@@ -75,14 +75,14 @@
 												<td><a href="<%= delivery_url %>/<%= item["id"] %>/d"><%= item["name"] %></a></td>
 												<td>Website Acceleration</td>
 												<td><% if item["active"] == true %>Active<% end %></td>
-												<td><a href="<%= delivery_url %>/<%= item["id"] %>/d/edit">Edit</a></td>
+												<td><div class="btn btn-sm" onclick="window.location = '<%= delivery_url %>/<%= item["id"] %>/d/edit'"><span>Edit</span></div></td>
 											</tr>
 										<% else %>
 											<tr>
 												<td><a href="<%= delivery_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
 												<td>Large File Download</td>
 												<td><% if item["active"] == true %>Active<% end %></td>
-												<td><a href="<%= delivery_url %>/<%= item["id"] %>/f/edit">Edit</a></td>
+												<td><div class="btn btn-sm" onclick="window.location = '<%= delivery_url %>/<%= item["id"] %>/f/edit'"><span>Edit</span></div></td>
 											</tr>
 										<% end %>
 									<% end %>
