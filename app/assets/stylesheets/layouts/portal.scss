@@ -141,6 +141,9 @@
 												}
 											}
 										}
+										&:last-child {
+											border-bottom: 1px solid $silver;
+										}
 									}
 								}
 							}
@@ -178,7 +181,7 @@
 											fill: $primary;
 										}
 									}
-									.pause_ic {
+									.pause_ic, .trash_ic {
 										margin-right: 0.5rem;
 										path {
 											fill: $gray-nd;
@@ -191,7 +194,7 @@
 										}
 									}
 									&:hover {
-										background-color: $silver;
+										background-color: $gray;
 									}
 								}
 							}
@@ -300,6 +303,25 @@
 				}
 				&.croped {
 					width: calc(100% * 3/4);
+					&.smallest {
+						width: calc(100% * 3/5);
+					}
+				}
+			}
+			&-right {
+				width: calc((100% * 7/30) + 1px );
+				height: 100vh;
+				float: left;
+				margin-left: -1px;
+				border-left: $border;
+				background-color: $light;
+				.panel {
+					background-color: $light;
+					&__heading {
+						height: 52px;
+						padding: 1rem;
+						border-bottom: $border;
+					}
 				}
 			}
 		}

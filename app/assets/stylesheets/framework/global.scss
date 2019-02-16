@@ -70,6 +70,18 @@ table {
   }
 }
 
+.table {
+  &.croped {
+    th, td {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+      a {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
 // Form
 .form-group {
   .form-control {
