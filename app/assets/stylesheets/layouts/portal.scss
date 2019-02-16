@@ -218,6 +218,22 @@
 							}
 						}
 						&-table {
+							&-search {
+								&-input {
+									width: 100%;
+									padding: 0.5rem;
+									border: 1px solid $gray-nd;
+									outline: none;
+									@include transition(box-shadow .5s ease);
+									&::placeholder {
+										font-size: 0.875rem;
+										letter-spacing: 0.025rem;
+									}
+									&:focus {
+										box-shadow: 0 1px 3px rgba(0,0,0,.15);
+									}
+								}
+							}
 							&-select {
 								border-bottom: 1px solid $gray-nd;
 								&-item {

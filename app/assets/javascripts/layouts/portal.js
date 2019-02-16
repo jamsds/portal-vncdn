@@ -33,4 +33,14 @@ $(document).on('turbolinks:load', function() {
     $(".portal__main-navigation").css("background-color","#f1f1f1");
     document.cookie = 'freeTrial_messageDismiss=true; expires=' + now.toUTCString() + '; path=/';
   });
+
+  $("#search").keyup(function() {
+    var value = this.value;
+
+    $("table").find("tr").each(function(index) {
+      if (index === 0) return;
+      var id = $(this).find("td").text();
+      $(this).toggle(id.indexOf(value) !== -1);
+    });
+  });
 })

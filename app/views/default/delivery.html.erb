@@ -48,14 +48,16 @@
 		</div>
 		<div class="dashboard__container light">
 			<% if current_user.phone.nil? %>
-			<div class="dashboard__container-message warning">
+			<div class="dashboard__container-message">
 				dashboard.container.message
 			</div>
 			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-table">
 					<div class="dashboard__container-table-content">
-						<h5>Delivery/File Download Domain List</h5>
+						<div class="dashboard__container-table-search">
+							<input type="" name="" id="search" class="dashboard__container-table-search-input" placeholder="Filter Domain">
+						</div>
 						<div class="delivery mt-3">
 							<table class="table croped mb-0">
 								<thead>
