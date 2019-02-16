@@ -15,3 +15,17 @@
   height: 3px;
   background-color: $primary;
 }
+
+.back_ic {
+	font-size: 1rem;
+  display: -webkit-flex;
+  align-items: center;
+	&:before {
+		content: "";
+		width: 20px;
+		height: 20px;
+		margin-right: 0.25rem;
+		display: inline-block;
+		background: url('back_ic.svg') no-repeat center;
+	}
+}
