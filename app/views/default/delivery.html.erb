@@ -48,19 +48,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="dashboard__container light">
+		<div class="dashboard__container">
 			<% if current_user.phone.nil? %>
 			<div class="dashboard__container-message hidden">
 				dashboard.container.message
 			</div>
 			<% end %>
 			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-table">
-					<div class="dashboard__container-table-search">
-						<input type="" name="" id="search" class="dashboard__container-table-search-input" placeholder="Filter Domain">
-					</div>
-					<div class="dashboard__container-table-content">
-						<div class="delivery mt-3">
+				<div class="dashboard__container-card">
+					<div class="dashboard__container-card-item">
+						<div class="delivery">
+							<div class="dashboard__container-table-search mb-3">
+								<input type="" name="" id="search" class="dashboard__container-table-search-input" placeholder="Filter Domain">
+							</div>
 							<table class="table croped mb-0">
 								<thead>
 									<tr>

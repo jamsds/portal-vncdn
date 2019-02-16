@@ -221,7 +221,7 @@
 							&-search {
 								&-input {
 									width: 100%;
-									padding: 0.5rem;
+									padding: 0.75rem 1rem;
 									border: 1px solid $gray-nd;
 									outline: none;
 									@include transition(box-shadow .5s ease);
