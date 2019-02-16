@@ -141,6 +141,18 @@
 								&:not(:last-child) {
 									margin-bottom: 1rem;
 								}
+								// .table {
+								// 	border-bottom: 1px solid $gray-nd;
+								// 	tbody {
+								// 		tr:nth-child(even) {
+								// 			background-color: $silver;
+								// 		}
+								// 	}
+								// }
+								ul.pagination {
+									margin-top: 1rem;
+									margin-bottom: 0;
+								}
 							}
 						}
 						&.light {
