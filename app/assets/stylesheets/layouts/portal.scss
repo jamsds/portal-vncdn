@@ -1,19 +1,43 @@
 .main__heading {
-	box-shadow: $shadow-default;
+	// box-shadow: $shadow-default;
+	border-bottom: 1px solid $gray;
 	.portal {
 		&__main {
 			&-navigation {
 				height: 52px;
-				padding: 1rem;
-				background-color: $primary;
+				padding: 0.5rem 1rem;
+				background-color: $light;
+				&-brand {
+					float: left;
+					cursor: pointer;
+					svg {
+						width: auto;
+						height: 40px;
+					}
+				}
 			}
 		}
 	}
 	.free-trial-message {
 		height: 52px;
-		padding: 1rem;
+		line-height: 52px;
+		padding: 0 1rem;
 		// display: none;
-		background-color: $gray;
+		background-image: $gradient-default;
+		&-ic {
+			float: left;
+			margin-right: 0.5rem;
+		}
+		&-content {
+			float: left;
+			span {
+				font-size: 0.875rem;
+			}
+		}
+		&-close {
+			float: right;
+			cursor: pointer;
+		}
 	}
 }
 
@@ -22,8 +46,14 @@
 		&__main {
 			&-heading {
 				height: 52px;
-				padding: 1rem;
+				line-height: 52px;
 				border-bottom: $border;
+				a {
+					text-decoration: none;
+					&:hover {
+						color: $blue-nd;
+					}
+				}
 			}
 			&-left {
 				width: calc(100% * 1/6);
@@ -63,15 +93,34 @@
 										small {
 											color: $black-5nd;
 										}
+										&-ic {
+											float: left;
+											margin-right: 1rem;
+											.was_ic, .lfd_ic {
+												path {
+													fill: $black-nd;
+												}
+											}
+										}
+										&-info {
+											float: left;
+										}
+										&-arrow {
+											height: 40px;
+											float: right;
+											display: -webkit-flex;
+  										align-items: center;
+										}
 										&.active {
 											background-color: $silver;
 											h6 {
 												color: $primary;
 											}
-										}
-										&-ic {
-											float: left;
-											margin-right: 1rem;
+											.was_ic, .lfd_ic {
+												path {
+													fill: $primary;
+												}
+											}
 										}
 									}
 								}

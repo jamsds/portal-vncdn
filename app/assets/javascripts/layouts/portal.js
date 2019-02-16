@@ -22,4 +22,14 @@ $(document).on('turbolinks:load', function() {
 	    return $(that).val("false");
 	  }
 	});
+
+	$(".free-trial-message-close").click(function(){
+    var now = new Date();
+    var time = now.getTime();
+    time += 1800 * 1000;
+    now.setTime(time);
+
+    $(".free-trial-message").addClass("hidden");
+    document.cookie = 'freeTrial_messageDismiss=true; expires=' + now.toUTCString() + '; path=/';
+  });
 })
