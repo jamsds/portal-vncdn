@@ -5,14 +5,32 @@
 		&__main {
 			&-navigation {
 				height: 52px;
-				padding: 0.5rem 1rem;
+				padding: 0 1rem;
 				background-color: $light;
 				&-brand {
 					float: left;
 					cursor: pointer;
+					margin: 6px 0;
 					svg {
 						width: auto;
 						height: 40px;
+					}
+				}
+				&-account {
+					float: right;
+					&-avatar {
+						line-height: 52px;
+						cursor: pointer;
+						img {
+							width: 32px;
+							height: 32px;
+							border-radius: 50%;
+						}
+						&:hover {
+							img {
+								box-shadow: 0 1px 3px rgba(0,0,0,.15);
+							}
+						}
 					}
 				}
 			}
@@ -23,7 +41,8 @@
 		line-height: 52px;
 		padding: 0 1rem;
 		// display: none;
-		background-image: $gradient-default;
+		// background-image: $gradient-default;
+		background-color: $gray;
 		&-ic {
 			float: left;
 			margin-right: 0.5rem;
@@ -138,8 +157,45 @@
 				.dashboard {
 					&__heading {
 						height: 52px;
-						padding: 1rem;
 						border-bottom: $border;
+						a {
+							text-decoration: none;
+						}
+						&-action {
+							&-list {
+								height: 52px;
+								padding: 0.5rem 0;
+							}
+							&-item {
+								float: left;
+								margin-right: 1rem;
+								.btn {
+									display: -webkit-flex;
+									@include transition(background-color .5s ease);
+									.add_ic, .reload_ic {
+										margin-right: 0.25rem;
+										path {
+											fill: $primary;
+										}
+									}
+									.pause_ic {
+										margin-right: 0.25rem;
+										path {
+											fill: $gray-nd;
+										}
+									}
+									span {
+										display: inline-block;
+										&:nth-child(2) {
+											margin-top: 0.15rem;
+										}
+									}
+									&:hover {
+										background-color: $silver;
+									}
+								}
+							}
+						}
 					}
 					&__container {
 						height: calc(100vh - (155px));
