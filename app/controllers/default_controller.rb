@@ -25,6 +25,10 @@ class DefaultController < ApplicationController
 	def delivery
 		@domainList = []
 
+		if params[:per_page].nil?
+	  	params[:per_page] = 10
+	  end
+
 		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
 		@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
@@ -39,7 +43,9 @@ class DefaultController < ApplicationController
 			@domainList << download
 		end
 
-		@domainItems = @domainList.paginate(:page => params[:page], :per_page => 5)
+		puts @domainList
+
+		@domainItems = @domainList.paginate(:page => params[:page], :per_page => params[:per_page])
   end
 
   def deliveryDetail
