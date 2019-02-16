@@ -23,13 +23,11 @@ class DefaultController < ApplicationController
 	end
 
 	def delivery
-		if params[:deliveryAction].nil?
-			@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
-			@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		@requestURI = "/v1.0/customers/#{current_user.uuid}/domains"
+		@delivery = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-			@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
-			@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
-		end
+		@requestURI = "/v1.0/customers/#{current_user.uuid}/filedownloads"
+		@download = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   end
 
   def deliveryDetail
@@ -46,11 +44,6 @@ class DefaultController < ApplicationController
   	if params[:type] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
-
-			@deliveryUrl =  @response["name"]
-			@originUrl =  @response["originUrl"]
-			@streamingService = @response["streamingService"]
-			@deliveryStatus = @response["active"]
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
