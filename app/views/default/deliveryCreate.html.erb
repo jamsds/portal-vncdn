@@ -26,7 +26,7 @@
 								<a href="<%= delivery_url %>/create?deliveryType=download" class="btn btn-default <% if params[:deliveryType].present? %>btn-default primary outline<% else %>btn-light<% end %>"><span>Large File Download</span></a>
 							</div>
 							<% if params[:deliveryType].nil? %>
-								<%= form_for "", url: {action: :deliveryAdd, controller: :default}, method: :post, html: {class: 'mt-3', id: 'form', multipart: true} do |f|%>
+								<%= form_for "", url: {action: :deliveryAdd, controller: :default}, method: :post, html: { class: 'mt-3', id: 'form', multipart: true } do |f|%>
 									<div class="form-group">
 										<%= f.label :deliveryUrl, 'Delivery Domain Name' %>
 										<%= f.text_field :deliveryUrl, class: 'form-control' %>
@@ -48,11 +48,11 @@
 									</div>
 
 									<div class="text-left mt-3">
-		  							<%= submit_tag("Submit", class: 'btn btn-default primary') %>
+		  							<%= submit_tag("Create", class: 'btn btn-default primary') %>
 		  						</div>
 								<% end %>
 							<% elsif params[:deliveryType] == "download" %>
-								<%= form_for "", url: {action: :deliveryAdd, controller: :default}, method: :post, html: {class: 'mt-3', id: 'form', multipart: true} do |f|%>
+								<%= form_for "", url: {action: :deliveryAdd, controller: :default}, method: :post, html: { class: 'mt-3', id: 'form', multipart: true } do |f|%>
 									<div class="form-group">
 										<%= f.label :deliveryUrl, 'File Download Domain Name' %>
 										<%= f.text_field :deliveryUrl, class: 'form-control' %>
@@ -74,7 +74,7 @@
 									</div>
 
 									<div class="text-left mt-3">
-		  							<%= submit_tag("Submit", class: 'btn btn-default primary') %>
+		  							<%= submit_tag("Create", class: 'btn btn-default primary') %>
 		  						</div>
 								<% end %>
 							<% end %>
