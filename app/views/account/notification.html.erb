@@ -1,0 +1,98 @@
+<div class="portal__main-heading">
+	<span class="btn btn-default btn-sm ml-2">
+		<a href="<%= url_for(:back) %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
+	</span>
+</div>
+<div class="portal__main-left expanded">
+	<div class="panel">
+		<div class="panel__list">
+			panel.account.list
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary croped">
+	<div class="dashboard">
+		<div class="dashboard__container">
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card-item">
+					<%= form_for "", :url => url_for(account_notification_update_path), html: {} do |f| %>
+					  <div class="form-group row">
+		          <label class="col-sm-2 col-form-label text-right">Transactions</label>
+		          <div class="col-sm-9 col-form-value">
+		          	<div class="switch-group clearfix">
+							    <label class="switch">
+									  <%= f.check_box :notify_transaction, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <span class="slider round"></span>
+									</label>
+									<%= f.label :notify_transaction, 'Send email transactions every day', class: 'switch-group-label' %>
+								</div>
+		          </div>
+		        </div>
+
+		        <div class="form-group row">
+		          <label class="col-sm-2 col-form-label text-right">Credit Charged</label>
+		          <div class="col-sm-9 col-form-value">
+		          	<div class="switch-group clearfix">
+							    <label class="switch">
+									  <%= f.check_box :notify_credit, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <span class="slider round"></span>
+									</label>
+									<%= f.label :notify_credit, 'Send email credit charged every 15 minutes, only work for payment type credit.', class: 'switch-group-label' %>
+								</div>
+		          </div>
+		        </div>
+
+		        <div class="form-group row">
+		          <label class="col-sm-2 col-form-label text-right">Subscriptions</label>
+		          <div class="col-sm-9 col-form-value">
+		          	<div class="switch-group clearfix">
+							    <label class="switch">
+									  <%= f.check_box :notify_subscription, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <span class="slider round"></span>
+									</label>
+									<%= f.label :notify_subscription, 'Send email subscription modify.', class: 'switch-group-label' %>
+								</div>
+		          </div>
+		        </div>
+
+		        <div class="form-group row">
+		          <label class="col-sm-2 col-form-label text-right">Invoices</label>
+		          <div class="col-sm-9 col-form-value">
+		          	<div class="switch-group clearfix">
+							    <label class="switch">
+									  <%= f.check_box :notify_invoice, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <span class="slider round"></span>
+									</label>
+									<%= f.label :notify_invoice, 'Send email notify next duedate invoice.', class: 'switch-group-label' %>
+								</div>
+		          </div>
+		        </div>
+
+		        <div class="form-group row">
+		          <label class="col-sm-2 col-form-label text-right">Product Updates</label>
+		          <div class="col-sm-9 col-form-value">
+		          	<div class="switch-group clearfix">
+							    <label class="switch">
+									  <%= f.check_box :notify_product, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <span class="slider round"></span>
+									</label>
+									<%= f.label :notify_product, 'Send email release product update.', class: 'switch-group-label' %>
+								</div>
+		          </div>
+		        </div>
+
+		        <div class="row mt-3">
+		          <div class="col-sm-2"></div>
+		          <div class="col-sm-9">
+					      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+						      Submit
+						    <% end %>
+						    <a href="<%= url_for(:back) %>" class="btn btn-light">Back</a>
+		          </div>
+		        </div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
