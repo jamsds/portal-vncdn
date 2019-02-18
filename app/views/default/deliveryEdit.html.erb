@@ -85,7 +85,7 @@
 					<% end %>
 				</div>
 				<div class="dashboard__heading-action-item">
-					<a class="btn btn-sm ml-2" data-method="post" href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/delete" data-confirm="Are you sure?">
+					<a class="btn btn-sm ml-2<% if @response["active"] != false %> disabled<% end %>" data-method="post" href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/delete" data-confirm="Are you sure?">
 						<span class="trash_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"><path d="M425.5,1047v2h-14v-2H415l1-1h5l1,1Zm-12.9,15v-12h12v12a2.051,2.051,0,0,1-2,2h-8a2.051,2.051,0,0,1-2-2Z" transform="translate(-411.5 -1046)"/></svg>
 						</span>
@@ -113,6 +113,7 @@
 										<%= f.label :deliveryUrl, 'Delivery Domain Name' %>
 										<%= f.text_field :deliveryUrl, value: @response["name"], class: 'form-control', disabled: true %>
 										<%= f.hidden_field :propertyId, value: params[:propertyId] %>
+										<%= f.hidden_field :deliveryStatus, value: @response["active"] %>
 										<small id="domainlHelp" class="form-text text-muted">Domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid domain name. E.g: 'www.domain.com'.</small>
 									</div>
 
@@ -144,6 +145,7 @@
 										<%= f.text_field :deliveryUrl, value: @response["name"], class: 'form-control', disabled: true %>
 										<%= f.hidden_field :propertyId, value: params[:propertyId] %>
 										<%= f.hidden_field :deliveryType, value: params[:type] %>
+										<%= f.hidden_field :deliveryStatus, value: @response["active"] %>
 										<small id="domainlHelp" class="form-text text-muted">Domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid domain name. E.g: 'www.domain.com'.</small>
 									</div>
 
