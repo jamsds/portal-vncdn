@@ -2,7 +2,7 @@
 	<div class="panel">
 		<div class="panel__heading">
 			<span class="btn btn-default btn-sm ml-2">
-				<a href="<%= root_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
+				<a href="<%= url_for(:back) %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
 			</span>
 		</div>
 		<div class="panel__list main">
@@ -30,10 +30,10 @@
 						</div>
 					</div>
 					<div class="main__options-list-item-info">
-						<h6>Analytic</h6>
-						<small>View Analytics of this service</small> 
-					</div>
-					<div class="main__options-list-item-arrow"></div>
+            <h6>Analytic</h6>
+            <small>View Analytics of this service</small> 
+          </div>
+          <div class="main__options-list-item-arrow"></div>
 				</div>
 				<div class="main__options-list-item clearfix" onclick="window.location = '/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/logs?domain=<%= @response["name"] %>'">
           <div class="main__options-list-item-ic">
@@ -181,13 +181,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<div class="portal__main-right">
-	<div class="panel">
-		<div class="panel__heading">
-			panel.right.delivery.heading
 		</div>
 	</div>
 </div>
