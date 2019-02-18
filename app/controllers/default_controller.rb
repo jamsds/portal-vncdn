@@ -184,7 +184,7 @@ class DefaultController < ApplicationController
 		end
 
 		if @response
-			redirect_to delivery_path
+			redirect_to cdn_path
 		end
   end
 
@@ -195,7 +195,7 @@ class DefaultController < ApplicationController
 			@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
 			if @response
-				redirect_to delivery_path
+				redirect_to cdn_path
 			end
 		elsif params[:deliveryType] == "f"
 			if params[:ftpPassword].nil?
@@ -209,7 +209,7 @@ class DefaultController < ApplicationController
 			@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
 			if @response
-				redirect_to delivery_path
+				redirect_to cdn_path
 			end
 		end
   end
@@ -224,7 +224,7 @@ class DefaultController < ApplicationController
 		end
 
 		if @response
-			redirect_to delivery_path
+			redirect_to cdn_path
 		end
   end
 end
