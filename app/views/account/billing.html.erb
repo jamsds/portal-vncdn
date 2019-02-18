@@ -19,7 +19,7 @@
           </div>
           <div class="main__options-list-item-arrow"></div>
         </div>
-        <div class="main__options-list-item clearfix active" onclick="window.location = '<%= account_detail_url %>'">
+        <div class="main__options-list-item clearfix" onclick="window.location = '<%= account_detail_url %>'">
           <div class="main__options-list-item-ic">
             <div class="personal_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M744.1,1048a9.506,9.506,0,0,1,7.1-2.9,9.9,9.9,0,0,1,7.1,2.9,9.356,9.356,0,0,1,2.9,7.1,9.9,9.9,0,0,1-2.9,7.1,9.356,9.356,0,0,1-7.1,2.9,9.9,9.9,0,0,1-7.1-2.9,9.356,9.356,0,0,1-2.9-7.1A9.733,9.733,0,0,1,744.1,1048Zm1.5,12.7a7.73,7.73,0,0,0,5.6,2.4,7.568,7.568,0,0,0,5.6-2.4,8.146,8.146,0,0,0,2.4-5.6,8.917,8.917,0,0,0-.3-2.2,7.166,7.166,0,0,1-2.2.2,9.625,9.625,0,0,1-8.2-4.2,9.834,9.834,0,0,1-5.2,5.4v.8A7.259,7.259,0,0,0,745.6,1060.7Zm1.7-5.6a1.268,1.268,0,0,1,.9-.4,1.273,1.273,0,1,1-1.3,1.3A1.489,1.489,0,0,1,747.3,1055.1Zm6,0a1.268,1.268,0,0,1,.9-.4,1.273,1.273,0,1,1-1.3,1.3A1.489,1.489,0,0,1,753.3,1055.1Z" transform="translate(-741.2 -1045.1)"/></svg>
@@ -29,13 +29,9 @@
             <h6>Personal Information</h6>
             <small>Update your personal information</small> 
           </div>
-          <div class="main__options-list-item-arrow">
-            <div class="arrow_ic">
-              <svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
-            </div>
-          </div>
+          <div class="main__options-list-item-arrow"></div>
         </div>
-        <div class="main__options-list-item clearfix" onclick="window.location = '<%= account_billing_url %>'">
+        <div class="main__options-list-item clearfix active" onclick="window.location = '<%= account_billing_url %>'">
           <div class="main__options-list-item-ic">
             <div class="billing_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18"><path d="M205.8,1026.2v1a2.051,2.051,0,0,1-2,2h-14a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-14a2.051,2.051,0,0,1,2-2h14a2.051,2.051,0,0,1,2,2v1h-9a1.816,1.816,0,0,0-1.4.6,1.974,1.974,0,0,0-.6,1.4v8a2.051,2.051,0,0,0,2,2Zm-9-2v-8h10v8Zm2.9-2.9a1.712,1.712,0,1,0-.4-1.1A1.366,1.366,0,0,0,199.7,1021.3Z" transform="translate(-187.8 -1011.2)"/></svg>
@@ -45,7 +41,11 @@
             <h6>Billing</h6>
             <small>Manage your account billing</small> 
           </div>
-          <div class="main__options-list-item-arrow"></div>
+          <div class="main__options-list-item-arrow">
+            <div class="arrow_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
+            </div>
+          </div>
         </div>
         <div class="main__options-list-item clearfix" onclick="window.location = '<%= account_password_url %>'">
           <div class="main__options-list-item-ic">
@@ -80,42 +80,7 @@
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
-					<%= form_for [current_user], :url => url_for(account_detail_update_path), html: {} do |f| %>
-					  <div class="form-group vertical row">
-		          <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
-		          <div class="col-sm-9">
-		            <%= f.text_field :name, placeholder: 'Enter your name', class: 'form-control', :required => true %>
-		          </div>
-		        </div>
-		        <div class="form-group vertical row">
-		          <%= f.label :email, 'Email', class: 'col-sm-2 col-form-label text-right' %>
-		          <div class="col-sm-9">
-		            <%= f.text_field :email, placeholder: 'Email', class: 'form-control', :required => true, disabled: true %>
-		            <small>This email can't change, please contact with us if you need to change</small>
-		          </div>
-		        </div>
-		        <div class="form-group vertical row">
-		          <%= f.label :phone, 'Phone', class: 'col-sm-2 col-form-label text-right' %>
-		          <div class="col-sm-9">
-					      <%= f.text_field :phone, placeholder: 'Enter your phone number', class: 'form-control', :required => true %>
-		          </div>
-		        </div>
-		        <div class="form-group vertical row">
-		          <%= f.label :company, 'Organization', class: 'col-sm-2 col-form-label text-right' %>
-		          <div class="col-sm-9">
-					      <%= f.text_field :company, placeholder: 'Your Organization name', class: 'form-control' %>
-		          </div>
-		        </div>
-		        <div class="row mt-3">
-		          <div class="col-sm-2"></div>
-		          <div class="col-sm-9">
-					      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
-						      Submit
-						    <% end %>
-						    <a href="<%= account_url %>" class="btn btn-light">Back</a>
-		          </div>
-		        </div>
-					<% end %>
+          account.billing
 				</div>
 			</div>
 		</div>

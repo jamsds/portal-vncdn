@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Account Management
   get '/account', to: "account#index"
   get '/account/detail', to: "account#detail"
+  get '/account/billing', to: "account#billing"
   get '/account/password', to: "account#password"
   get '/account/notification', to: "account#notification"
 
