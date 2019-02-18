@@ -29,12 +29,14 @@ class ResellerController < ApplicationController
 			@requestBody = "{\"name\":\"#{@uuid}\",\"parentId\":#{$ROOT_ID},\"type\":2,\"partnership\":1}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-			@newUser = User.find_by(username: @uuid)
+			@latest = User.find_by(username: @uuid)
 
-			@newUser.update(uuid: @response["id"])
+			@latest.update(uuid: @response["id"])
 
-      Credit.create(user_id: @newUser.id)
-      Notification.create(user_id: @newUser.id)
+      Credit.create(user_id: @latest.id)
+      Notification.create(user_id: @latest.id)
+
+      redirect_to reseller_customer_path
 		end
   end
 
