@@ -148,6 +148,59 @@
 								}
 							}
 						}
+						&.main {
+							padding: 0;
+							&-notice {
+								span.notice {
+									font-size: 0.875rem
+								}
+							}
+							.main__options {
+								&-list {
+									&-item {
+										padding: 1.5rem 1rem;
+										cursor: pointer;
+										border-bottom: 1px solid $silver;
+										h6 {
+											color: $black-nd;
+											margin-bottom: 0;
+										}
+										small {
+											color: $black-5nd;
+										}
+										&-ic {
+											float: left;
+											margin-right: 1rem;
+											.was_ic, .reseller_ic {
+												path {
+													fill: $black-nd;
+												}
+											}
+										}
+										&-info {
+											float: left;
+										}
+										&-arrow {
+											height: 40px;
+											float: right;
+											display: -webkit-flex;
+  										align-items: center;
+										}
+										&:hover {
+											background-color: $silver;
+											h6 {
+												color: $primary;
+											}
+											.was_ic, .reseller_ic {
+												path {
+													fill: $primary;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 				&.expanded {
