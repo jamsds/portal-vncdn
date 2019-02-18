@@ -175,18 +175,20 @@
 								.btn {
 									display: -webkit-flex;
 									@include transition(background-color .5s ease);
-									.add_ic, .reload_ic {
+									.add_ic, .reload_ic, .pause_ic, .trash_ic {
 										margin-right: 0.5rem;
 										path {
 											fill: $primary;
 										}
 									}
-									.pause_ic, .trash_ic {
-										margin-right: 0.5rem;
-										path {
-											fill: $gray-nd;
+									&.disabled {
+										.add_ic, .reload_ic, .pause_ic, .trash_ic {
+											path {
+												fill: $gray-nd;
+											}
 										}
 									}
+									
 									span {
 										display: inline-block;
 										&:nth-child(2) {
