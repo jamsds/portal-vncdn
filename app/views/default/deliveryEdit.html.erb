@@ -65,7 +65,10 @@
 			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card">
-					<div class="dashboard__container-card-item">
+					<div class="dashboard__container-card-item<% if @response["active"] == false %> disabled<% end %>">
+						<% if @response["active"] == false %>
+							<div class="dashboard__container-card-item-disabled"></div>
+						<% end %>
 						<div class="delivery">
 							<% if params[:type] == "d" %>
 								<%= form_for "", url: {action: :deliveryUpdate, controller: :default}, method: :put, html: { multipart: true } do |f|%>
