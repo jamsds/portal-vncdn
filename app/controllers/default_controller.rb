@@ -5,13 +5,13 @@ class DefaultController < ApplicationController
 
 	# Set Request Method
 	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport, :deliveryLog]
-	before_action :get_method, only: [:delivery, :deliveryDetail]
-	before_action :put_method, only: [:deliveryUpdate]
+	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit]
+	before_action :put_method, only: [:deliveryUpdate, :deliveryStop, :deliveryStart]
 	before_action :delete_method, only: [:deliveryDelete]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryUpdate, :deliveryDelete]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete]
 
 	def index
 		if current_user.uuid.nil?
@@ -64,8 +64,6 @@ class DefaultController < ApplicationController
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
-
-			puts @response
 		end
   end
 
@@ -211,6 +209,38 @@ class DefaultController < ApplicationController
 			if @response
 				redirect_to cdn_path
 			end
+		end
+  end
+
+  def deliveryStop
+  	if params[:type] == "d"
+  		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":false}"
+		elsif params[:type] == "f"
+			@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+			@requestBody = "{\"streamingService\":#{params[:streamingService]},\"active\":false}"
+  	end
+
+  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+  	if @response
+			redirect_back(fallback_location: root_path)
+		end
+  end
+
+  def deliveryStart
+  	if params[:type] == "d"
+  		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
+		elsif params[:type] == "f"
+			@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+			@requestBody = "{\"streamingService\":#{params[:streamingService]},\"active\":true}"
+  	end
+
+  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+  	if @response
+			redirect_back(fallback_location: root_path)
 		end
   end
 

@@ -19,8 +19,11 @@ Rails.application.routes.draw do
   post '/cdn/add', to: "default#deliveryAdd"
 
   get '/cdn/:propertyId/:type/edit', to: "default#deliveryEdit"
+
   put '/cdn/update', to: "default#deliveryUpdate"
 
+  post '/cdn/:propertyId/:type/stop', to: "default#deliveryStop"
+  post '/cdn/:propertyId/:type/start', to: "default#deliveryStart"
   post '/cdn/:propertyId/:type/delete', to: "default#deliveryDelete"
 
   # API

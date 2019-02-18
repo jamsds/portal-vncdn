@@ -284,14 +284,14 @@
 								.btn {
 									display: -webkit-flex;
 									@include transition(background-color .5s ease);
-									.add_ic, .reload_ic, .pause_ic, .trash_ic {
+									.add_ic, .reload_ic, .pause_ic, .trash_ic, .running_ic {
 										margin-right: 0.5rem;
 										path {
 											fill: $primary;
 										}
 									}
 									&.disabled {
-										.add_ic, .reload_ic, .pause_ic, .trash_ic {
+										.add_ic, .reload_ic, .pause_ic, .trash_ic, .running_ic {
 											path {
 												fill: $gray-nd;
 											}

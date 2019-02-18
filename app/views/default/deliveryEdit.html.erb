@@ -31,15 +31,24 @@
 					</a>
 				</div>
 				<div class="dashboard__heading-action-item">
-					<div class="btn btn-sm ml-2 disabled">
+					<% if @response["active"] == true %>
+					<a class="btn btn-sm ml-2" data-method="post" href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/stop?<% if params[:type] == "d" %>originUrl=<%= @response["originUrl"] %>&<% end %>streamingService=<%= @response["streamingService"] %>">
 						<span class="pause_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14"><path d="M856.1,18V4h4V18Zm8-14h4V18h-4Z" transform="translate(-856.1 -4)"/></svg>
 						</span>
 						<span>Stop</span>
-					</div>
+					</a>
+					<% else %>
+					<a class="btn btn-sm ml-2" data-method="post" href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/start?<% if params[:type] == "d" %>originUrl=<%= @response["originUrl"] %>&<% end %>streamingService=<%= @response["streamingService"] %>">
+						<span class="running_ic">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M115.8,38.8a9.506,9.506,0,0,1,7.1-2.9,9.9,9.9,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1A9.9,9.9,0,0,1,130,53a9.506,9.506,0,0,1-7.1,2.9,9.9,9.9,0,0,1-7.1-2.9,9.506,9.506,0,0,1-2.9-7.1A9.732,9.732,0,0,1,115.8,38.8Zm5.1,11.5,6-4.5-6-4.5Z" transform="translate(-112.9 -35.9)"/></svg>
+						</span>
+						<span>Start</span>
+					</a>
+					<% end %>
 				</div>
 				<div class="dashboard__heading-action-item">
-					<a class="btn btn-sm ml-2" data-method="post" href="/delivery/<%= params[:propertyId] %>/<%= params[:type] %>/delete" data-confirm="Are you sure?">
+					<a class="btn btn-sm ml-2" data-method="post" href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/delete" data-confirm="Are you sure?">
 						<span class="trash_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"><path d="M425.5,1047v2h-14v-2H415l1-1h5l1,1Zm-12.9,15v-12h12v12a2.051,2.051,0,0,1-2,2h-8a2.051,2.051,0,0,1-2-2Z" transform="translate(-411.5 -1046)"/></svg>
 						</span>
@@ -81,14 +90,6 @@
 										<%= f.label :streamingService, 'Enable Streaming', class: 'switch-group-label' %>
 									</div>
 
-							    <div class="switch-group clearfix">
-								    <label class="switch">
-										  <%= f.check_box :deliveryStatus, { class: 'custom-control-input', checked: @response["active"] }, "true", "false" %>
-										  <span class="slider round"></span>
-										</label>
-										<%= f.label :deliveryStatus, 'Enable Service', class: 'switch-group-label' %>
-									</div>
-
 							    <div class="text-left mt-3">
 							      <%= button_tag(type: "submit", class: "btn btn-default primary btn-sm mr-3") do %>
 							        Save
@@ -120,14 +121,6 @@
 										  <span class="slider round"></span>
 										</label>
 										<%= f.label :streamingService, 'Enable Streaming', class: 'switch-group-label' %>
-									</div>
-
-									<div class="switch-group clearfix">
-								    <label class="switch">
-										  <%= f.check_box :deliveryStatus, { class: 'custom-control-input', checked: @response["active"] }, "true", "false" %>
-										  <span class="slider round"></span>
-										</label>
-										<%= f.label :deliveryStatus, 'Enable Service', class: 'switch-group-label' %>
 									</div>
 
 							    <div class="text-left mt-3">
