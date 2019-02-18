@@ -39,12 +39,12 @@
 					</div>
 				</div>
 				<div class="dashboard__heading-action-item">
-					<div class="btn btn-sm ml-2 disabled">
+					<a class="btn btn-sm ml-2" data-method="post" href="/delivery/delete?propertyId=<%= params[:propertyId] %>">
 						<span class="trash_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"><path d="M425.5,1047v2h-14v-2H415l1-1h5l1,1Zm-12.9,15v-12h12v12a2.051,2.051,0,0,1-2,2h-8a2.051,2.051,0,0,1-2-2Z" transform="translate(-411.5 -1046)"/></svg>
 						</span>
 						<span>Delete</span>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -82,6 +82,47 @@
 									</div>
 
 							    <div class="switch-group clearfix">
+								    <label class="switch">
+										  <%= f.check_box :deliveryStatus, { class: 'custom-control-input', checked: @response["active"] }, "true", "false" %>
+										  <span class="slider round"></span>
+										</label>
+										<%= f.label :deliveryStatus, 'Enable Service', class: 'switch-group-label' %>
+									</div>
+
+							    <div class="text-left mt-3">
+							      <%= button_tag(type: "submit", class: "btn btn-default primary btn-sm mr-3") do %>
+							        Save
+							      <% end %>
+							      <a href="<%= delivery_url %>" class="btn btn-light btn-sm">Back</a>
+							    </div>
+								<% end %>
+							<% elsif params[:type] == "f" %>
+								<%= form_for "", url: {action: :deliveryUpdate, controller: :default}, method: :put, html: { multipart: true } do |f|%>
+									<div class="form-group">
+										<%= f.label :deliveryUrl, 'File Download Name' %>
+										<%= f.text_field :deliveryUrl, value: @response["name"], class: 'form-control', disabled: true %>
+										<%= f.hidden_field :propertyId, value: params[:propertyId] %>
+										<%= f.hidden_field :deliveryType, value: params[:type] %>
+										<small id="domainlHelp" class="form-text text-muted">Domain name can only contain lowercase letters, digits, hyphens, or periods. Please enter a valid domain name. E.g: 'www.domain.com'.</small>
+									</div>
+
+									<% if params[:changepw] == "true" %>
+									<div class="form-group">
+										<%= f.label :ftpPassword, 'Ftp Password' %>
+										<%= f.text_field :ftpPassword, class: 'form-control' %>
+										<small id="domainlHelp" class="form-text text-muted">Password must be strong e.g: include number and character, avoid using name.</small>
+									</div>
+									<% end %>
+
+									<div class="switch-group mb-3 clearfix">
+								    <label class="switch">
+										  <%= f.check_box :streamingService, { class: 'custom-control-input', checked: @response["streamingService"] }, "true", "false" %>
+										  <span class="slider round"></span>
+										</label>
+										<%= f.label :streamingService, 'Enable Streaming', class: 'switch-group-label' %>
+									</div>
+
+									<div class="switch-group clearfix">
 								    <label class="switch">
 										  <%= f.check_box :deliveryStatus, { class: 'custom-control-input', checked: @response["active"] }, "true", "false" %>
 										  <span class="slider round"></span>

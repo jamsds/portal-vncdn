@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/delivery/:propertyId/:type/edit', to: "default#deliveryEdit"
   put '/delivery/update', to: "default#deliveryUpdate"
 
+  post '/delivery/delete', to: "default#deliveryDelete"
+
   # API
   namespace :api do
     scope 'v1.1', as: :v1 do

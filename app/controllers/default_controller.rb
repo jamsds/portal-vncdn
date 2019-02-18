@@ -7,10 +7,11 @@ class DefaultController < ApplicationController
 	before_action :post_method, only: [:index, :deliveryAdd, :deliveryReport, :deliveryLog]
 	before_action :get_method, only: [:delivery, :deliveryDetail]
 	before_action :put_method, only: [:deliveryUpdate]
+	before_action :delete_method, only: [:deliveryDelete]
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryUpdate]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryUpdate, :deliveryDelete]
 
 	def index
 		if current_user.uuid.nil?
@@ -63,6 +64,8 @@ class DefaultController < ApplicationController
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			puts @response
 		end
   end
 
@@ -186,7 +189,7 @@ class DefaultController < ApplicationController
   end
 
   def deliveryUpdate
-  	if params[:ftpPassword].nil?
+  	if params[:deliveryType].nil?
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
 			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":#{params[:deliveryStatus]}}"
 			@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
@@ -194,6 +197,29 @@ class DefaultController < ApplicationController
 			if @response
 				redirect_to delivery_path
 			end
+		elsif params[:deliveryType] == "f"
+			if params[:ftpPassword].nil?
+				@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+				@requestBody = "{\"streamingService\":#{params[:streamingService]},\"active\":#{params[:deliveryStatus]}}"
+			else
+				@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}/change_password"
+				@requestBody = "{\"ftpPassword\":\"#{params[:ftpPassword]}\"}"
+			end
+
+			@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+			if @response
+				redirect_to delivery_path
+			end
+		end
+  end
+
+  def deliveryDelete
+  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+  	if @response
+			redirect_to delivery_path
 		end
   end
 end
