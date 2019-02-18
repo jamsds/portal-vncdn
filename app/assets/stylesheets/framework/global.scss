@@ -136,6 +136,11 @@ table {
       float: left;
     }
   }
+  small {
+    a {
+      font-size: inherit;
+    }
+  }
 }
 
 .form-inline {
