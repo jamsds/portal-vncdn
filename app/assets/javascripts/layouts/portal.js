@@ -30,6 +30,7 @@ $(document).on('turbolinks:load', function() {
     now.setTime(time);
 
     $(".free-trial-message").addClass("hidden");
+    $(".dashboard__container").css("height","calc(100vh - 100px)");
     $(".portal__main-navigation").css("background-color","#f1f1f1");
     document.cookie = 'freeTrial_messageDismiss=true; expires=' + now.toUTCString() + '; path=/';
   });
