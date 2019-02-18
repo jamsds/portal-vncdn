@@ -9,18 +9,18 @@ Rails.application.routes.draw do
   get '/reseller', to: "reseller#index"
 
   # Content Delivery Network(CDN)
-  get '/delivery', to: "default#delivery"
-  get '/delivery/:propertyId/:type', to: "default#deliveryDetail"
-  get '/delivery/:propertyId/:type/reports', to: "default#deliveryReport"
-  get '/delivery/:propertyId/:type/logs', to: "default#deliveryLog"
+  get '/cdn', to: "default#delivery"
+  get '/cdn/:propertyId/:type', to: "default#deliveryDetail"
+  get '/cdn/:propertyId/:type/reports', to: "default#deliveryReport"
+  get '/cdn/:propertyId/:type/logs', to: "default#deliveryLog"
 
-  get '/delivery/create', to: "default#deliveryCreate"
-  post '/delivery/add', to: "default#deliveryAdd"
+  get '/cdn/create', to: "default#deliveryCreate"
+  post '/cdn/add', to: "default#deliveryAdd"
 
-  get '/delivery/:propertyId/:type/edit', to: "default#deliveryEdit"
-  put '/delivery/update', to: "default#deliveryUpdate"
+  get '/cdn/:propertyId/:type/edit', to: "default#deliveryEdit"
+  put '/cdn/update', to: "default#deliveryUpdate"
 
-  post '/delivery/:propertyId/:type/delete', to: "default#deliveryDelete"
+  post '/cdn/:propertyId/:type/delete', to: "default#deliveryDelete"
 
   # API
   namespace :api do

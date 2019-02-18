@@ -2,7 +2,7 @@
 	<div class="panel">
 		<div class="panel__heading">
 			<span class="btn btn-default btn-sm ml-2">
-				<a href="<%= delivery_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
+				<a href="<%= cdn_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
 			</span>
 		</div>
 		<div class="panel__list">
@@ -15,7 +15,7 @@
 		<div class="dashboard__heading">
 			<div class="dashboard__heading-action-list clearfix">
 				<div class="dashboard__heading-action-item">
-					<div class="btn btn-sm ml-2" onclick="window.location = '<%= delivery_url %>/create'">
+					<div class="btn btn-sm ml-2" onclick="window.location = '<%= cdn_url %>/create'">
 						<span class="add_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20.1" height="20" viewBox="0 0 20.1 20"><path d="M521.4,422.6v14h14v2h-14a2.051,2.051,0,0,1-2-2v-14Zm16.1-4a2.051,2.051,0,0,1,2,2v12a2.051,2.051,0,0,1-2,2h-12a2.051,2.051,0,0,1-2-2v-12a2.051,2.051,0,0,1,2-2Zm-1.1,9v-2h-4v-4h-2v4h-4v2h4v4h2v-4Z" transform="translate(-519.4 -418.6)"/></svg>
 						</span>
@@ -93,7 +93,7 @@
 							      <%= button_tag(type: "submit", class: "btn btn-default primary btn-sm mr-3") do %>
 							        Save
 							      <% end %>
-							      <a href="<%= delivery_url %>" class="btn btn-light btn-sm">Back</a>
+							      <a href="<%= cdn_url %>" class="btn btn-light btn-sm">Back</a>
 							    </div>
 								<% end %>
 							<% elsif params[:type] == "f" %>
@@ -134,7 +134,7 @@
 							      <%= button_tag(type: "submit", class: "btn btn-default primary btn-sm mr-3") do %>
 							        Save
 							      <% end %>
-							      <a href="<%= delivery_url %>" class="btn btn-light btn-sm">Back</a>
+							      <a href="<%= cdn_url %>" class="btn btn-light btn-sm">Back</a>
 							    </div>
 								<% end %>
 							<% end %>

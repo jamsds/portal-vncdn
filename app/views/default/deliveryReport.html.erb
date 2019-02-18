@@ -1,6 +1,6 @@
 <div class="portal__main-heading">
   <span class="btn btn-default btn-sm ml-2">
-    <a href="<%= delivery_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
+    <a href="<%= cdn_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
   </span>
 </div>
 <div class="portal__main-left expanded">
@@ -21,9 +21,9 @@
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-table">
 					<div class="dashboard__container-table-select clearfix">
-						<a href="<%= delivery_url %>/<%= params[:propertyId] %>/<%= params[:type] %>" class="dashboard__container-table-select-item">Details</a>
+						<a href="<%= cdn_url %>/<%= params[:propertyId] %>/<%= params[:type] %>" class="dashboard__container-table-select-item">Details</a>
 						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Reports</a>
-						<a href="<%= delivery_url %>/<%= params[:propertyId] %>/<%= params[:type] %>/logs?domain=<%= params[:domain] %>" class="dashboard__container-table-select-item">Logs</a>
+						<a href="<%= cdn_url %>/<%= params[:propertyId] %>/<%= params[:type] %>/logs?domain=<%= params[:domain] %>" class="dashboard__container-table-select-item">Logs</a>
 					</div>
 					<div class="dashboard__container-card mt-3">
 						<div class="dashboard__container-card-item">
