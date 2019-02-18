@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get '/account/detail', to: "account#detail"
   get '/account/password', to: "account#password"
 
-  post '/account/detail/update', to: "account#detailUpdate"
-  post '/account/password/update', to: "account#passwordUpdate"
+  patch '/account/detail/update', to: "account#detailUpdate"
+  patch '/account/password/update', to: "account#passwordUpdate"
 
   # Reseller Management
   get '/reseller', to: "reseller#index"
