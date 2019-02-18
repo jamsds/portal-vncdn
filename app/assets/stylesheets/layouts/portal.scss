@@ -38,7 +38,7 @@
 						padding: 1rem;
 						font-size: 1rem;
 						position: absolute;
-						top: 4rem;
+						top: 3rem;
 						right: 0;
 						z-index: 1;
 						background-color: $light;
@@ -55,13 +55,30 @@
 								&:not(:last-child) {
 									margin-bottom: 0.25rem;
 								}
-								&:hover {
-									color: $black-nd;
-								}
 								&.logout {
 									margin-top: 0.5rem;
 									padding-top: 0.5rem;
 									border-top: 1px solid $gray;
+									display: -webkit-flex;
+									.logout_ic {
+										path {
+											fill: $black-5nd;
+										}
+										margin-right: 0.5rem;
+									}
+									span:nth-child(2) {
+										margin-top: 0.15rem;
+									}
+								}
+								&:hover {
+									color: $black-nd;
+									&.logout {
+										.logout_ic {
+											path {
+												fill: $black-nd;
+											}
+										}
+									}
 								}
 							}
 						}
