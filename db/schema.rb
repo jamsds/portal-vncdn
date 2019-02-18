@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180001) do
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id"
     t.boolean "notify_invoice", default: true
-    t.boolean "notify_cash", default: true
-    t.boolean "notify_credit", default: true
+    t.boolean "notify_credit", default: false
     t.boolean "notify_transaction", default: true
     t.boolean "notify_subscription", default: true
     t.boolean "notify_product", default: true
