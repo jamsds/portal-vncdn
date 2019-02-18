@@ -45,6 +45,13 @@
           <div class="portal__main-navigation-account-avatar">
             <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(current_user.email) %>&#10;?s=40&amp;d=mm">
           </div>
+          <div class="portal__main-navigation-account-panel">
+            <div class="portal__main-navigation-account-panel-list">
+              <a href="<%= account_url %>" class="portal__main-navigation-account-panel-list-item">My Account</a>
+              <a href="<%= account_password_url %>" class="portal__main-navigation-account-panel-list-item">Change Password</a>
+              <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "portal__main-navigation-account-panel-list-item logout") %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

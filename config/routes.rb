@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # Account Management
   get '/account', to: "account#index"
+  get '/account/password', to: "account#index"
 
   # Reseller Management
   get '/reseller', to: "reseller#index"

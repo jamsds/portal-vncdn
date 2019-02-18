@@ -2,8 +2,8 @@
 //= require libs/moment.min
 
 $(document).on('turbolinks:load', function() {
-	$(".account").click(function(){
-	  $(".account-panel").toggleClass("show");
+	$(".portal__main-navigation-account-avatar").click(function(){
+	  $(".portal__main-navigation-account-panel").toggleClass("show");
 	});
 
 	$(function () {
