@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get '/delivery/:propertyId/:type/edit', to: "default#deliveryEdit"
   put '/delivery/update', to: "default#deliveryUpdate"
 
-  post '/delivery/delete', to: "default#deliveryDelete"
+  post '/delivery/:propertyId/:type/delete', to: "default#deliveryDelete"
 
   # API
   namespace :api do

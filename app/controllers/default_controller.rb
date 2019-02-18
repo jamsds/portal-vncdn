@@ -215,10 +215,15 @@ class DefaultController < ApplicationController
   end
 
   def deliveryDelete
-  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
-  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+  	if params[:type] == "d"
+  		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
+	  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+  	elsif params[:type] == "f"
+	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
+	  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+		end
 
-  	if @response
+		if @response
 			redirect_to delivery_path
 		end
   end
