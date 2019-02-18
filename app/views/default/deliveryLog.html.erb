@@ -78,7 +78,6 @@
 											<th>Actions</th>
 										</tr>
 									</thead>
-									<% if params[:domain].present? || params[:for].present? %>
 									<tbody>
 										<% @logItems.each do |time, item| %>
 											<tr>
@@ -89,11 +88,8 @@
 											</tr>
 										<% end %>
 									</tbody>
-									<% end %>
 								</table>
-								<% if params[:domain].present? || params[:for].present? %>
 								<%= will_paginate @logItems, :params => {:for => params[:domain]} %>
-								<% end %>
 							</div>
 						</div>
 					</div>

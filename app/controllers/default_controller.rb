@@ -127,12 +127,7 @@ class DefaultController < ApplicationController
 			@maxBandwidth = @bandwidthValue.map(&:to_i).max
 			@avgBandwidth = @maxBandwidth/@totalValues
 		else
-			@timestamp = []
-			@trafficValue = []
-			@totalValues = 0
-
-			@maxBandwidth = 0
-			@avgBandwidth = 0
+			redirect_to cdn_path
 		end
   end
 
@@ -179,7 +174,7 @@ class DefaultController < ApplicationController
 
 			@logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => params[:per_page])
 		else
-			@logItems = []
+			redirect_to cdn_path
 		end
   end
 
