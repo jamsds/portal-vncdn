@@ -7,7 +7,19 @@
     </div>
     <div class="panel__list main">
       <div class="main__options-list">
-        <div class="main__options-list-item clearfix<% if current_page?(cdn_url) %> active<% end %>" onclick="window.location = '/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/reports?domain=<%= params[:domain] %>'">
+        <div class="main__options-list-item clearfix<% if current_page?(cdn_url) %> active<% end %>" onclick="window.location = '/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/edit'">
+          <div class="main__options-list-item-ic">
+            <div class="was_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19.618" height="20" viewBox="0 0 19.618 20"><path d="M56.4,1160.4l2.1,1.6a.592.592,0,0,1,.1.7l-2,3.5a.445.445,0,0,1-.6.2l-2.5-1a8.152,8.152,0,0,1-1.7,1l-.4,2.6c-.1.3-.2.4-.5.4h-4a.51.51,0,0,1-.5-.4l-.4-2.6a5.852,5.852,0,0,1-1.7-1l-2.5,1a.445.445,0,0,1-.6-.2l-2-3.5a.483.483,0,0,1,.1-.7l2.1-1.6v-2l-2.1-1.6a.592.592,0,0,1-.1-.7l2-3.5a.445.445,0,0,1,.6-.2l2.5,1a8.152,8.152,0,0,1,1.7-1l.4-2.6c.1-.3.2-.4.5-.4h4a.51.51,0,0,1,.5.4l.4,2.6a5.852,5.852,0,0,1,1.7,1l2.5-1a.445.445,0,0,1,.6.2l2,3.5a.483.483,0,0,1-.1.7l-2.1,1.6v2Zm-9.9,1.5a3.625,3.625,0,1,0-1-2.5A3.317,3.317,0,0,0,46.5,1161.9Z" transform="translate(-39.091 -1149.4)"/></svg>
+            </div>
+          </div>
+          <div class="main__options-list-item-info">
+            <h6>Edit</h6>
+            <small>Edit this service</small>
+          </div>
+          <div class="main__options-list-item-arrow"></div>
+        </div>
+        <div class="main__options-list-item clearfix<% if current_page?(cdn_url) %> active<% end %>" onclick="window.location = '/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/logs?domain=<%= params[:domain] %>'">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="20.9" height="18" viewBox="0 0 20.9 18"><path d="M856.7,1118.2a8.6,8.6,0,0,1,6.4-2.6,9,9,0,0,1,6.4,2.6,8.448,8.448,0,0,1,2.6,6.4,9,9,0,0,1-2.6,6.4,8.448,8.448,0,0,1-6.4,2.6,8.6,8.6,0,0,1-6.3-2.6l1.4-1.5a6.662,6.662,0,0,0,4.9,2.1,7.2,7.2,0,0,0,5-2,6.767,6.767,0,0,0,0-9.8,7.028,7.028,0,0,0-5-2,6.632,6.632,0,0,0-4.9,2,6.8,6.8,0,0,0-2,4.9h3l-4,4-.1-.1-3.9-3.9h3A8.232,8.232,0,0,1,856.7,1118.2Zm5.4,2.4h1.5v4.2l3.5,2.1-.8,1.2-4.3-2.6v-4.9Z" transform="translate(-851.2 -1115.6)"/></svg>
