@@ -122,11 +122,21 @@
 			&-heading {
 				height: 52px;
 				line-height: 52px;
+				padding: 0.60rem 0;
 				border-bottom: $border;
-				a {
-					text-decoration: none;
+				.btn {
+					float: left;
+					display: -webkit-flex;
+					@include transition(background-color .5s ease);
+					.back_ic {
+						margin-right: 0.5rem;
+						path {
+							fill: $black-nd;
+						}
+					}
+					color: $black-nd;
 					&:hover {
-						color: $blue-nd;
+						color: $black-nd;
 					}
 				}
 			}
@@ -140,7 +150,23 @@
 					&__heading {
 						height: 52px;
 						line-height: 52px;
+						padding: 0.60rem 0;
 						border-bottom: $border;
+						.btn {
+							float: left;
+							display: -webkit-flex;
+							@include transition(background-color .5s ease);
+							.back_ic {
+								margin-right: 0.5rem;
+								path {
+									fill: $black-nd;
+								}
+							}
+							color: $black-nd;
+							&:hover {
+								color: $black-nd;
+							}
+						}
 					}
 					&__list {
 						padding: 1rem;
