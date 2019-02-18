@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180002) do
+ActiveRecord::Schema.define(version: 2019_02_14_180003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "credits", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "credit_value", precision: 15, scale: 2, default: "0.0"
+    t.boolean "active", default: true
+    t.index ["user_id"], name: "index_credits_on_user_id", unique: true
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id"

@@ -12,6 +12,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :credit, 			 dependent: :destroy
+  has_one :subscription, dependent: :destroy
+
   has_one :notification, dependent: :destroy
-  has_one :subscription
 end
