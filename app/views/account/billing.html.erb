@@ -86,8 +86,17 @@
 	<div class="dashboard">
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item">
-          account.billing
+				<div class="dashboard__container-card-item credit">
+          <div class="dashboard__container-card-item-heading">
+            <h6>Billing Overview</h6>
+            <span>Manage your invoices, deposit credits</span>
+          </div>
+          <div class="credit">
+            <div class="credit-remaining">
+              <span>Credit Remaining</span>
+              <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
+            </div>
+          </div>
 				</div>
 			</div>
 		</div>

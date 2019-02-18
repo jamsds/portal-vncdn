@@ -34,6 +34,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  class FormatNumber
+    include ActionView::Helpers::NumberHelper
+
+    def initialize(number)
+      @number = number
+    end
+
+    def formatHumanSize
+      number_to_human_size(@number, separator: ".", delimiter: ",")
+    end
+
+    def formatCurrency
+      number_to_currency(@number, unit: "₫", precision: 2, separator: ".", delimiter: ",", format: "%u%n")
+    end
+
+    def formatPercent
+      number_to_percentage(@number, precision: 2) 
+    end
+  end
+
 	# Generate signatureAlgorithm
 	class Algorithm
 		def initialize(requestMethod, requestURI, requestBody)

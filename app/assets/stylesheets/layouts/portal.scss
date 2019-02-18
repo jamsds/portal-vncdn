@@ -434,6 +434,14 @@
 								box-shadow: 0 1px 3px rgba(0,0,0,.15);
 								background-color: $light;
 								@include transition(box-shadow .5s ease);
+								&-heading {
+									h6 {
+										margin-bottom: 0;
+									}
+									span {
+										font-size: 0.875rem;
+									}
+								}
 								&.info {
 									height: 200px;
 								}
@@ -446,6 +454,14 @@
 								}
 								&.list {
 									
+								}
+								&.credit {
+									.credit-remaining {
+										margin-top: 1.5rem;
+										span {
+											font-size: 0.875rem;
+										}
+									}
 								}
 								&:hover {
 									box-shadow: $shadow-default;
