@@ -26,7 +26,7 @@ $(document).on('turbolinks:load', function() {
 	$(".free-trial-message-close").click(function(){
     var now = new Date();
     var time = now.getTime();
-    time += 1800 * 1000;
+    time += 86400 * 1000;
     now.setTime(time);
 
     $(".free-trial-message").addClass("hidden");
