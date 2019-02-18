@@ -15,7 +15,7 @@
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
-					<%= form_for [current_user], :url => url_for(account_detail_update_path), html: {class: 'admin-form mt-4'} do |f| %>
+					<%= form_for [current_user], :url => url_for(account_detail_update_path), html: {} do |f| %>
 					  <div class="form-group vertical row">
 		          <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9">
