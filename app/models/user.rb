@@ -13,4 +13,5 @@ class User < ApplicationRecord
          :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
   has_one :notification, dependent: :destroy
+  has_one :subscription
 end
