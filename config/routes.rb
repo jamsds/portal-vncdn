@@ -15,6 +15,14 @@ Rails.application.routes.draw do
 
   # Reseller Management
   get '/reseller', to: "reseller#index"
+  get '/reseller/customer', to: "reseller#customer"
+
+  get '/reseller/customer/create', to: "reseller#customerCreate"
+  post '/reseller/customer/add', to: "reseller#customerAdd"
+
+  delete '/reseller/customer/:username', to: "reseller#customerDelete"
+
+  get '/reseller/customer/:username', to: "reseller#customerDetail"
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "default#delivery"

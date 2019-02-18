@@ -1,7 +1,56 @@
 class ResellerController < ApplicationController
   before_action :authenticate_user!
 
+  # Set Request Method
+  before_action :post_method, only: [:customerAdd]
+  before_action :delete_method, only: [:customerDelete]
+
+  # Set End Point Request
+	before_action :base_endpoint, only: [:customerAdd, :customerDelete]
+
   def index
-    @user_child = User.where(parent_uuid: current_user.username)
+    @customers = User.where(parent_uuid: current_user.username)
   end
+
+  def customer
+  	@customers = User.where(parent_uuid: current_user.username)
+  end
+
+  def customerDetail
+  	@customer = User.find_by(username: params[:username])
+  end
+
+  def customerAdd
+  	@customer = User.new(customer_params)
+		@uuid = customer_params["username"]
+
+		if @customer.save
+			@requestURI = "/v1.1/createCustomer/"
+			@requestBody = "{\"name\":\"#{@uuid}\",\"parentId\":#{$ROOT_ID},\"type\":2,\"partnership\":1}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			@newUser = User.find_by(username: @uuid)
+
+			@newUser.update(uuid: @response["id"])
+
+      Credit.create(user_id: @newUser.id)
+      Notification.create(user_id: @newUser.id)
+		end
+  end
+
+  def customerDelete
+    @customer = User.find_by(username: params[:username])
+
+    if @customer.destroy
+      @requestURI = "/v1.1/deleteCustomer/#{@customer.uuid}"
+      RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+    end
+
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+    def customer_params
+      params.require(:user).permit(:name, :username, :email, :parent_uuid, :password, :password_confirmation)
+    end
 end
