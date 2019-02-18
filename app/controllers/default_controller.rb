@@ -53,21 +53,21 @@ class DefaultController < ApplicationController
   def deliveryDetail
   	if params[:type] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 		end
+
+		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   end
 
   def deliveryEdit
   	if params[:type] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 		end
+
+		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
   end
 
   def deliveryReport
@@ -185,12 +185,12 @@ class DefaultController < ApplicationController
   	if params[:ftpPassword].nil?
 	  	@requestURI = "/v1.0/domains"
 			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 		else
 			@requestURI = "/v1.0/filedownloads"
 			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"\",\"ftpPassword\":\"#{params[:ftpPassword]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
-			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 		end
+
+		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		if @response
 			redirect_to cdn_path
@@ -258,11 +258,11 @@ class DefaultController < ApplicationController
   def deliveryDelete
   	if params[:type] == "d"
   		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-	  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
   	elsif params[:type] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
-	  	@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 		end
+
+		@response = RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
 		if @response
 			redirect_to cdn_path
