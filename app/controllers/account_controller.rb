@@ -14,19 +14,17 @@ class AccountController < ApplicationController
   end
 
   def passwordUpdate
-    if current_user.update(password_params)
-      redirect_back(fallback_location: root_path)
+    if current_user.valid_password?(params[:verify_password])
+      current_user.update(password: params[:password], password_confirmation: params[:password_confirmation])
     else
-      render 'password'
+      flash[:verify_notice] = "Error! Current password incorrect, please check again."
     end
+
+    redirect_back(fallback_location: root_path)
   end
 
   private
   	def detail_params
   		params.require(:user).permit(:name, :phone, :company)
-  	end
-
-    def password_params
-  		params.require(:user).permit(:password, :password_confirmation)
   	end
 end
