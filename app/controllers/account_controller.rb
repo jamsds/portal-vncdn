@@ -14,6 +14,10 @@ class AccountController < ApplicationController
   end
 
   def passwordUpdate
+    if params[:password] != params[:password_confirmation]
+      flash[:confirm_notice] = "Error! Confirm password not match, please check again."
+    end
+
     if current_user.valid_password?(params[:verify_password])
       current_user.update(password: params[:password], password_confirmation: params[:password_confirmation])
     else
