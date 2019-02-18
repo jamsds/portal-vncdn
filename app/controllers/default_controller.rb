@@ -68,63 +68,72 @@ class DefaultController < ApplicationController
   end
 
   def deliveryReport
-  	endTime = Time.now.utc 
-	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:00Z")
+  	if params[:domain].present?
+	  	endTime = Time.now.utc 
+		  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:00Z")
 
-  	if params[:range].nil?
-	    startTime = endTime - 4.hours
-	  elsif params[:range] == "1"
-	  	startTime = endTime - 1.hours
-	  elsif params[:range] == "8"
-	  	startTime = endTime - 8.hours
-	  elsif params[:range] == "24"
-	  	startTime = endTime - 1.days
-	  end
+	  	if params[:range].nil?
+		    startTime = endTime - 4.hours
+		  elsif params[:range] == "1"
+		  	startTime = endTime - 1.hours
+		  elsif params[:range] == "8"
+		  	startTime = endTime - 8.hours
+		  elsif params[:range] == "24"
+		  	startTime = endTime - 1.days
+		  end
 
-	  @startTime = startTime.strftime("%Y-%m-%dT%H:%M:00Z")
+		  @startTime = startTime.strftime("%Y-%m-%dT%H:%M:00Z")
 
-  	@requestURI = "/v1.1/report/volume"
-		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
-		@traffic = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+	  	@requestURI = "/v1.1/report/volume"
+			@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+			@traffic = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@timestamp = []
-		@trafficValue = []
-		@totalValues = 0
+			@timestamp = []
+			@trafficValue = []
+			@totalValues = 0
 
-		@traffic.each do |item|
-			item["volumes"].each do |stamp|
-				@timestamp << stamp["timestamp"]
-				@trafficValue << stamp["value"]
+			@traffic.each do |item|
+				item["volumes"].each do |stamp|
+					@timestamp << stamp["timestamp"]
+					@trafficValue << stamp["value"]
+				end
 			end
-		end
 
-		@requestURI = "/v1.0/report/origin_request_number"
-		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
-		@request = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+			@requestURI = "/v1.0/report/origin_request_number"
+			@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+			@request = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@requestValue = []
+			@requestValue = []
 
-		@request.each do |item|
-			item["originReqNums"].each do |stamp|
-				@requestValue << stamp["value"]
+			@request.each do |item|
+				item["originReqNums"].each do |stamp|
+					@requestValue << stamp["value"]
+				end
 			end
-		end
-		
-		@bandwidthValue = []
+			
+			@bandwidthValue = []
 
-		@requestURI = "/v1.0/report/origin_bandwidth"
-		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
-		@bandwith = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+			@requestURI = "/v1.0/report/origin_bandwidth"
+			@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\",\"fillFixedTime\":\"true\",\"interval\":\"#{@interval}\"}"
+			@bandwith = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@bandwith.each do |item|
-			item["originBandwidths"].each do |stamp|
-				@totalValues += 1
-				@bandwidthValue << stamp["value"]
+			@bandwith.each do |item|
+				item["originBandwidths"].each do |stamp|
+					@totalValues += 1
+					@bandwidthValue << stamp["value"]
+				end
 			end
-		end
 
-		@maxBandwidth = @bandwidthValue.map(&:to_i).max
-		@avgBandwidth = @maxBandwidth/@totalValues
+			@maxBandwidth = @bandwidthValue.map(&:to_i).max
+			@avgBandwidth = @maxBandwidth/@totalValues
+		else
+			@timestamp = []
+			@trafficValue = []
+			@totalValues = 0
+
+			@maxBandwidth = 0
+			@avgBandwidth = 0
+		end
   end
 
   def deliveryLog
