@@ -21,6 +21,9 @@ class DefaultController < ApplicationController
 
 			current_user.update(uuid: @response["id"])
 		end
+		if !current_user.notification.present?
+			Notification.create(user_id: current_user.id)
+		end
 	end
 
 	def delivery

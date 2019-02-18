@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180000) do
+ActiveRecord::Schema.define(version: 2019_02_14_180001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.boolean "notify_invoice", default: true
+    t.boolean "notify_cash", default: true
+    t.boolean "notify_credit", default: true
+    t.boolean "notify_transaction", default: true
+    t.boolean "notify_subscription", default: true
+    t.boolean "notify_product", default: true
+    t.index ["user_id"], name: "index_notifications_on_user_id", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

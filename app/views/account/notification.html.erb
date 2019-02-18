@@ -68,13 +68,13 @@
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
-					<%= form_for "", :url => url_for(account_notification_update_path), html: {} do |f| %>
+					<%= form_for [current_user.notification], :url => url_for(account_notification_update_path), html: {} do |f| %>
 					  <div class="form-group row">
 		          <label class="col-sm-2 col-form-label text-right">Transactions</label>
 		          <div class="col-sm-9 col-form-value">
 		          	<div class="switch-group clearfix">
 							    <label class="switch">
-									  <%= f.check_box :notify_transaction, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <%= f.check_box :notify_transaction, { class: 'custom-control-input', checked: current_user.notification.notify_transaction }, "true", "false" %>
 									  <span class="slider round"></span>
 									</label>
 									<%= f.label :notify_transaction, 'Send email transactions every day', class: 'switch-group-label' %>
@@ -87,7 +87,7 @@
 		          <div class="col-sm-9 col-form-value">
 		          	<div class="switch-group clearfix">
 							    <label class="switch">
-									  <%= f.check_box :notify_credit, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <%= f.check_box :notify_credit, { class: 'custom-control-input', checked: current_user.notification.notify_credit }, "true", "false" %>
 									  <span class="slider round"></span>
 									</label>
 									<%= f.label :notify_credit, 'Send email credit charged every 15 minutes, only work for payment type credit.', class: 'switch-group-label' %>
@@ -100,7 +100,7 @@
 		          <div class="col-sm-9 col-form-value">
 		          	<div class="switch-group clearfix">
 							    <label class="switch">
-									  <%= f.check_box :notify_subscription, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <%= f.check_box :notify_subscription, { class: 'custom-control-input', checked: current_user.notification.notify_subscription }, "true", "false" %>
 									  <span class="slider round"></span>
 									</label>
 									<%= f.label :notify_subscription, 'Send email subscription modify.', class: 'switch-group-label' %>
@@ -113,7 +113,7 @@
 		          <div class="col-sm-9 col-form-value">
 		          	<div class="switch-group clearfix">
 							    <label class="switch">
-									  <%= f.check_box :notify_invoice, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <%= f.check_box :notify_invoice, { class: 'custom-control-input', checked: current_user.notification.notify_invoice }, "true", "false" %>
 									  <span class="slider round"></span>
 									</label>
 									<%= f.label :notify_invoice, 'Send email notify next duedate invoice.', class: 'switch-group-label' %>
@@ -126,7 +126,7 @@
 		          <div class="col-sm-9 col-form-value">
 		          	<div class="switch-group clearfix">
 							    <label class="switch">
-									  <%= f.check_box :notify_product, { class: 'custom-control-input', checked: false }, "true", "false" %>
+									  <%= f.check_box :notify_product, { class: 'custom-control-input', checked: current_user.notification.notify_product }, "true", "false" %>
 									  <span class="slider round"></span>
 									</label>
 									<%= f.label :notify_product, 'Send email release product update.', class: 'switch-group-label' %>

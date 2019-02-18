@@ -23,8 +23,20 @@ class AccountController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def notificationsUpdate
+    if current_user.notification.update(notification_params)
+      redirect_back(fallback_location: root_path)
+    else
+      render 'notification'
+    end
+  end
+
   private
   	def detail_params
   		params.require(:user).permit(:name, :phone, :company)
   	end
+
+    def notification_params
+      params.require(:notification).permit(:notify_transaction, :notify_credit, :notify_subscription, :notify_invoice, :notify_product)
+    end
 end

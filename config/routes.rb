@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   patch '/account/detail/update', to: "account#detailUpdate"
   post '/account/password/update', to: "account#passwordUpdate"
-  patch '/account/notification/update', to: "account#notificationUpdate"
+  patch '/account/notification/update', to: "account#notificationsUpdate"
 
   # Reseller Management
   get '/reseller', to: "reseller#index"
