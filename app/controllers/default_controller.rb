@@ -137,46 +137,50 @@ class DefaultController < ApplicationController
   end
 
   def deliveryLog
-  	endTime = Time.now.utc 
-	  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:%SZ")
+  	if params[:domain].present? || params[:for].present?
+	  	endTime = Time.now.utc 
+		  @endTime = endTime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-  	if params[:range].nil?
-	    startTime = endTime - 4.hours
-	  elsif params[:range] == "1"
-	  	startTime = endTime - 1.hours
-	  elsif params[:range] == "8"
-	  	startTime = endTime - 8.hours
-	  elsif params[:range] == "24"
-	  	startTime = endTime - 1.days
-	  end
+	  	if params[:range].nil?
+		    startTime = endTime - 4.hours
+		  elsif params[:range] == "1"
+		  	startTime = endTime - 1.hours
+		  elsif params[:range] == "8"
+		  	startTime = endTime - 8.hours
+		  elsif params[:range] == "24"
+		  	startTime = endTime - 1.days
+		  end
 
-	  @startTime = startTime.strftime("%Y-%m-%dT%H:05:00Z")
+		  @startTime = startTime.strftime("%Y-%m-%dT%H:05:00Z")
 
-	  if params[:domain].nil?
-	  	params[:domain] = params[:for]
-	  end
+		  if params[:domain].nil?
+		  	params[:domain] = params[:for]
+		  end
 
-	  if params[:per_page].nil?
-	  	params[:per_page] = 10
-	  end
+		  if params[:per_page].nil?
+		  	params[:per_page] = 10
+		  end
 
-  	@requestURI = "/v1.1/log/list"
-		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\"}"
-		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+	  	@requestURI = "/v1.1/log/list"
+			@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{@startTime}\",\"endTime\":\"#{@endTime}\"}"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
-		@timestamps = []
-		@items = []
+			@timestamps = []
+			@items = []
 
-		@response.each do |response|
-			response["logs"].each do |log|
-				@timestamps << log["timestamp"]
-				log["values"].each do |item|
-					@items << item
+			@response.each do |response|
+				response["logs"].each do |log|
+					@timestamps << log["timestamp"]
+					log["values"].each do |item|
+						@items << item
+					end
 				end
 			end
-		end
 
-		@logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => params[:per_page])
+			@logItems = @timestamps.zip(@items).paginate(:page => params[:page], :per_page => params[:per_page])
+		else
+			@logItems = []
+		end
   end
 
   def deliveryAdd
