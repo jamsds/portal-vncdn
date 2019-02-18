@@ -3,21 +3,67 @@
 		<a href="<%= url_for(:back) %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
 	</span>
 </div>
-<div class="portal__main-left">
+<div class="portal__main-left expanded">
 	<div class="panel">
 		<div class="panel__list">
 			panel.account.list
 		</div>
 	</div>
 </div>
-<div class="portal__main-center primary">
+<div class="portal__main-center primary croped">
 	<div class="dashboard">
 		<div class="dashboard__container">
 			<% if current_user.phone.nil? %>
 			<div class="dashboard__container-message warning">
-				dashboard.container.message
+				<p class="mb-0">Please update your personal information</p>
 			</div>
 			<% end %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card-item">
+					<div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Name</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= current_user.name %> <a href="<%= account_detail_url %>">(change)</a></p>
+              <small>Please provide full name, this name help me for contact with you easier</small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Email</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= current_user.email %></p>
+              <small>This email can't change, please contact with us if you need to change</small>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Phone</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= current_user.phone %></p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Account Type</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= accountType(current_user.accountType) %></p>
+              <small>You can upgrade the account type to begin business yourself and get revenue with us.<br/>For more information <a href="">Reseller Class</a></small>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard__container-card-item">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">UUID</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= current_user.username %></p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Customer Number</label>
+            <div class="col-sm-8 col-form-value">
+              <p><%= current_user.uuid %></p>
+            </div>
+          </div>
+		    </div>
+			</div>
 		</div>
 	</div>
 </div>

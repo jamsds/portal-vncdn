@@ -425,14 +425,6 @@
 								&:not(:last-child) {
 									margin-bottom: 1rem;
 								}
-								// .table {
-								// 	border-bottom: 1px solid $gray-nd;
-								// 	tbody {
-								// 		tr:nth-child(even) {
-								// 			background-color: $silver;
-								// 		}
-								// 	}
-								// }
 								ul.pagination {
 									margin-top: 1rem;
 									margin-bottom: 0;
@@ -463,6 +455,35 @@
 									top: 0;
 									left: 0;
 									background-color: transparent;
+								}
+								.form-group {
+									margin-bottom: 0;
+									.col-form-label {
+										padding: 0;
+										font-size: 0.875rem;
+										color: $black-5nd;
+										line-height: unset;
+									}
+									.col-form-value {
+										p {
+											margin-bottom: 0;
+											font-size: 0.875rem;
+											font-weight: 500;
+										}
+										small {
+											a {
+												font-size: inherit;
+											}
+										}
+									}
+									&:not(:last-child) {
+										margin-bottom: 1rem;
+									}
+									&.vertical {
+										.col-form-label {
+											margin-top: 0.9375rem;
+										}
+									}
 								}
 							}
 						}
