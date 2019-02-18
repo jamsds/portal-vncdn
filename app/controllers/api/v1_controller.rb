@@ -1,4 +1,6 @@
 class Api::V1Controller < ApiController
+	before_action :get_method, only: [:listDelivery]
+
 	def index
 		render json: "{\"code\":\"URI.Invalid\",\"message\":\"URI is empty or invalid.\"}"
 	end
