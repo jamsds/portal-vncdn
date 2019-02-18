@@ -186,7 +186,7 @@
 											display: -webkit-flex;
   										align-items: center;
 										}
-										&:hover {
+										&:hover, &.active {
 											background-color: $silver;
 											h6 {
 												color: $primary;

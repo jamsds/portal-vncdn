@@ -1,14 +1,40 @@
-<div class="portal__main-left">
+<div class="portal__main-left expanded">
 	<div class="panel">
 		<div class="panel__heading">
-			<span class="ml-3">Reseller</span>
+			<span class="btn btn-default btn-sm ml-2">
+				<a href="<%= root_url %>" class="back_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12"><path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#f68100"/></svg></a>
+			</span>
 		</div>
-		<div class="panel__list">
-			panel.reseller.list
+		<div class="panel__list main">
+			<div class="main__options-list">
+				<div class="main__options-list-item clearfix<% if current_page?(cdn_url) %> active<% end %>" onclick="window.location = '<%= cdn_url %>'">
+					<div class="main__options-list-item-ic">
+						<div class="was_ic">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
+								<path d="M816.1,426.1a.5.5,0,1,1-.5.5A.472.472,0,0,1,816.1,426.1Zm0,4a.5.5,0,1,1-.5.5A.472.472,0,0,1,816.1,430.1Zm2.3-8.2a.967.967,0,1,1-.3.7A.908.908,0,0,1,818.4,421.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,818.4,425.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,818.4,429.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,818.4,433.9Zm3.6-8.4a1.712,1.712,0,1,1-.4,1.1A1.82,1.82,0,0,1,822,425.5Zm0,4.1a1.712,1.712,0,1,1-.4,1.1A1.82,1.82,0,0,1,822,429.6Zm1.8-6.3a.967.967,0,1,1,.3-.7A.908.908,0,0,1,823.8,423.3Zm-1.4,10.6a.967.967,0,1,1-.3.7A.908.908,0,0,1,822.4,433.9Zm.7-13.8a.5.5,0,1,1,.5-.5A.472.472,0,0,1,823.1,420.1Zm0,17a.5.5,0,1,1-.5.5A.472.472,0,0,1,823.1,437.1Zm3-11.6a1.712,1.712,0,1,1-.4,1.1A1.366,1.366,0,0,1,826.1,425.5Zm0,4.1a1.712,1.712,0,1,1-.4,1.1A1.366,1.366,0,0,1,826.1,429.6Zm1.7-6.3a.967.967,0,1,1,.3-.7A.908.908,0,0,1,827.8,423.3Zm-1.4,10.6a.967.967,0,1,1-.3.7A.908.908,0,0,1,826.4,433.9Zm.7-13.8a.5.5,0,1,1,.5-.5A.472.472,0,0,1,827.1,420.1Zm0,17a.5.5,0,1,1-.5.5A.472.472,0,0,1,827.1,437.1Zm3.3-15.2a.967.967,0,1,1-.3.7A.908.908,0,0,1,830.4,421.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,830.4,425.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,830.4,429.9Zm0,4a.967.967,0,1,1-.3.7A.908.908,0,0,1,830.4,433.9Zm3.7-6.8a.5.5,0,1,1,.5-.5C834.6,426.9,834.5,427.1,834.1,427.1Zm0,3a.5.5,0,1,1-.5.5A.472.472,0,0,1,834.1,430.1Z" transform="translate(-815.6 -419.1)"/></svg>
+						</div>
+					</div>
+					<div class="main__options-list-item-info">
+						<h6>Content Delivery Service</h6>
+						<small>Manage your Web Acceleration Service</small> 
+					</div>
+				</div>
+				<div class="main__options-list-item clearfix<% if current_page?(reseller_url) %> active<% end %>" onclick="window.location = '<%= reseller_url %>'">
+					<div class="main__options-list-item-ic">
+						<div class="reseller_ic">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20"><path d="M277.7,1115.6a2.051,2.051,0,0,1,2,2v14a2.051,2.051,0,0,1-2,2h-14a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-14a2.051,2.051,0,0,1,2-2h1v-2h2v2h8v-2h2v2Zm-1,15v-1c0-.9-.7-1.6-2.1-2.2a9.96,9.96,0,0,0-3.9-.9,9.587,9.587,0,0,0-3.9.9c-1.3.6-2.1,1.3-2.1,2.2v1Zm-3.9-11.1a2.9,2.9,0,1,0,.9,2.1A2.878,2.878,0,0,0,272.8,1119.5Z" transform="translate(-261.7 -1113.6)"/></svg>
+						</div>
+					</div>
+					<div class="main__options-list-item-info">
+						<h6>Reseller Management</h6>
+						<small>Manage Reseller</small> 
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="portal__main-center primary">
+<div class="portal__main-center primary croped">
 	<div class="dashboard">
 		<div class="dashboard__heading">
 			<div class="dashboard__heading-action-list">
