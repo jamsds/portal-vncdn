@@ -142,17 +142,36 @@
               </div>
             </div>
           </div>
-          <div class="dashboard__container-border-item subscription">
-            <div class="dashboard__container-border-item-heading">
-              <h6>Subscription Summary</h6>
-              <span>Usage bandwidth & Storage</span>
+        </div>
+        <div class="dashboard__container-border clearfix sync">
+          <div class="dashboard__container-border-col-5">
+            <div class="dashboard__container-border-item ">
+              <div class="dashboard__container-border-item-heading">
+                <h6>Bandwidth</h6>
+                <span>Usage bandwidth summary</span>
+              </div>
+              <div class="subscription">
+                <div class="subscription-info clearfix">
+                  <div class="subscription-info-usage">
+                    <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %></h5>
+                    <span>of bandwidth used</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="subscription">
-              <div class="subscription-info clearfix">
-                <div class="subscription-info-usage">
-                  <span>Usage</span>
-                  <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %> Bandwidth</h5>
-                  <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %> Storage</h5>
+          </div>
+          <div class="dashboard__container-border-col-5">
+            <div class="dashboard__container-border-item">
+              <div class="dashboard__container-border-item-heading">
+                <h6>Storage</h6>
+                <span>Usage storage summary</span>
+              </div>
+              <div class="subscription">
+                <div class="subscription-info clearfix">
+                  <div class="subscription-info-usage">
+                    <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %></h5>
+                    <span>of storage used</span>
+                  </div>
                 </div>
               </div>
             </div>
