@@ -150,7 +150,7 @@
 							    </div>
 								<% end %>
 							<% elsif params[:type] == "f" %>
-								<%= form_for "", url: {action: :deliveryUpdate, controller: :default}, method: :put, html: { multipart: true } do |f|%>
+								<%= form_for "", url: {action: :deliveryUpdate, controller: :delivery}, method: :put, html: { multipart: true } do |f|%>
 									<div class="form-group">
 										<%= f.label :deliveryUrl, 'File Download Name' %>
 										<%= f.text_field :deliveryUrl, value: @response["name"], class: 'form-control', disabled: true %>
