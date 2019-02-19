@@ -67,9 +67,9 @@
 									<% @packages.all.each do |package| %>
 							      <tr>
 							        <td><%= package.name %></td>
-							        <td><%= package.bwd_limit %></td>
-							        <td><%= package.stg_limit %></td>
-							        <td><%= package.pricing %></td>
+							        <td><%= ApplicationController::FormatNumber.new(package.bwd_limit).formatHumanSize() %></td>
+							        <td><%= ApplicationController::FormatNumber.new(package.stg_limit).formatHumanSize() %></td>
+							        <td><%= ApplicationController::FormatNumber.new(package.pricing).formatPricing() %></td>
 							        <td>
 							          <%= link_to 'Delete', "#{reseller_package_url}/#{package.id}", data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-default primary outline btn-sm' %>
 							        </td>

@@ -49,6 +49,10 @@ class ApplicationController < ActionController::Base
       number_to_currency(@number, unit: "₫", precision: 2, separator: ".", delimiter: ",", format: "%u%n")
     end
 
+    def formatPricing
+      number_to_currency(@number, unit: "₫", precision: 0, separator: ".", delimiter: ",", format: "%u%n")
+    end
+
     def formatPercent
       number_to_percentage(@number, precision: 2) 
     end
