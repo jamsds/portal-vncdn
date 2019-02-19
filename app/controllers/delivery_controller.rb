@@ -257,7 +257,7 @@ class DeliveryController < ApplicationController
 
   private
   	def verify_subscription
-  		if current_user.subscription.nil? || current_user.subscription.status == 1
+  		if current_user.subscription.nil? || current_user.subscription.status != 1
   			redirect_to account_subscription_path
   		end
   	end
