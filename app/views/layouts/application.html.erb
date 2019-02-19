@@ -13,7 +13,7 @@
   <body class="no-scroll">
     <% if user_signed_in? %>
     <div class="main__heading">
-      <% if cookies[:freeTrial_messageDismiss].nil? %>
+      <% if current_user.subscription.present? && current_user.subscription.subscription_type == 1 && cookies[:freeTrial_messageDismiss].nil? %>
       <div class="free-trial-message clearfix">
         <div class="free-trial-message-ic">
           <div class="gift_ic">
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="free-trial-message-content">
-          <span>You're on the Free Trial plan. Now you have 14 days left</span>
+          <span>You're on the Trial Subscription. Now you have <%= (current_user.subscription.expiration_date.to_date - Date.today).to_i %> days left</span>
         </div>
         <div class="free-trial-message-close">
           <div class="close_ic">
