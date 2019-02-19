@@ -73,9 +73,9 @@
 							<table class="table croped mb-0">
 								<thead>
 									<tr>
-										<th>Username</th>
+										<th>Customer Number</th>
 										<th>Email</th>
-										<th>Subscription</th>
+										<th>Account Type</th>
 										<th>UUID</th>
 										<th>Action</th>
 									</tr>
@@ -83,10 +83,10 @@
 								<tbody>
 									<% @customers.all.each do |customer| %>
 							      <tr>
-							        <td><a href="<%= reseller_customer_url %>/<%= customer.username %>"><%= customer.username %></a></td>
-							        <td><%= customer.created_at %></td>
+							        <td><a href="<%= reseller_customer_url %>/<%= customer.username %>"><%= customer.uuid %></a></td>
+							        <td><%= customer.email %></td>
 							        <td><%= accountType(customer.accountType) %></td>
-							        <td><%= customer.uuid %></td>
+							        <td><%= customer.username %></td>
 							        <td>
 							          <%= link_to 'Delete', "#{reseller_customer_url}/#{customer.username}", data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-default primary outline btn-sm' %>
 							        </td>

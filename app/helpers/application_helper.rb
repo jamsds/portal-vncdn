@@ -8,6 +8,15 @@ module ApplicationHelper
     end
   end
 
+  def customerType(id)
+    case id
+      when 1
+        'Personal'
+      when 2
+        'Company'
+    end
+  end
+
   def subscriptionType(id)
   	case id
       when 1
