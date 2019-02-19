@@ -518,6 +518,32 @@
 											}
 										}
 									}
+									.credit-detail,
+									.customer-detail {
+										margin-top: 1rem;
+										padding-top: 1rem;
+										border-top: 1px solid $gray;
+										a {
+											font-size: 0.875rem;
+											font-weight: 600;
+											fill: $black-5nd;
+											color: $black-5nd;
+											display: -webkit-flex;
+											float: left;
+											.billing_ic,
+											.customer_ic {
+												margin-right: 0.5rem;
+												path {
+													fill: inherit;
+												}
+											}
+											&:hover {
+												color: $black-nd;
+												fill: $black-nd;
+												text-decoration: none;
+											}
+										}
+									}
 								}
 								&:hover {
 									box-shadow: $shadow-default;
