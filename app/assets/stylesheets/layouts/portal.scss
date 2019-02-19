@@ -433,9 +433,6 @@
 			        -ms-user-select: none; /* Internet Explorer/Edge */
 			            user-select: none; /* Non-prefixed version, currently
 			                                  supported by Chrome and Opera */
-			            &:hover {
-			            	box-shadow: 0 1px 3px rgba(0,0,0,.15);
-			            }
 								}
 							}
 							&-col-8 {
@@ -521,7 +518,8 @@
 									}
 									.credit-detail,
 									.customer-detail,
-									.transaction-detail {
+									.transaction-detail,
+									.ticket-detail {
 										margin-top: 1rem;
 										padding-top: 1rem;
 										border-top: 1px solid $gray;
@@ -534,7 +532,8 @@
 											float: left;
 											.billing_ic,
 											.customer_ic,
-											.transaction_ic {
+											.transaction_ic,
+											.ticket_ic {
 												margin-right: 0.5rem;
 												path {
 													fill: inherit;
