@@ -24,6 +24,11 @@ class ResellerController < ApplicationController
   	@customer = User.new(customer_params)
 		@uuid = customer_params["username"]
 
+    if customer_params["password"] != customer_params["password_confirmation"]
+      flash[:confirm_notice] = "Error! Confirm password not match, please check again."
+      redirect_back(fallback_location: root_path)
+    end
+
 		if @customer.save
 			@requestURI = "/v1.1/createCustomer/"
 			@requestBody = "{\"name\":\"#{@uuid}\",\"parentId\":#{$ROOT_ID},\"type\":2,\"partnership\":1}"
