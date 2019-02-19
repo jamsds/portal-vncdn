@@ -46,6 +46,7 @@
 									<tr>
 										<th>Subscription Name</th>
 										<th>Customer</th>
+										<th>Subscription Type</th>
 										<th>Pricing</th>
 										<th>Status</th>
 									</tr>
@@ -54,7 +55,8 @@
 									<% @subscriptions.each do |subscription| %>
 									<tr>
 										<td><%= subscription.name %></td>
-										<td><%= User.find(subscription.user_id).uuid %></td>
+										<td><a href="<%= reseller_customer_url %>/<%= User.find(subscription.user_id).username %>"><%= User.find(subscription.user_id).uuid %></a></td>
+										<td><%= subscriptionType(subscription.subscription_type) %></td>
 										<td><%= subscription.pricing %></td>
 										<td><%= subscriptionStatus(subscription.status) %></td>
 									</tr>
