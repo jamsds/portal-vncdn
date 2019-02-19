@@ -586,6 +586,9 @@
 									}
 								}
 							}
+							&.sync {
+								margin-right: -1rem;
+							}
 						}
 						&.light {
 							background-color: $light;
