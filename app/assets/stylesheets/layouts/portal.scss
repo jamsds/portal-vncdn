@@ -506,6 +506,11 @@
 												margin-right: 1rem;
 											}
 										}
+										&-upgrade {
+											margin-top: 1rem;
+											padding-top: 1rem;
+											border-top: 1px solid $gray;
+										}
 									}
 								}
 							}
@@ -532,6 +537,11 @@
 											float: left;
 											margin-right: 1rem;
 										}
+									}
+									&-upgrade {
+										margin-top: 1rem;
+										padding-top: 1rem;
+										border-top: 1px solid $gray;
 									}
 								}
 							}

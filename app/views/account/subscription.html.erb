@@ -117,7 +117,7 @@
 <div class="portal__main-center primary croped">
 	<div class="dashboard">
 		<div class="dashboard__container<% if current_user.subscription.nil? %> light<% end %>">
-      <% if current_user.credit.credit_value == 0 %>
+      <% if current_user.credit.credit_value == 0 && current_user.credit.payment_type == 1 %>
         <div class="dashboard__container-message">
           <p class="mb-0">Your credit seem to be don't have balance. Change credit to cash or make payment to active subscription.</p>
         </div>
@@ -195,6 +195,12 @@
                   <span>Status</span>
                   <h5><%= subscriptionStatus(current_user.subscription.status) %></h5>
                 </div>
+              </div>
+              <div class="subscription-upgrade clearfix">
+                <a href="" class="btn btn-default primary outline btn-sm">
+                  <span class="upgrade_ic"></span>
+                  <span>Upgrade</span>
+                </a>
               </div>
             </div>
           </div>
