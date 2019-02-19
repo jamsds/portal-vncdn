@@ -75,10 +75,55 @@
 				dashboard.container.message
 			</div>
 			<% end %>
+			<div class="dashboard__container-card">
+				<div class="dashboard__container-card-item mb-3 iam">
+					<div class="dashboard__container-card-item-heading">
+            <h6>Support</h6>
+            <span>Documentation, hotline for emergency</span>
+          </div>
+				</div>
+			</div>
 			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card">
-					<div class="dashboard__container-card-item">
-						reseller.index
+				<div class="dashboard__container-card-col-4">
+					<div class="dashboard__container-card-item credit">
+						<div class="dashboard__container-card-item-heading">
+	            <h6>Credit Remaining</h6>
+	            <span>Credit can use for all customers</span>
+	          </div>
+						<div class="credit">
+	            <div class="credit-remaining">
+	              <span>Credit Remaining</span>
+	              <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
+	            </div>
+	          </div>
+					</div>
+				</div>
+				<div class="dashboard__container-card-col-4">
+					<div class="dashboard__container-card-item customer">
+						<div class="dashboard__container-card-item-heading">
+	            <h6>Customers</h6>
+	            <span>Customers dependened on your account</span>
+	          </div>
+	          <div class="customer">
+	          	<div class="customer-total">
+	          		<span>Total customers</span>
+	              <h4><%= User.where(parent_uuid: current_user.username).size %></h4>
+	          	</div>
+	          </div>
+					</div>
+				</div>
+				<div class="dashboard__container-card-col-4 disabled">
+					<div class="dashboard__container-card-item ticket">
+						<div class="dashboard__container-card-item-heading">
+	            <h6>Tickets</h6>
+	            <span>All tickets has been sent & waiting</span>
+	          </div>
+	          <div class="ticket">
+	          	<div class="ticket-total">
+	          		<span>Total tickets</span>
+	              <h4>0</h4>
+	          	</div>
+	          </div>
 					</div>
 				</div>
 			</div>
