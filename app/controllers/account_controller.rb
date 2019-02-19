@@ -48,7 +48,11 @@ class AccountController < ApplicationController
       @expiration_date = Date.today + (1.months + 14.days)
     end
 
-    current_user.create_subscription(name: subscription_params["name"], payment_type: subscription_params["payment_type"],bwd_limit: @package.bwd_limit, stg_limit: @package.stg_limit, expiration_date: @expiration_date)
+    if current_user.parent_uuid.present?
+      @reseller = subscription_params["reseller"]
+    end
+
+    current_user.create_subscription(name: subscription_params["name"], payment_type: subscription_params["payment_type"],bwd_limit: @package.bwd_limit, stg_limit: @package.stg_limit, reseller: @reseller, expiration_date: @expiration_date)
     redirect_back(fallback_location: root_path)
   end
 
@@ -62,6 +66,6 @@ class AccountController < ApplicationController
     end
 
     def subscription_params
-      params.require(:subscription).permit(:name, :payment_type)
+      params.require(:subscription).permit(:name, :payment_type, :reseller)
     end
 end

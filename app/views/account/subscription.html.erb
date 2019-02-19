@@ -131,6 +131,10 @@
                   <%= f.hidden_field :name, value: "#{current_user.name.downcase.tr(" ", "")}-#{current_user.uuid}" %>
                   <%= f.hidden_field :payment_type, value: current_user.credit.payment_type %>
 
+                  <% if current_user.parent_uuid.present? %>
+                  <%= f.hidden_field :reseller, value: current_user.parent_uuid %>
+                  <% end %>
+
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label text-right">Subscription Name</label>
                     <div class="col-sm-8 col-form-value">
