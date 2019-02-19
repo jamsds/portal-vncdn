@@ -263,7 +263,8 @@
 											.notification_ic,
 											.billing_ic,
 											.add_ic,
-											.package_ic {
+											.package_ic,
+											.subscription_ic {
 												path {
 													fill: $black-nd;
 												}
@@ -291,7 +292,8 @@
 											.notification_ic,
 											.billing_ic,
 											.add_ic,
-											.package_ic {
+											.package_ic,
+											.subscription_ic {
 												path {
 													fill: $primary;
 												}
@@ -601,10 +603,12 @@
 								&.customer,
 								&.ticket,
 								&.transaction,
-								&.package {
+								&.package,
+								&.subscription {
 									.credit-remaining,
 									.customer-total,
-									.ticket-total {
+									.ticket-total,
+									.subscription-total {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
@@ -652,7 +656,8 @@
 									.customer-detail,
 									.transaction-detail,
 									.ticket-detail,
-									.package-detail {
+									.package-detail,
+									.subscription-detail {
 										margin-top: 1rem;
 										padding-top: 1rem;
 										border-top: 1px solid $gray;

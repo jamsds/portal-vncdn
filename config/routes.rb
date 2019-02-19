@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get '/reseller/package/create', to: "reseller#packageCreate"
   post '/reseller/package/add', to: "reseller#packageAdd"
 
+  get '/reseller/subscription', to: "reseller#subscription"
+
   # Content Delivery Network(CDN)
   get '/cdn', to: "delivery#delivery"
   get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
