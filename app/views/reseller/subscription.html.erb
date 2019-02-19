@@ -44,15 +44,21 @@
 							<table class="table croped mb-0">
 								<thead>
 									<tr>
-										<th>Package Name</th>
-										<th>Bandwidth Limit</th>
-										<th>Storage Limit</th>
+										<th>Subscription Name</th>
+										<th>Customer</th>
 										<th>Pricing</th>
-										<th>Action</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
-									
+									<% @subscriptions.each do |subscription| %>
+									<tr>
+										<td><%= subscription.name %></td>
+										<td><%= User.find(subscription.user_id).uuid %></td>
+										<td><%= subscription.pricing %></td>
+										<td><%= subscriptionStatus(subscription.status) %></td>
+									</tr>
+									<% end %>
 								</tbody>
 							</table>
 						</div>

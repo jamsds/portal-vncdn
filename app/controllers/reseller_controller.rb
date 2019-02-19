@@ -99,6 +99,10 @@ class ResellerController < ApplicationController
     end
   end
 
+  def subscription
+    @subscriptions = Subscription.where(reseller: current_user.username)
+  end
+
   private
     def authenticate_reseller
       if current_user.accountType != 2
