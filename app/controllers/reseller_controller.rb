@@ -83,6 +83,20 @@ class ResellerController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def package
+    @packages = Package.where(reseller: current_user.username)
+  end
+
+  def packageAdd
+    @package = Package.new(package_params)
+ 
+    if @package.save
+      redirect_to reseller_package_path
+    else
+      render 'packageCreate'
+    end
+  end
+
   private
     def customer_detail_params
       params.require(:user).permit(:username, :name, :phone, :company)
@@ -90,5 +104,9 @@ class ResellerController < ApplicationController
 
     def customer_params
       params.require(:user).permit(:name, :username, :email, :parent_uuid, :password, :password_confirmation)
+    end
+
+    def package_params
+      params.require(:package).permit(:name, :bwd_limit, :stg_limit, :bwd_price, :stg_price, :bwd_price_over, :stg_price_over, :reseller, :pricing)
     end
 end

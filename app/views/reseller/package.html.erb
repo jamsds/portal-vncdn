@@ -52,7 +52,32 @@
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card">
 					<div class="dashboard__container-card-item">
-						reseller.package
+						<div class="customer">
+							<table class="table croped mb-0">
+								<thead>
+									<tr>
+										<th>Package Name</th>
+										<th>Bandwidth Limit</th>
+										<th>Storage Limit</th>
+										<th>Pricing</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @packages.all.each do |package| %>
+							      <tr>
+							        <td><%= package.name %></td>
+							        <td><%= package.bwd_limit %></td>
+							        <td><%= package.stg_limit %></td>
+							        <td><%= package.pricing %></td>
+							        <td>
+							          <%= link_to 'Delete', "#{reseller_package_url}/#{package.id}", data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-default primary outline btn-sm' %>
+							        </td>
+							      </tr>
+							      <% end %>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

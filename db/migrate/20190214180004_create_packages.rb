@@ -12,7 +12,7 @@ class CreatePackages < ActiveRecord::Migration[5.2]
         t.decimal :bwd_price_over,     precision: 15, default: 0
         t.decimal :stg_price_over,     precision: 15, default: 0
 
-        t.integer :reseller
+        t.string  :reseller
 
         # Pricing for Subscription Type 2
     	t.decimal :pricing,              precision: 15, default: 0

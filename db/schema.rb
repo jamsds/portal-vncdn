@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180004) do
     t.decimal "stg_price", precision: 15, default: "0"
     t.decimal "bwd_price_over", precision: 15, default: "0"
     t.decimal "stg_price_over", precision: 15, default: "0"
-    t.integer "reseller"
+    t.string "reseller"
     t.decimal "pricing", precision: 15, default: "0"
   end
 
