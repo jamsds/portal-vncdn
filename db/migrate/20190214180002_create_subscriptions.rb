@@ -7,11 +7,10 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
         t.string   :name
 
         # Subscription Type
-        # 1. Pay as you go
+        # 1. Trial
         # 2. Monthly
-        # 3. Trial
-        # 4. Scalable
-        t.integer  :subscription_type,        default: 1
+        t.integer  :subscription_type,             default: 1
+        t.integer  :payment_type,                  default: 1
 
         # Normal Subscription
         t.decimal  :bwd_limit,      precision: 15, default: 0

@@ -114,7 +114,7 @@
                 </div>
                 <div class="progress-number mt-1 clearfix">
                   <small class="float-left">You've reached 78% of your payment threshold</small>
-                  <small class="float-right">Payment threshold: <%= ApplicationController::FormatNumber.new(1000000.00).formatCurrency() %></small>
+                  <small class="float-right">Payment threshold: <%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></small>
                 </div>
               </div>
               <div class="credit-payment-threshold-make">

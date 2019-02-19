@@ -1,6 +1,8 @@
 class DeliveryController < ApplicationController
 	require 'will_paginate/array'
 
+	before_action :verify_subscription
+
 	# Set Request Method
 	before_action :post_method, only: [:deliveryAdd, :deliveryReport, :deliveryLog]
 	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit]
@@ -252,4 +254,11 @@ class DeliveryController < ApplicationController
 			redirect_to cdn_path
 		end
   end
+
+  private
+  	def verify_subscription
+  		if current_user.subscription.nil? || current_user.subscription.status == 1
+  			redirect_to account_subscription_path
+  		end
+  	end
 end

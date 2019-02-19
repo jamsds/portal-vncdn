@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2019_02_14_180004) do
 
   create_table "credits", force: :cascade do |t|
     t.bigint "user_id"
+    t.string "name"
+    t.integer "payment_type", default: 1
     t.decimal "credit_value", precision: 15, scale: 2, default: "0.0"
     t.boolean "active", default: true
     t.index ["user_id"], name: "index_credits_on_user_id", unique: true
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180004) do
     t.bigint "user_id"
     t.string "name"
     t.integer "subscription_type", default: 1
+    t.integer "payment_type", default: 1
     t.decimal "bwd_limit", precision: 15, default: "0"
     t.decimal "stg_limit", precision: 15, default: "0"
     t.decimal "bwd_price", precision: 15, default: "0"

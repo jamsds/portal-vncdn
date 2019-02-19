@@ -27,4 +27,13 @@ module ApplicationHelper
         'Monthly'
     end
   end
+
+  def paymentType(id)
+    case id
+      when 1
+        'Pay As You Go'
+      when 2
+        'Monthly'
+    end
+  end
 end

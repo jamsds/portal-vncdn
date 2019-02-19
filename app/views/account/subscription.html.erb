@@ -1,0 +1,110 @@
+<div class="portal__main-heading">
+  <a href="<%= url_for(:back) %>" class="btn btn-default btn-sm ml-2">
+    <span class="back_ic">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12">
+        <path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#333333"/>
+      </svg>
+    </span>
+    <span>
+      Back
+    </span> 
+  </a>
+</div>
+<div class="portal__main-left expanded">
+	<div class="panel">
+		<div class="panel__list main">
+      <div class="panel__list create-notice">
+        <span class="notice">You don't have any subscription. To use this service, create a subscription</span>
+      </div>
+      <div class="main__options-list">
+        <div class="main__options-list-item clearfix active" onclick="window.location = '<%= account_subscription_url %>'">
+          <div class="main__options-list-item-ic">
+            <div class="add_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17.9" height="18" viewBox="0 0 17.9 18"><path d="M55.9,141.2a2.051,2.051,0,0,1,2,2v14a2.051,2.051,0,0,1-2,2H42a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-14a2.051,2.051,0,0,1,2-2Zm-1.9,10v-2H50v-4H48v4H44v2h4v4h2v-4Z" transform="translate(-40 -141.2)"/></svg>
+            </div>
+          </div>
+          <div class="main__options-list-item-info">
+            <h6>Create Subscription</h6>
+            <small>New subscription for your account</small> 
+          </div>
+          <div class="main__options-list-item-arrow">
+            <div class="arrow_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+	</div>
+</div>
+<div class="portal__main-center primary croped">
+	<div class="dashboard">
+		<div class="dashboard__container light">
+      <% if current_user.credit.credit_value == 0 %>
+        <div class="dashboard__container-message">
+          <p class="mb-0">Your credit seem to be don't have balance. Change credit to cash or make payment to active subscription.</p>
+        </div>
+      <% end %>
+      <% if current_user.subscription.nil? %>
+  			<div class="dashboard__container-border clearfix">
+  				<div class="dashboard__container-border-item subscription">
+            <div class="subscription">
+              <div class="subscription-create">
+                <%= form_for [Subscription.new], url: {action: :subscriptionAdd, controller: :account}, method: :post, html: { id: 'form', multipart: true } do |f|%>
+                  <%= f.hidden_field :name, value: "#{current_user.name.downcase.tr(" ", "")}-#{current_user.uuid}" %>
+                  <%= f.hidden_field :payment_type, value: current_user.credit.payment_type %>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Subscription Name</label>
+                    <div class="col-sm-8 col-form-value">
+                      <p><%= current_user.name.downcase.tr(" ", "") %>-<%= current_user.uuid %></p>
+                      <small>Subscription name <b>auto generation</b> base on your account name.</small>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Credit Payment</label>
+                    <div class="col-sm-8 col-form-value">
+                      <p><%= paymentType(current_user.credit.payment_type) %></p>
+                      <small>Credit payment base on your credit payment type. <a href="<%= account_billing_url %>">My Credit</a></small>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-right">Type</label>
+                    <div class="col-sm-8 col-form-value">
+                      <p>Trial</p>
+                      <% if current_user.credit.payment_type == 1 %>
+                      <small>Trial Subscription will expire within <b>14 days</b>.</small>
+                      <% else %>
+                      <small>Invoice auto generated after Trial Subscription end.<br/>Next payment duedate <b><%= @expired %></b></small>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+                        Create
+                      <% end %>
+                      <a href="<%= root_url %>" class="btn btn-light">Back</a>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+				</div>
+      <% elsif current_user.subscription.subscription_type == 1 %>
+        <div class="dashboard__container-border clearfix">
+          <div class="dashboard__container-border-item">
+            subscription.package
+          </div>
+        </div>
+      <% else %>
+      <% end %>
+		</div>
+	</div>
+</div>
