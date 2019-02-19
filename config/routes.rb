@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/account/password', to: "account#password"
   get '/account/notification', to: "account#notification"
 
+  get '/account/transaction', to: "account#transaction"
+
   get '/account/subscription', to: "account#subscription"
   post '/account/subscription/add', to: "account#subscriptionAdd"
 
