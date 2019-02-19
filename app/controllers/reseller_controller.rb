@@ -1,6 +1,8 @@
 class ResellerController < ApplicationController
   before_action :authenticate_user!
 
+  before_action :authenticate_reseller
+
   # Set Request Method
   before_action :post_method, only: [:customerAdd]
   before_action :delete_method, only: [:customerDelete]
@@ -98,6 +100,12 @@ class ResellerController < ApplicationController
   end
 
   private
+    def authenticate_reseller
+      if current_user.accountType != 2
+        redirect_to root_url
+      end
+    end
+
     def customer_detail_params
       params.require(:user).permit(:username, :name, :phone, :company)
     end
