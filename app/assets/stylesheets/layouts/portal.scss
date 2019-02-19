@@ -526,8 +526,8 @@
 										a {
 											font-size: 0.875rem;
 											font-weight: 600;
-											fill: $black-5nd;
-											color: $black-5nd;
+											color: $black-nd;
+											fill: $black-nd;
 											display: -webkit-flex;
 											float: left;
 											.billing_ic,
@@ -540,8 +540,6 @@
 												}
 											}
 											&:hover {
-												color: $black-nd;
-												fill: $black-nd;
 												text-decoration: none;
 											}
 											span:nth-child(2) {
