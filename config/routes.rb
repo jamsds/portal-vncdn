@@ -10,27 +10,24 @@ Rails.application.routes.draw do
   get '/account/notification', to: "account#notification"
 
   patch '/account/detail/update', to: "account#detailUpdate"
-  post '/account/password/update', to: "account#passwordUpdate"
+  post  '/account/password/update', to: "account#passwordUpdate"
   patch '/account/notification/update', to: "account#notificationsUpdate"
 
   # Reseller Management
   get '/reseller', to: "reseller#index"
   get '/reseller/customer', to: "reseller#customer"
-
   get '/reseller/customer/create', to: "reseller#customerCreate"
   post '/reseller/customer/add', to: "reseller#customerAdd"
-
   get '/reseller/customer/:username', to: "reseller#customerDetail"
-
   get '/reseller/customer/:username/billing', to: "reseller#customerBilling"
   get '/reseller/customer/:username/transaction', to: "reseller#customerTransactions"
-
   get '/reseller/customer/:username/edit', to: "reseller#customerEdit"
   patch '/reseller/customer/update', to: "reseller#customerUpdate"
-
   delete '/reseller/customer/:username', to: "reseller#customerDelete"
 
-  get '/reseller/subscription', to: "reseller#subscription"
+  get '/reseller/package', to: "reseller#package"
+  get '/reseller/package/create', to: "reseller#packageCreate"
+  post '/reseller/package/add', to: "reseller#packageAdd"
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "default#delivery"

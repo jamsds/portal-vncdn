@@ -17,19 +17,17 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
         t.decimal  :bwd_limit,      precision: 15, default: 0
         t.decimal  :stg_limit,      precision: 15, default: 0
 
-        t.decimal  :bwd_add,        precision: 15, default: 0
-        t.decimal  :stg_add,        precision: 15, default: 0
-
         t.decimal  :bwd_price,      precision: 15, default: 0
         t.decimal  :stg_price,      precision: 15, default: 0
 
         t.decimal  :bwd_price_over, precision: 15, default: 0
         t.decimal  :stg_price_over, precision: 15, default: 0
 
+        t.decimal  :bwd_add,        precision: 15, default: 0
+        t.decimal  :stg_add,        precision: 15, default: 0
+
         # Pricing for Subscription Type 2
         t.decimal  :pricing,        precision: 15, default: 0
-
-        t.integer  :reseller
 
         # Manage Subscription
         t.integer  :status,    default: 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180003) do
+ActiveRecord::Schema.define(version: 2019_02_14_180004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,20 +32,31 @@ ActiveRecord::Schema.define(version: 2019_02_14_180003) do
     t.index ["user_id"], name: "index_notifications_on_user_id", unique: true
   end
 
+  create_table "packages", force: :cascade do |t|
+    t.string "name"
+    t.decimal "bwd_limit", precision: 15, default: "0"
+    t.decimal "stg_limit", precision: 15, default: "0"
+    t.decimal "bwd_price", precision: 15, default: "0"
+    t.decimal "stg_price", precision: 15, default: "0"
+    t.decimal "bwd_price_over", precision: 15, default: "0"
+    t.decimal "stg_price_over", precision: 15, default: "0"
+    t.integer "reseller"
+    t.decimal "pricing", precision: 15, default: "0"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
     t.integer "subscription_type", default: 1
     t.decimal "bwd_limit", precision: 15, default: "0"
     t.decimal "stg_limit", precision: 15, default: "0"
-    t.decimal "bwd_add", precision: 15, default: "0"
-    t.decimal "stg_add", precision: 15, default: "0"
     t.decimal "bwd_price", precision: 15, default: "0"
     t.decimal "stg_price", precision: 15, default: "0"
     t.decimal "bwd_price_over", precision: 15, default: "0"
     t.decimal "stg_price_over", precision: 15, default: "0"
+    t.decimal "bwd_add", precision: 15, default: "0"
+    t.decimal "stg_add", precision: 15, default: "0"
     t.decimal "pricing", precision: 15, default: "0"
-    t.integer "reseller"
     t.integer "status", default: 1
     t.datetime "expiration_date"
     t.index ["user_id"], name: "index_subscriptions_on_user_id", unique: true
