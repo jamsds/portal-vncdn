@@ -30,21 +30,21 @@ Rails.application.routes.draw do
   post '/reseller/package/add', to: "reseller#packageAdd"
 
   # Content Delivery Network(CDN)
-  get '/cdn', to: "default#delivery"
-  get '/cdn/:propertyId/:type', to: "default#deliveryDetail"
-  get '/cdn/:propertyId/:type/reports', to: "default#deliveryReport"
-  get '/cdn/:propertyId/:type/logs', to: "default#deliveryLog"
+  get '/cdn', to: "delivery#delivery"
+  get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
+  get '/cdn/:propertyId/:type/reports', to: "delivery#deliveryReport"
+  get '/cdn/:propertyId/:type/logs', to: "delivery#deliveryLog"
 
-  get '/cdn/create', to: "default#deliveryCreate"
-  post '/cdn/add', to: "default#deliveryAdd"
+  get '/cdn/create', to: "delivery#deliveryCreate"
+  post '/cdn/add', to: "delivery#deliveryAdd"
 
-  get '/cdn/:propertyId/:type/edit', to: "default#deliveryEdit"
+  get '/cdn/:propertyId/:type/edit', to: "delivery#deliveryEdit"
 
-  put '/cdn/update', to: "default#deliveryUpdate"
+  put '/cdn/update', to: "delivery#deliveryUpdate"
 
-  post '/cdn/:propertyId/:type/stop', to: "default#deliveryStop"
-  post '/cdn/:propertyId/:type/start', to: "default#deliveryStart"
-  post '/cdn/:propertyId/:type/delete', to: "default#deliveryDelete"
+  post '/cdn/:propertyId/:type/stop', to: "delivery#deliveryStop"
+  post '/cdn/:propertyId/:type/start', to: "delivery#deliveryStart"
+  post '/cdn/:propertyId/:type/delete', to: "delivery#deliveryDelete"
 
   # API
   namespace :api do
