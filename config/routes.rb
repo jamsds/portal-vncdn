@@ -20,12 +20,14 @@ Rails.application.routes.draw do
   get '/reseller/customer/create', to: "reseller#customerCreate"
   post '/reseller/customer/add', to: "reseller#customerAdd"
 
-  delete '/reseller/customer/:username', to: "reseller#customerDelete"
-
   get '/reseller/customer/:username', to: "reseller#customerDetail"
-  get '/reseller/customer/:username/edit', to: "reseller#customerEdit"
 
+  get '/reseller/customer/:username/billing', to: "reseller#customerBilling"
+
+  get '/reseller/customer/:username/edit', to: "reseller#customerEdit"
   patch '/reseller/customer/update', to: "reseller#customerUpdate"
+
+  delete '/reseller/customer/:username', to: "reseller#customerDelete"
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "default#delivery"

@@ -24,6 +24,10 @@ class ResellerController < ApplicationController
     @customer = User.find_by(username: params[:username])
   end
 
+  def customerBilling
+    @customer = User.find_by(username: params[:username])
+  end
+
   def customerAdd
   	@customer = User.new(customer_params)
 		@uuid = customer_params["username"]
