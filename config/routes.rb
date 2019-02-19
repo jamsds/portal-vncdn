@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   delete '/reseller/customer/:username', to: "reseller#customerDelete"
 
   get '/reseller/customer/:username', to: "reseller#customerDetail"
+  get '/reseller/customer/:username/edit', to: "reseller#customerEdit"
+
+  patch '/reseller/customer/update', to: "reseller#customerUpdate"
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "default#delivery"

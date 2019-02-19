@@ -20,6 +20,10 @@ class ResellerController < ApplicationController
   	@customer = User.find_by(username: params[:username])
   end
 
+  def customerEdit
+    @customer = User.find_by(username: params[:username])
+  end
+
   def customerAdd
   	@customer = User.new(customer_params)
 		@uuid = customer_params["username"]
@@ -45,6 +49,13 @@ class ResellerController < ApplicationController
 		end
   end
 
+  def customerUpdate
+    @customer = User.find_by(username: customer_detail_params["username"])
+
+    @customer.update(name: customer_detail_params["name"], phone: customer_detail_params["phone"], company: customer_detail_params["company"])
+    redirect_back(fallback_location: root_path)
+  end
+
   def customerDelete
     @customer = User.find_by(username: params[:username])
 
@@ -57,6 +68,10 @@ class ResellerController < ApplicationController
   end
 
   private
+    def customer_detail_params
+      params.require(:user).permit(:username, :name, :phone, :company)
+    end
+
     def customer_params
       params.require(:user).permit(:name, :username, :email, :parent_uuid, :password, :password_confirmation)
     end
