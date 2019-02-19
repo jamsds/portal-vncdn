@@ -28,6 +28,18 @@ class ResellerController < ApplicationController
     @customer = User.find_by(username: params[:username])
   end
 
+  def customerTransactions
+    @customer = User.find_by(username: params[:username])
+
+    @previousMonthWithYear = (Date.today - 1.month).strftime("%B %Y")
+    @previousMonth = (Date.today - 1.month).strftime("%Y-%m")
+
+    @thisMonth = Date.today.strftime("%Y-%m")
+
+    @startDateOfThisMonth = Date.current.beginning_of_month.strftime("%B %d")
+    @dateTodayOfThisMonth = Date.current.strftime("%d, %Y")
+  end
+
   def customerAdd
   	@customer = User.new(customer_params)
 		@uuid = customer_params["username"]

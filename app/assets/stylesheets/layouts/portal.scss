@@ -471,7 +471,8 @@
 								}
 								&.credit,
 								&.customer,
-								&.ticket {
+								&.ticket,
+								&.transaction {
 									.credit-remaining,
 									.customer-total,
 									.ticket-total {
@@ -519,7 +520,8 @@
 										}
 									}
 									.credit-detail,
-									.customer-detail {
+									.customer-detail,
+									.transaction-detail {
 										margin-top: 1rem;
 										padding-top: 1rem;
 										border-top: 1px solid $gray;
@@ -531,7 +533,8 @@
 											display: -webkit-flex;
 											float: left;
 											.billing_ic,
-											.customer_ic {
+											.customer_ic,
+											.transaction_ic {
 												margin-right: 0.5rem;
 												path {
 													fill: inherit;

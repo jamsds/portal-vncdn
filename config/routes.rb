@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/reseller/customer/:username', to: "reseller#customerDetail"
 
   get '/reseller/customer/:username/billing', to: "reseller#customerBilling"
+  get '/reseller/customer/:username/transaction', to: "reseller#customerTransactions"
 
   get '/reseller/customer/:username/edit', to: "reseller#customerEdit"
   patch '/reseller/customer/update', to: "reseller#customerUpdate"
