@@ -22,6 +22,7 @@
 					</div>
 					<div class="main__options-list-item-arrow"></div>
 				</div>
+				<% if current_user.accountType == 2 %>
 				<div class="main__options-list-item clearfix" onclick="window.location = '<%= reseller_url %>'">
 					<div class="main__options-list-item-ic">
 						<div class="reseller_ic">
@@ -34,6 +35,7 @@
 					</div>
 					<div class="main__options-list-item-arrow"></div>
 				</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
@@ -53,6 +55,7 @@
 			</div>
 		</div>
 		<div class="dashboard__container">
+			<% if current_user.accountType == 2 %>
 			<div class="dashboard__container-card">
 				<div class="dashboard__container-card-item mb-3 usage">
 					<div class="dashboard__container-card-item-heading">
@@ -64,6 +67,7 @@
           </div>
 				</div>
 			</div>
+			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-col-4">
 					<div class="dashboard__container-card-item info">

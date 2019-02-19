@@ -33,6 +33,7 @@
 						<% end %>
 					</div>
 				</div>
+				<% if current_user.accountType == 2 %>
 				<div class="main__options-list-item clearfix<% if current_page?(reseller_url) %> active<% end %>" onclick="window.location = '<%= reseller_url %>'">
 					<div class="main__options-list-item-ic">
 						<div class="reseller_ic">
@@ -51,6 +52,7 @@
 						<% end %>
 					</div>
 				</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
