@@ -29,6 +29,9 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
         # Pricing for Subscription Type 2
         t.decimal  :pricing,        precision: 15, default: 0
 
+        # Define Reseller Owner Package
+        t.string  :reseller
+
         # Manage Subscription
         t.integer  :status,    default: 1
         t.datetime :expiration_date

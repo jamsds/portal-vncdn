@@ -35,6 +35,9 @@ class AccountController < ApplicationController
     end
   end
 
+  def subscriptionCreate
+  end
+
   private
   	def detail_params
   		params.require(:user).permit(:name, :phone, :company)

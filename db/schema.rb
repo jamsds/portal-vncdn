@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180004) do
     t.decimal "bwd_add", precision: 15, default: "0"
     t.decimal "stg_add", precision: 15, default: "0"
     t.decimal "pricing", precision: 15, default: "0"
+    t.string "reseller"
     t.integer "status", default: 1
     t.datetime "expiration_date"
     t.index ["user_id"], name: "index_subscriptions_on_user_id", unique: true
