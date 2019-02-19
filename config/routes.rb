@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   delete '/reseller/customer/:username', to: "reseller#customerDelete"
 
+  get '/reseller/subscription', to: "reseller#subscription"
+
   # Content Delivery Network(CDN)
   get '/cdn', to: "default#delivery"
   get '/cdn/:propertyId/:type', to: "default#deliveryDetail"

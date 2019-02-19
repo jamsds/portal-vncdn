@@ -255,7 +255,14 @@
 										&-ic {
 											float: left;
 											margin-right: 1rem;
-											.was_ic, .reseller_ic, .account_ic, .personal_ic, .password_ic, .notification_ic, .billing_ic {
+											.was_ic,
+											.reseller_ic,
+											.account_ic,
+											.personal_ic,
+											.password_ic,
+											.notification_ic,
+											.billing_ic,
+											.subscription_ic {
 												path {
 													fill: $black-nd;
 												}
@@ -275,7 +282,14 @@
 											h6 {
 												color: $primary;
 											}
-											.was_ic, .reseller_ic, .account_ic, .personal_ic, .password_ic, .notification_ic, .billing_ic {
+											.was_ic,
+											.reseller_ic,
+											.account_ic,
+											.personal_ic,
+											.password_ic,
+											.notification_ic,
+											.billing_ic,
+											.subscription_ic {
 												path {
 													fill: $primary;
 												}
@@ -312,14 +326,22 @@
 								.btn {
 									display: -webkit-flex;
 									@include transition(background-color .5s ease);
-									.add_ic, .reload_ic, .pause_ic, .trash_ic, .running_ic {
+									.add_ic,
+									.reload_ic,
+									.pause_ic,
+									.trash_ic,
+									.running_ic {
 										margin-right: 0.5rem;
 										path {
 											fill: $primary;
 										}
 									}
 									&.disabled {
-										.add_ic, .reload_ic, .pause_ic, .trash_ic, .running_ic {
+										.add_ic,
+										.reload_ic,
+										.pause_ic,
+										.trash_ic,
+										.running_ic {
 											path {
 												fill: $gray-nd;
 											}
