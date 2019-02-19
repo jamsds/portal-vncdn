@@ -484,6 +484,24 @@
 										}
 									}
 								}
+								&.subscription {
+									.subscription {
+										&-info {
+											margin-top: 1rem;
+											span {
+												font-size: 0.875rem;
+											}
+											h5 {
+												margin-bottom: 0;
+											}
+											&-type, &-status, &-expire {
+												width: calc((100% * 1/3) - 1rem);
+												float: left;
+												margin-right: 1rem;
+											}
+										}
+									}
+								}
 							}
 						}
 						&-card {

@@ -13,6 +13,7 @@
 <div class="portal__main-left expanded">
 	<div class="panel">
 		<div class="panel__list main">
+      <% if current_user.subscription.nil? %>
       <div class="panel__list create-notice">
         <span class="notice">You don't have any subscription. To use this service, create a subscription</span>
       </div>
@@ -34,6 +35,26 @@
           </div>
         </div>
       </div>
+      <% else %>
+      <div class="main__options-list">
+        <div class="main__options-list-item clearfix active" onclick="window.location = '<%= account_subscription_url %>'">
+          <div class="main__options-list-item-ic">
+            <div class="add_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17.9" height="18" viewBox="0 0 17.9 18"><path d="M55.9,141.2a2.051,2.051,0,0,1,2,2v14a2.051,2.051,0,0,1-2,2H42a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-14a2.051,2.051,0,0,1,2-2Zm-1.9,10v-2H50v-4H48v4H44v2h4v4h2v-4Z" transform="translate(-40 -141.2)"/></svg>
+            </div>
+          </div>
+          <div class="main__options-list-item-info">
+            <h6>Subscription Management</h6>
+            <small>Manage your subscription</small> 
+          </div>
+          <div class="main__options-list-item-arrow">
+            <div class="arrow_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
 		</div>
 	</div>
 </div>
@@ -97,13 +118,46 @@
             </div>
           </div>
 				</div>
-      <% elsif current_user.subscription.subscription_type == 1 %>
+      <% else %>
         <div class="dashboard__container-border clearfix">
-          <div class="dashboard__container-border-item">
-            subscription.package
+          <div class="dashboard__container-border-item mb-3 subscription">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Subscription Overview</h6>
+              <span>Current subscription you're using</span>
+            </div>
+            <div class="subscription">
+              <div class="subscription-info clearfix">
+                <div class="subscription-info-type">
+                  <span>Subscription Type</span>
+                  <h5><%= subscriptionType(current_user.subscription.subscription_type) %></h5>
+                </div>
+                <div class="subscription-info-expire">
+                  <span>Expiration Date</span>
+                  <h5><%= current_user.subscription.expiration_date.strftime("%d/%m/%Y") %></h5>
+                </div>
+                <div class="subscription-info-status">
+                  <span>Status</span>
+                  <h5><%= subscriptionStatus(current_user.subscription.status) %></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard__container-border-item subscription">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Subscription Summary</h6>
+              <span>Usage bandwidth & Storage</span>
+            </div>
+            <div class="subscription">
+              <div class="subscription-info clearfix">
+                <div class="subscription-info-usage">
+                  <span>Usage</span>
+                  <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %> Bandwidth</h5>
+                  <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %> Storage</h5>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      <% else %>
       <% end %>
 		</div>
 	</div>

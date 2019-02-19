@@ -36,4 +36,13 @@ module ApplicationHelper
         'Monthly'
     end
   end
+
+  def subscriptionStatus(id)
+    case id
+      when 1
+        'Active'
+      when 2
+        'Suspended'
+    end
+  end
 end

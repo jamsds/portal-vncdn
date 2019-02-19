@@ -49,6 +49,7 @@ class AccountController < ApplicationController
     end
 
     current_user.create_subscription(name: subscription_params["name"], payment_type: subscription_params["payment_type"],bwd_limit: @package.bwd_limit, stg_limit: @package.stg_limit, expiration_date: @expiration_date)
+    redirect_back(fallback_location: root_path)
   end
 
   private
