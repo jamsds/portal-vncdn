@@ -179,8 +179,8 @@
           </div>
 				</div>
       <% else %>
-        <div class="dashboard__container-border clearfix">
-          <div class="dashboard__container-border-item mb-3 subscription">
+        <div class="dashboard__container-border mb-3 clearfix">
+          <div class="dashboard__container-border-item subscription">
             <div class="dashboard__container-border-item-heading">
               <h6>Subscription Overview</h6>
               <span>Current subscription you're using</span>
@@ -209,22 +209,30 @@
             </div>
           </div>
         </div>
-        <div class="dashboard__container-border clearfix sync">
+        <div class="dashboard__container-border mb-3 clearfix sync">
           <div class="dashboard__container-border-col-5">
-            <div class="dashboard__container-border-item ">
+            <div class="dashboard__container-border-item subscription">
               <div class="dashboard__container-border-item-heading">
                 <h6>Bandwidth</h6>
                 <span>Usage bandwidth summary</span>
               </div>
               <div class="subscription">
                 <div class="subscription-info clearfix">
-                  <div class="subscription-info-usage">
-                    <% if current_user.bandwidths.present? %>
-                    <h5><%= ApplicationController::FormatNumber.new(current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00).formatHumanSize() %></h5>
-                    <% else %>
-                    <h5><%= ApplicationController::FormatNumber.new(0).formatHumanSize() %></h5>
-                    <% end %>
-                    <span>of bandwidth used</span>
+                  <% if current_user.bandwidths.present? %>
+                  <h5><%= ApplicationController::FormatNumber.new(@bwdUsage).formatHumanSize() %></h5>
+                  <% else %>
+                  <h5><%= ApplicationController::FormatNumber.new(0).formatHumanSize() %></h5>
+                  <% end %>
+                  <span>of bandwidth used</span>
+                  <div class="progress mt-3">
+                    <div class="progress-bar active" id="threshold-reached" data-width="<%= @bwdPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @bwdPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
+                    <script type="text/javascript">
+                      $("#threshold-reached").css("width","<%= @bwdPercent.round(3) %>%")
+                    </script>
+                  </div>
+                  <div class="progress-number mt-1 clearfix">
+                    <small class="float-left">You've reached <%= @bwdPercent.round(3) %>% of bandwidth limit</small>
+                    <small class="float-right">Banwidth Limit: <%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %></small>
                   </div>
                 </div>
               </div>
@@ -238,11 +246,25 @@
               </div>
               <div class="subscription">
                 <div class="subscription-info clearfix">
-                  <div class="subscription-info-usage">
-                    <h5><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %></h5>
+                  <div class="subscription-info">
+                    <h5><%= ApplicationController::FormatNumber.new(@stgLimit).formatHumanSize() %></h5>
                     <span>of storage used</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard__container-border clearfix">
+          <div class="dashboard__container-border-item subscription">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Current Plan</h6>
+              <span>Plan using for this subscription</span>
+            </div>
+            <div class="subscription">
+              <div class="subscription-info clearfix">
+                <span>Plan</span>
+                <h5><%= Package.find(current_user.subscription.package).name %></h5>
               </div>
             </div>
           </div>
