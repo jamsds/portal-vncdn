@@ -3,3 +3,8 @@
   usage_bandwidth:
     cron: '0,20,40 * * * *'
     class: UsageBandwidth
+
+development:
+  :logfile: ./log/sidekiq_development.log
+  :verbose: true
+  :concurrency: 1
