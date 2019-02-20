@@ -39,6 +39,11 @@ class AccountController < ApplicationController
     @threshold = (totalPrice/totalCredit) * 100
   end
 
+  def transaction
+    @startDateOfThisMonth = Date.current.beginning_of_month.strftime("%B %d")
+    @dateTodayOfThisMonth = Date.current.strftime("%d, %Y")
+  end
+
   def passwordUpdate
     if params[:password] != params[:password_confirmation]
       flash[:confirm_notice] = "Error! Confirm password not match, please check again."
