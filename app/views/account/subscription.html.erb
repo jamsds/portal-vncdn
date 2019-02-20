@@ -218,16 +218,12 @@
               </div>
               <div class="subscription">
                 <div class="subscription-info clearfix">
-                  <% if current_user.bandwidths.present? %>
                   <h5><%= ApplicationController::FormatNumber.new(@bwdUsage).formatHumanSize() %></h5>
-                  <% else %>
-                  <h5><%= ApplicationController::FormatNumber.new(0).formatHumanSize() %></h5>
-                  <% end %>
                   <span>of bandwidth used</span>
                   <div class="progress mt-3">
                     <div class="progress-bar active" id="bandwidth-reached" data-width="<%= @bwdPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @bwdPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
                     <script type="text/javascript">
-                      $("#threshold-reached").css("width","<%= @bwdPercent.round(3) %>%")
+                      $("#bandwidth-reached").css("width","<%= @bwdPercent.round(3) %>%")
                     </script>
                   </div>
                   <div class="progress-number mt-1 clearfix">
@@ -251,7 +247,7 @@
                   <div class="progress mt-3">
                     <div class="progress-bar active" id="storage-reached" data-width="<%= @stgPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @stgPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
                     <script type="text/javascript">
-                      $("#threshold-reached").css("width","<%= @stgPercent.round(3) %>%")
+                      $("#storage-reached").css("width","<%= @stgPercent.round(3) %>%")
                     </script>
                   </div>
                   <div class="progress-number mt-1 clearfix">
