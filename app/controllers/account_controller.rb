@@ -22,6 +22,7 @@ class AccountController < ApplicationController
     if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
       bwdUsage = 0
     else
+      # usage value need to convert to GB, because pricing is price per GB
       bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
     end
 
