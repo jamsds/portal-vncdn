@@ -232,7 +232,7 @@
                   </div>
                   <div class="progress-number mt-1 clearfix">
                     <small class="float-left">You've reached <%= @bwdPercent.round(3) %>% of bandwidth limit</small>
-                    <small class="float-right">Banwidth Limit: <%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %></small>
+                    <small class="float-right"><%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %></small>
                   </div>
                 </div>
               </div>
