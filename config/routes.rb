@@ -58,14 +58,17 @@ Rails.application.routes.draw do
     scope 'v1.1', as: :v1 do
       get '/', to: "v1#index"
 
-      # Customer
-      post '/createCustomer', to: "v1#createCustomer"
-
       # Web Acceleration Service
       get '/listDelivery', to: "v1#listDelivery"
 
       # File Download Acceleration
       get '/listDownload', to: "v1#listDownload"
+
+      # Runtime Background
+      get '/customerDelivery', to: "v1#customerDelivery"
+      get '/customerDownload', to: "v1#customerDownload"
+
+      post '/customerVolume', to: "v1#customerVolume"
     end
   end
 

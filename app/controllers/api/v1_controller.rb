@@ -1,14 +1,13 @@
 class Api::V1Controller < ApiController
-	before_action :get_method, only: [:listDelivery]
+	# Set Request Method
+	before_action :get_method, only: [:listDelivery, :customerDelivery, :customerDownload]
+	before_action :post_method, only: [:customerVolume]
+
+	# Set End Point Request
+	before_action :cdn_endpoint, only: [:customerDelivery, :customerDownload, :customerVolume]
 
 	def index
 		render json: "{\"code\":\"URI.Invalid\",\"message\":\"URI is empty or invalid.\"}"
-	end
-
-	def createCustomer
-		@requestURI = "/v1.1/createCustomer/"
-		@requestBody = "{\"name\":\"#{@name}\",\"parentId\":#{$ROOT_ID},\"type\":2,\"partnership\":1}"
-		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 	end
 
 	## Web Acceleration
@@ -20,6 +19,23 @@ class Api::V1Controller < ApiController
 	## File Download
 	def listDownload
 		@requestURI = "/v1.0/customers/#{$UUID}/filedownloads"
+		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+	end
+
+	# Runtime Background
+	def customerDelivery
+		@requestURI = "/v1.0/customers/#{params[:id]}/domains"
+		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+	end
+
+	def customerDownload
+		@requestURI = "/v1.0/customers/#{params[:id]}/filedownloads"
+		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+	end
+
+	def customerVolume
+		@requestURI = "/v1.1/report/volume"
+		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{params[:startTime]}\",\"endTime\":\"#{params[:endTime]}\",\"fillFixedTime\":\"false\",\"interval\":\"minute\"}"
 		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 	end
 end
