@@ -36,6 +36,7 @@ class AccountController < ApplicationController
   end
 
   def subscription
+    @thisMonth = Date.today.strftime("%Y-%m")
     @expired = (Date.today + (1.month + 14.days)).strftime("%d/%m/%Y")
   end
 
