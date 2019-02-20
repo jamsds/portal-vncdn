@@ -3,6 +3,9 @@
   usage_bandwidth:
     cron: '0,20,40 * * * *'
     class: UsageBandwidth
+  usage_storage:
+    cron: '0 */4 * * *'
+    class: UsageStorage
 
 development:
   :logfile: ./log/sidekiq_development.log

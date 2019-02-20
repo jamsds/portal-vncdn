@@ -1,10 +1,10 @@
 class Api::V1Controller < ApiController
 	# Set Request Method
-	before_action :get_method, only: [:listDelivery, :customerDelivery, :customerDownload]
+	before_action :get_method, only: [:listDelivery, :customerDelivery, :customerStorage, :customerDownload]
 	before_action :post_method, only: [:customerVolume]
 
 	# Set End Point Request
-	before_action :cdn_endpoint, only: [:customerDelivery, :customerDownload, :customerVolume]
+	before_action :cdn_endpoint, only: [:customerDelivery, :customerDownload, :customerVolume, :customerStorage]
 
 	def index
 		render json: "{\"code\":\"URI.Invalid\",\"message\":\"URI is empty or invalid.\"}"
@@ -36,6 +36,11 @@ class Api::V1Controller < ApiController
 	def customerVolume
 		@requestURI = "/v1.1/report/volume"
 		@requestBody = "{\"domains\":[\"#{params[:domain]}\"],\"startTime\":\"#{params[:startTime]}\",\"endTime\":\"#{params[:endTime]}\",\"fillFixedTime\":\"false\",\"interval\":\"minute\"}"
+		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+	end
+
+	def customerStorage
+		@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 	end
 end

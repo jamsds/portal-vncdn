@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       get '/customerDownload', to: "v1#customerDownload"
 
       post '/customerVolume', to: "v1#customerVolume"
+      post '/customerStorage', to: "v1#customerStorage"
     end
   end
 
