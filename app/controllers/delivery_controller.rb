@@ -79,6 +79,7 @@ class DeliveryController < ApplicationController
 
 			@timestamp = []
 			@trafficValue = []
+			@totalBandwidth = 0
 			@totalValues = 0
 
 			@traffic.each do |item|
@@ -109,12 +110,14 @@ class DeliveryController < ApplicationController
 			@bandwith.each do |item|
 				item["originBandwidths"].each do |stamp|
 					@totalValues += 1
+					@totalBandwidth += stamp["value"]
 					@bandwidthValue << stamp["value"]
 				end
 			end
 
 			@maxBandwidth = @bandwidthValue.map(&:to_i).max
-			@avgBandwidth = @maxBandwidth/@totalValues
+			
+			@avgBandwidth = @totalBandwidth/@totalValues
 		else
 			redirect_to cdn_path
 		end
