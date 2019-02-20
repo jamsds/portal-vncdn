@@ -13,6 +13,32 @@ class AccountController < ApplicationController
     end
   end
 
+  def billing
+    @thisMonth = Date.today.strftime("%Y-%m")
+
+    bwdPrice = current_user.subscription.bwd_price
+    stgPrice = current_user.subscription.stg_price
+
+    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
+      bwdUsage = 0
+    else
+      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+    end
+
+    if current_user.storages.find_by(monthly: @thisMonth).nil?
+      stgUsage = 0
+    else
+      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+    end
+
+    totalCredit = current_user.credit.credit_value
+    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
+
+    @totalPrice = totalPrice
+
+    @threshold = (totalPrice/totalCredit) * 100
+  end
+
   def passwordUpdate
     if params[:password] != params[:password_confirmation]
       flash[:confirm_notice] = "Error! Confirm password not match, please check again."
