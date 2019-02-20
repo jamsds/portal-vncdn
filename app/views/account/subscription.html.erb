@@ -219,7 +219,11 @@
               <div class="subscription">
                 <div class="subscription-info clearfix">
                   <div class="subscription-info-usage">
+                    <% if current_user.bandwidths.present? %>
                     <h5><%= ApplicationController::FormatNumber.new(current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00).formatHumanSize() %></h5>
+                    <% else %>
+                    <h5><%= ApplicationController::FormatNumber.new(0).formatHumanSize() %></h5>
+                    <% end %>
                     <span>of bandwidth used</span>
                   </div>
                 </div>

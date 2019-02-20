@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 2019_02_14_180005) do
 
   create_table "bandwidths", force: :cascade do |t|
     t.bigint "user_id"
-    t.decimal "bandwidth_usage", precision: 15, scale: 2
+    t.decimal "bandwidth_usage", precision: 15, scale: 2, default: "0.0"
     t.string "monthly"
+    t.datetime "last_update"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "monthly"], name: "index_bandwidths_on_user_id_and_monthly", unique: true
