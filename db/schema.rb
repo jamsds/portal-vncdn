@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180005) do
+ActiveRecord::Schema.define(version: 2019_02_14_180006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2019_02_14_180005) do
     t.decimal "stg_price_over", precision: 15, default: "0"
     t.string "reseller"
     t.decimal "pricing", precision: 15, default: "0"
+  end
+
+  create_table "storages", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "storage_usage", precision: 15, scale: 2, default: "0.0"
+    t.string "monthly"
+    t.datetime "last_update"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "monthly"], name: "index_storages_on_user_id_and_monthly", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|

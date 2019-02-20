@@ -225,7 +225,7 @@
                   <% end %>
                   <span>of bandwidth used</span>
                   <div class="progress mt-3">
-                    <div class="progress-bar active" id="threshold-reached" data-width="<%= @bwdPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @bwdPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar active" id="bandwidth-reached" data-width="<%= @bwdPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @bwdPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
                     <script type="text/javascript">
                       $("#threshold-reached").css("width","<%= @bwdPercent.round(3) %>%")
                     </script>
@@ -246,9 +246,17 @@
               </div>
               <div class="subscription">
                 <div class="subscription-info clearfix">
-                  <div class="subscription-info">
-                    <h5><%= ApplicationController::FormatNumber.new(@stgLimit).formatHumanSize() %></h5>
-                    <span>of storage used</span>
+                  <h5><%= ApplicationController::FormatNumber.new(@stgUsage).formatHumanSize() %></h5>
+                  <span>of storage used</span>
+                  <div class="progress mt-3">
+                    <div class="progress-bar active" id="storage-reached" data-width="<%= @stgPercent.round(3) %>%" role="progressbar" aria-valuenow="<%= @stgPercent.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
+                    <script type="text/javascript">
+                      $("#threshold-reached").css("width","<%= @stgPercent.round(3) %>%")
+                    </script>
+                  </div>
+                  <div class="progress-number mt-1 clearfix">
+                    <small class="float-left">You've reached <%= @stgPercent.round(3) %>% of storage limit</small>
+                    <small class="float-right"><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %></small>
                   </div>
                 </div>
               </div>
