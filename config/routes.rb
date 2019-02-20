@@ -71,4 +71,10 @@ Rails.application.routes.draw do
 
   # Authenticator
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords", confirmations: 'users/confirmations' }
+
+  # Runtime Background
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end

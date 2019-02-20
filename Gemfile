@@ -53,6 +53,10 @@ gem 'aws-sdk-s3'
 
 gem "paperclip-storage-ftp"
 
+# Runtime Background
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

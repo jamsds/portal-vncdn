@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180004) do
+ActiveRecord::Schema.define(version: 2019_02_14_180005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bandwidths", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "bandwidth_usage", precision: 15, scale: 2
+    t.string "monthly"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "monthly"], name: "index_bandwidths_on_user_id_and_monthly", unique: true
+  end
 
   create_table "credits", force: :cascade do |t|
     t.bigint "user_id"
@@ -49,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180004) do
   create_table "subscriptions", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
+    t.integer "package"
     t.integer "subscription_type", default: 1
     t.integer "payment_type", default: 1
     t.decimal "bwd_limit", precision: 15, default: "0"

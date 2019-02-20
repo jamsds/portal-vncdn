@@ -17,4 +17,8 @@ class User < ApplicationRecord
   has_one :subscription, dependent: :destroy
 
   has_one :notification, dependent: :destroy
+
+  # Sync & Calculator Usage
+  has_many :bandwidths
+  has_many :storages
 end

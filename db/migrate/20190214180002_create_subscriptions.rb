@@ -6,6 +6,9 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
         # Subsciption Name
         t.string   :name
 
+        # Package
+        t.integer  :package
+
         # Subscription Type
         # 1. Trial
         # 2. Monthly
