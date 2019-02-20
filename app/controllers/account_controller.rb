@@ -35,7 +35,6 @@ class AccountController < ApplicationController
     totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
 
     @totalPrice = totalPrice
-
     @threshold = (totalPrice/totalCredit) * 100
   end
 

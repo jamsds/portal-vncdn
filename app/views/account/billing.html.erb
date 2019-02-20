@@ -107,7 +107,7 @@
             <div class="credit-remaining">
               <span>Credit Remaining</span>
               <% if current_user.credit.payment_type == 1 %>
-              <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value - @totalPrice).formatCurrency() %></h4>
+              <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
               <% else %>
               <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
               <% end %>
