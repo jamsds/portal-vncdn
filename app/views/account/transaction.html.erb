@@ -97,9 +97,25 @@
 <div class="portal__main-center primary croped">
 	<div class="dashboard">
 		<div class="dashboard__container">
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item">
-					<%= @startDateOfThisMonth %> - <%= @dateTodayOfThisMonth %>
+			<div class="dashboard__container-border clearfix">
+				<div class="dashboard__container-border-item transaction">
+          <div class="dashboard__container-border-item-heading">
+            <h6><%= @startDateOfThisMonth %> - <%= @dateTodayOfThisMonth %></h6>
+            <span>Transactions list for subscription <b><%= current_user.subscription.name %></b></span>
+          </div>
+          <div class="transaction">
+            <div class="transaction-table">
+              <table class="table croped mt-3">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th class="text-right">Amount (VNĐ)</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
 				</div>
 			</div>
 		</div>
