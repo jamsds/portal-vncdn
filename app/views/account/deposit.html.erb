@@ -102,13 +102,16 @@
           <div class="dashboard__container-card-item-heading">
             <h6>Deposit Payment</h6>
             <span>Specify your deposit payment amount</span>
+            <% if flash[:verify_error].present? %>
+              <div class="alert alert-warning mt-3"><%= flash[:verify_error] %></div>
+            <% end %>
             <div class="deposit">
               <%= form_for "", url: {action: :depositCharge, controller: :account}, method: :post, html: { id: 'form', multipart: true } do |f|%>
                 <% if current_user.credit.stripe_token.present? %>
                   <div class="deposit-available-card">
                     <span>Available Linked Card</span>
                     <div class="deposit-available-card-item clearfix">
-                      <div class="deposit-available-card-item-ic cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% end %>"></div>
+                      <div class="deposit-available-card-item-ic cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% end %>"></div>
                       <div class="deposit-available-card-item-info">
                         <%= current_user.credit.card_brand %> •••• <%= current_user.credit.last4 %>
                       </div>

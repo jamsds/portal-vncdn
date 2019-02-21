@@ -637,6 +637,10 @@
 												float: left;
 												margin-left: 1rem;
 												margin-right: 1rem;
+												&.cc_type_mc {
+													background: image-url('mc') no-repeat center;
+      										background-size: contain;
+												}
 												&.cc_type_jc {
 													background: image-url('jc') no-repeat center;
       										background-size: contain;

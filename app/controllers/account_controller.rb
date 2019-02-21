@@ -142,23 +142,30 @@ class AccountController < ApplicationController
       },
     )
 
-    customer = Stripe::Customer.create(
-      :email => "#{current_user.email}",
-      :description => "#{current_user.username}",
-      :source => token
-    )
+    if current_user.credit.stripe_token.nil?
+      customer = Stripe::Customer.create(
+        :email => "#{current_user.email}",
+        :description => "#{current_user.username}",
+        :source => token
+      )
 
-    customer["sources"].each do |customer|
-      @card_name = customer["name"]
-      @card_token = customer["id"]
-      @card_brand = customer["brand"]
-      @exp_month = customer["exp_month"]
-      @exp_year = customer["exp_year"]
-      @last4 = customer["last4"]
-      @funding = customer["funding"]
+      customer["sources"].each do |customer|
+        @card_name = customer["name"]
+        @card_token = customer["id"]
+        @card_brand = customer["brand"]
+        @exp_month = customer["exp_month"]
+        @exp_year = customer["exp_year"]
+        @last4 = customer["last4"]
+        @funding = customer["funding"]
+      end
+
+      @update = current_user.credit.update(stripe_token: customer["id"], card_name: @card_name, card_token: @card_token, card_brand: @card_brand, expires: "#{@exp_month}/#{@exp_year}", last4: @last4, funding: @funding)
+    else
+      customer = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
+      created = customer.sources.create(source: token)
+
+      @update = current_user.credit.update(card_name: created["name"], card_token: created["id"], card_brand: created["brand"], expires: "#{created["exp_month"]}/#{created["exp_year"]}", last4: created["last4"], funding: created["funding"])
     end
-
-    @update = current_user.credit.update(stripe_token: customer["id"], card_name: @card_name, card_token: @card_token, card_brand: @card_brand, expires: "#{@exp_month}/#{@exp_year}", last4: @last4, funding: @funding)
 
     if @update
       redirect_to account_payment_path
@@ -169,14 +176,40 @@ class AccountController < ApplicationController
   end
 
   def paymentRemove
-    # cu = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
-    # cu.delete
+    customer = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
+    deleted = customer.sources.retrieve("#{current_user.credit.card_token}").delete
 
-    @update = current_user.credit.update(stripe_token: nil, card_name: nil, card_token: nil, card_brand: nil, expires: nil, last4: nil, funding: nil)
+    @update = current_user.credit.update(card_name: nil, card_token: nil, card_brand: nil, expires: nil, last4: nil, funding: nil)
     
     if @update
       redirect_to account_payment_path
     end
+  end
+
+  def depositCharge
+    if params[:type].nil?
+      charge = Stripe::Charge.create(
+        :amount => params[:amount],
+        :currency => "vnd",
+        :customer => current_user.credit.stripe_token,
+        :source => current_user.credit.card_token,
+        :description => "deposit on account #{current_user.email}"
+      )
+      
+      if charge["status"] == "succeeded"
+        current_user.credit.increment! :credit_value, charge["amount"]
+        redirect_to account_billing_path
+      else
+        flash[:verify_error] = "Can't process with this card, please check again."
+        redirect_to account_payment_path
+      end
+    end
+  rescue Stripe::InvalidRequestError => e
+    flash[:verify_error] = e.message
+    redirect_to account_billing_deposit_path
+  rescue Stripe::CardError => e
+    flash[:verify_error] = e.message
+    redirect_to account_payment_path
   end
 
   private
