@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   patch '/account/detail/update', to: "account#detailUpdate"
   post  '/account/password/update', to: "account#passwordUpdate"
   patch '/account/notification/update', to: "account#notificationsUpdate"
+
+  get '/account/billing/deposit', to: "account#deposit"
+  post '/account/billing/depositCharge', to: "account#depositCharge"
   
   get '/account/payment', to: "account#payment"
   get '/account/payment/charge', to: "account#paymentCharge"

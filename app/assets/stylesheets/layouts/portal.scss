@@ -605,7 +605,8 @@
 								&.subscription,
 								&.credit,
 								&.billing,
-								&.info {
+								&.info,
+								&.deposit {
 									.credit-remaining,
 									.customer-total,
 									.ticket-total,
@@ -688,7 +689,8 @@
 									.package-detail,
 									.billing-detail,
 									.subscription-detail,
-									.credit-card-detail {
+									.credit-card-detail,
+									.deposit-detail {
 										margin-top: 1rem;
 										padding-top: 1rem;
 										border-top: 1px solid $gray;
@@ -704,7 +706,8 @@
 											.transaction_ic,
 											.ticket_ic,
 											.package_ic,
-											.credit_ic {
+											.credit_ic,
+											.deposit_ic {
 												margin-right: 0.5rem;
 												path {
 													fill: inherit;
