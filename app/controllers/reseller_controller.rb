@@ -28,6 +28,12 @@ class ResellerController < ApplicationController
 
   def customerBilling
     @customer = User.find_by(username: params[:username])
+
+    if @customer.credit.nil?
+      @credit = 0
+    else
+      @credit = @customer.credit.credit_value
+    end
   end
 
   def customerTransactions

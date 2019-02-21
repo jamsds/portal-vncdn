@@ -16,8 +16,13 @@ class AccountController < ApplicationController
   def billing
     @thisMonth = Date.today.strftime("%Y-%m")
 
-    bwdPrice = current_user.subscription.bwd_price
-    stgPrice = current_user.subscription.stg_price
+    if current_user.subscription.nil?
+      bwdPrice = 0
+      stgPrice = 0
+    else
+      bwdPrice = current_user.subscription.bwd_price
+      stgPrice = current_user.subscription.stg_price
+    end
 
     if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
       bwdUsage = 0
@@ -35,8 +40,13 @@ class AccountController < ApplicationController
     totalCredit = current_user.credit.credit_value
     totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
 
-    @totalPrice = totalPrice
-    @threshold = (totalPrice/totalCredit) * 100
+    if current_user.subscription.nil?
+      @totalPrice = 0
+      @threshold = 0
+    else
+      @totalPrice = totalPrice
+      @threshold = (totalPrice/totalCredit) * 100
+    end
   end
 
   def transaction
@@ -82,8 +92,13 @@ class AccountController < ApplicationController
       @stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
     end
 
-    @bwdPercent = (@bwdUsage/current_user.subscription.bwd_limit) * 100
-    @stgPercent = (@stgUsage/current_user.subscription.stg_limit) * 100
+    if current_user.subscription.nil?
+      @bwdPercent = 0
+      @stgPercent = 0
+    else
+      @bwdPercent = (@bwdUsage/current_user.subscription.bwd_limit) * 100
+      @stgPercent = (@stgUsage/current_user.subscription.stg_limit) * 100
+    end
   end
 
   def subscriptionAdd
@@ -104,70 +119,15 @@ class AccountController < ApplicationController
   end
 
   def charge
-    @thisMonth = Date.today.strftime("%Y-%m")
-
-    bwdPrice = current_user.subscription.bwd_price
-    stgPrice = current_user.subscription.stg_price
-
-    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
-      bwdUsage = 0
-    else
-      # usage value need to convert to GB, because pricing is price per GB
-      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
-    end
-
-    if current_user.storages.find_by(monthly: @thisMonth).nil?
-      stgUsage = 0
-    else
-      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-    end
-
-    totalCredit = current_user.credit.credit_value
-    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
-
-    @totalPrice = totalPrice
   end
 
   def chargeTest
-    # customer = Stripe::Customer.create(
-    #   :email => current_user.email,
-    #   :source => params[:stripeToken],
-    # )
-
-    @thisMonth = Date.today.strftime("%Y-%m")
-
-    bwdPrice = current_user.subscription.bwd_price
-    stgPrice = current_user.subscription.stg_price
-
-    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
-      bwdUsage = 0
-    else
-      # usage value need to convert to GB, because pricing is price per GB
-      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
-    end
-
-    if current_user.storages.find_by(monthly: @thisMonth).nil?
-      stgUsage = 0
-    else
-      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-    end
-
-    totalCredit = current_user.credit.credit_value
-    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
-
-    @totalPrice = totalPrice
-
-    charged = Stripe::Charge.create(
-      :amount => @totalPrice.to_i,
-      :currency => "vnd",
-      :source => "tok_amex",
-      :description => "Charge for #{current_user.email}",
-      receipt_email: "#{current_user.email}",
+    customer = Stripe::Customer.create(
+      :email => current_user.email,
+      :source => params[:stripeToken],
     )
+    puts customer
 
-    @response = JSON.parse(charged)
-
-    puts @response
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to account_charges_path

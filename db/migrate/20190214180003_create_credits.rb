@@ -6,6 +6,9 @@ class CreateCredits < ActiveRecord::Migration[5.2]
 		t.string 	:name
 		t.integer :payment_type, default: 1
 
+		# Payment with Stripe
+    t.string  :stripe_token
+
 		t.decimal :credit_value, precision: 15, scale: 2, default: 0
 		t.boolean	:active,       default: true
 	end
