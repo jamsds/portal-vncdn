@@ -592,26 +592,20 @@
 										font-size: 0.875rem;
 									}
 								}
-								&.info {
-									height: 200px;
-								}
+								&.info {}
 								&.trending {
 									height: 300px;
 									margin-bottom: 0;
 								}
-								&.billing {
-									height: 150px;
-								}
-								&.list {
-									
-								}
+								&.list {}
 								&.credit,
 								&.customer,
 								&.ticket,
 								&.transaction,
 								&.package,
 								&.subscription,
-								&.credit {
+								&.credit,
+								&.billing {
 									.credit-remaining,
 									.customer-total,
 									.ticket-total,
@@ -681,6 +675,7 @@
 									.transaction-detail,
 									.ticket-detail,
 									.package-detail,
+									.billing-detail,
 									.subscription-detail,
 									.credit-card-detail {
 										margin-top: 1rem;
