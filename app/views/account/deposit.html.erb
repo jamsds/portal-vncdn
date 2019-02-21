@@ -111,7 +111,7 @@
                   <div class="deposit-available-card">
                     <span>Available Linked Card</span>
                     <div class="deposit-available-card-item clearfix">
-                      <div class="deposit-available-card-item-ic cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% end %>"></div>
+                      <div class="deposit-available-card-item-ic cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% elsif current_user.credit.card_brand == "American Express" %>ax<% elsif current_user.credit.card_brand == "Visa" %>vs<% end %>"></div>
                       <div class="deposit-available-card-item-info">
                         <%= current_user.credit.card_brand %> •••• <%= current_user.credit.last4 %>
                       </div>

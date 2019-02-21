@@ -195,7 +195,7 @@ class AccountController < ApplicationController
         :source => current_user.credit.card_token,
         :description => "deposit on account #{current_user.email}"
       )
-      
+
       if charge["status"] == "succeeded"
         current_user.credit.increment! :credit_value, charge["amount"]
         redirect_to account_billing_path

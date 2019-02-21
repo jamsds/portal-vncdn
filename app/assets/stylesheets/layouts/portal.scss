@@ -637,14 +637,22 @@
 												float: left;
 												margin-left: 1rem;
 												margin-right: 1rem;
-												&.cc_type_mc {
-													background: image-url('mc') no-repeat center;
-      										background-size: contain;
-												}
-												&.cc_type_jc {
-													background: image-url('jc') no-repeat center;
-      										background-size: contain;
-												}
+												&.cc_type_vs {
+										      background: image-url('vs') no-repeat center;
+										      background-size: contain;
+										    }
+										    &.cc_type_mc {
+										      background: image-url('mc') no-repeat center;
+										      background-size: contain;
+										    }
+										    &.cc_type_jc {
+										      background: image-url('jc') no-repeat center;
+										      background-size: contain;
+										    }
+										    &.cc_type_ax {
+										      background: image-url('ax') no-repeat center;
+										      background-size: contain;
+										    }
 											}
 											&-info {
 												float: left;

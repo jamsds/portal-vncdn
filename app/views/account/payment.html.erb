@@ -125,7 +125,7 @@
                   <label class="col-sm-2 col-form-label text-right">Card Number</label>
                   <div class="col-sm-6">
                     <div class="credit-format-card">
-                      <input class="form-control credit-format cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% elsif current_user.credit.card_brand == "American Express" %>ax<% end %> disabled" value="•••• •••• •••• <%= current_user.credit.last4 %>" disabled="disabled">
+                      <input class="form-control credit-format cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% elsif current_user.credit.card_brand == "American Express" %>ax<% elsif current_user.credit.card_brand == "Visa" %>vs<% end %> disabled" value="•••• •••• •••• <%= current_user.credit.last4 %>" disabled="disabled">
                       <span></span>
                     </div>
                   </div>
