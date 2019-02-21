@@ -122,7 +122,7 @@
                     <span>Specify amount</span>
                     <div class="form-group">
                       <%= f.text_field :amount, class: 'form-control' %>
-                      <small id="amountlHelp" class="form-text text-muted">Enter the amount you want to deposit. Make sure your card can pay at this time.</small>
+                      <small id="amountlHelp" class="form-text text-muted">Enter the amount you want to deposit. Deposit minimum is <%= ApplicationController::FormatNumber.new(500000).formatPricing() %></small>
                     </div>
                   </div>
                 <% else %>
