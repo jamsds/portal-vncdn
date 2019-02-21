@@ -614,13 +614,15 @@
 									.credit-verify,
 									.info-sale, .info-support,
 									.deposit-available-card,
-									.deposit-amount {
+									.deposit-amount,
+									.deposit-choose-method {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
 										}
 									}
-									.deposit-amount {
+									.deposit-amount,
+									.deposit-choose-method {
 										width: 50%;
 									}
 									.deposit-available-card {
