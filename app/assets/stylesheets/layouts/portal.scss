@@ -613,11 +613,15 @@
 									.subscription-total,
 									.credit-verify,
 									.info-sale, .info-support,
-									.deposit-available-card {
+									.deposit-available-card,
+									.deposit-amount {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
 										}
+									}
+									.deposit-amount {
+										width: 50%;
 									}
 									.deposit-available-card {
 										width: 50%;
