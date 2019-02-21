@@ -29,8 +29,14 @@ ActiveRecord::Schema.define(version: 2019_02_14_180006) do
     t.bigint "user_id"
     t.string "name"
     t.integer "payment_type", default: 1
-    t.string "stripe_token"
     t.decimal "credit_value", precision: 15, scale: 2, default: "0.0"
+    t.string "stripe_token"
+    t.string "card_token"
+    t.string "card_brand"
+    t.string "card_name"
+    t.string "expires"
+    t.string "last4"
+    t.string "funding"
     t.boolean "active", default: true
     t.index ["user_id"], name: "index_credits_on_user_id", unique: true
   end

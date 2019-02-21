@@ -124,6 +124,12 @@ table {
       box-shadow: 0 0 0 0.2rem rgba(252, 109, 29, 0.33);
       border-color: rgba(252, 109, 29, 0.33);
     }
+    &.disabled {
+      &:focus, &:active, &:hover {
+        box-shadow: unset;
+        border-color: #ced4da;
+      }
+    }
     &.outline {
       border-color: $light;
     }
@@ -300,6 +306,44 @@ a.btn {
     .page-link {
       background-color: $primary;
       border-color: $primary;
+    }
+  }
+}
+
+.form-group {
+  .credit-format-card {
+    position: relative;
+    span {
+      width: 37px;
+      height: 37px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      
+    }
+
+    .credit-format.cc_type_vs + span {
+      background: image-url('vs') no-repeat center;
+      background-size: contain;
+    }
+
+    .credit-format.cc_type_mc + span {
+      background: image-url('mc') no-repeat center;
+      background-size: contain;
+    }
+
+    .credit-format.cc_type_jc + span {
+      background: image-url('jc') no-repeat center;
+      background-size: contain;
+    }
+
+    .credit-format.cc_type_ax+ span {
+      background: image-url('ax') no-repeat center;
+      background-size: contain;
+    }
+
+    .credit-format.cc_type_unknown + span {
+      background-color: transparent;
     }
   }
 }

@@ -118,19 +118,65 @@ class AccountController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def charge
+  def paymentCharge
+    charge = Stripe::Charge.create(
+      :amount => 1000000,
+      :currency => "vnd",
+      :customer => current_user.credit.stripe_token,
+      :source => current_user.credit.card_token,
+      :description => "payment charge on account #{current_user.email}"
+    )
+  rescue Stripe::CardError => e
+    flash[:verify_error] = e.message
+    redirect_to account_payment_path
   end
 
-  def chargeTest
-    customer = Stripe::Customer.create(
-      :email => current_user.email,
-      :source => params[:stripeToken],
+  def paymentVerify
+    token = Stripe::Token.create(
+      card: {
+        name: params[:name],
+        number: params[:number],
+        exp_month: params[:exp_month],
+        exp_year: params[:exp_year],
+        cvc: params[:cvc],
+      },
     )
-    puts customer
 
+    customer = Stripe::Customer.create(
+      :email => "#{current_user.email}",
+      :description => "#{current_user.username}",
+      :source => token
+    )
+
+    customer["sources"].each do |customer|
+      @card_name = customer["name"]
+      @card_token = customer["id"]
+      @card_brand = customer["brand"]
+      @exp_month = customer["exp_month"]
+      @exp_year = customer["exp_year"]
+      @last4 = customer["last4"]
+      @funding = customer["funding"]
+    end
+
+    @update = current_user.credit.update(stripe_token: customer["id"], card_name: @card_name, card_token: @card_token, card_brand: @card_brand, expires: "#{@exp_month}/#{@exp_year}", last4: @last4, funding: @funding)
+
+    if @update
+      redirect_to account_payment_path
+    end
   rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to account_charges_path
+    flash[:verify_error] = e.message
+    redirect_to account_payment_path
+  end
+
+  def paymentRemove
+    # cu = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
+    # cu.delete
+
+    @update = current_user.credit.update(stripe_token: nil, card_name: nil, card_token: nil, card_brand: nil, expires: nil, last4: nil, funding: nil)
+    
+    if @update
+      redirect_to account_payment_path
+    end
   end
 
   private

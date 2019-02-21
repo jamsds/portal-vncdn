@@ -18,8 +18,11 @@ Rails.application.routes.draw do
   post  '/account/password/update', to: "account#passwordUpdate"
   patch '/account/notification/update', to: "account#notificationsUpdate"
   
-  get '/account/charges', to: "account#charge"
-  post '/account/charges/test', to: "account#chargeTest"
+  get '/account/payment', to: "account#payment"
+  get '/account/payment/charge', to: "account#paymentCharge"
+
+  post '/account/payment/verify', to: "account#paymentVerify"
+  post '/account/payment/remove', to: "account#paymentRemove"
 
   # Reseller Management
   get '/reseller', to: "reseller#index"

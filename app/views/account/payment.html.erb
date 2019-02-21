@@ -1,5 +1,5 @@
 <div class="portal__main-heading">
-	<a href="<%= url_for(:back) %>" class="btn btn-default btn-sm ml-2">
+  <a href="<%= url_for(:back) %>" class="btn btn-default btn-sm ml-2">
     <span class="back_ic">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12">
         <path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#333333"/>
@@ -8,11 +8,11 @@
     <span>
       Back
     </span>
-	</a>
+  </a>
 </div>
 <div class="portal__main-left expanded">
-	<div class="panel">
-		<div class="panel__list main">
+  <div class="panel">
+    <div class="panel__list main">
       <div class="main__options-list">
         <div class="main__options-list-item clearfix" onclick="window.location = '<%= account_url %>'">
           <div class="main__options-list-item-ic">
@@ -91,97 +91,142 @@
           <div class="main__options-list-item-arrow"></div>
         </div>
       </div>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
 <div class="portal__main-center primary croped">
-	<div class="dashboard">
-		<div class="dashboard__container">
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item credit">
+  <div class="dashboard">
+    <div class="dashboard__container">
+      <div class="dashboard__container-card clearfix">
+        <div class="dashboard__container-card-item credit">
           <div class="dashboard__container-card-item-heading">
-            <h6>Billing Overview</h6>
-            <span>Manage your invoices, deposit credits</span>
-          </div>
-          <div class="credit">
-            <div class="credit-remaining">
-              <span>Credit Remaining</span>
-              <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
-            </div>
-            <% if current_user.credit.stripe_token.present? %>
-            <div class="credit-card-detail clearfix">
-              <a href="<%= account_payment_url %>">
-                <span class="credit_ic">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><path d="M352.7,1047a1.816,1.816,0,0,1,1.4.6,1.974,1.974,0,0,1,.6,1.4v12a2.051,2.051,0,0,1-2,2h-16a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12a2.051,2.051,0,0,1,2-2Zm0,4v-2h-16v2Zm0,10v-6h-16v6Z" transform="translate(-334.7 -1047)"/></svg>
-                </span>
-                <span>1 Card linked to your account</span>
-              </a>
-            </div>
+            <% if current_user.credit.present? && current_user.credit.stripe_token.present? %>
+            <h6>Payment</h6>
+            <span>Payment automatic with your card</span>
+            <% else %>
+            <h6>Add Payment</h6>
+            <span>Verify & Add Payment with Credit Card</span>
             <% end %>
           </div>
-				</div>
-        <div class="dashboard__container-card-item credit">
+          <% if flash[:verify_error].present? %>
+            <div class="alert alert-warning mt-3"><%= flash[:verify_error] %></div>
+          <% end %>
           <div class="credit">
-            <div class="credit-payment-threshold clearfix">
-              <div class="credit-payment-threshold-reached">
-                <div class="credit-payment-threshold-reached-heading">
-                  <h6>Pending Payment</h6>
-                  <span>Your next automatic payment will be within 30 days, or the day you reach your payment threshold, whichever comes first</span>
+            <div class="credit-verify">
+              <% if current_user.credit.present? && current_user.credit.stripe_token.present? %>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label text-right">Name</label>
+                  <div class="col-sm-6 col-form-value">
+                    <p><%= current_user.credit.card_name %></p>
+                  </div>
                 </div>
-                <div class="progress">
-                  <div class="progress-bar active" id="threshold-reached" data-width="<%= @threshold.round(3) %>%" role="progressbar" aria-valuenow="<%= @threshold.round(3) %>" aria-valuemin="0" aria-valuemax="100"></div>
-                  <script type="text/javascript">
-                    $("#threshold-reached").css("width","<%= @threshold.round(3) %>%")
-                  </script>
+
+                <div class="form-group vertical row">
+                  <label class="col-sm-2 col-form-label text-right">Card Number</label>
+                  <div class="col-sm-6">
+                    <div class="credit-format-card">
+                      <input class="form-control credit-format cc_type_<% if current_user.credit.card_brand == "JCB" %>jc<% elsif current_user.credit.card_brand == "MasterCard" %>mc<% end %> disabled" value="•••• •••• •••• <%= current_user.credit.last4 %>" disabled="disabled">
+                      <span></span>
+                    </div>
+                  </div>
                 </div>
-                <div class="progress-number mt-1 clearfix">
-                  <small class="float-left">You've reached <%= @threshold.round(3) %>% of your payment threshold</small>
-                  <small class="float-right">Payment threshold: <%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></small>
+
+                <div class="form-group vertical row">
+                  <label class="col-sm-2 col-form-label text-right">Expires</label>
+                  <div class="col-sm-2">
+                    <input class="form-control disabled" value="<%= current_user.credit.expires %>" disabled="disabled">
+                  </div>
+                  <div class="col-sm-2 float-right">
+                    <div class="form-group vertical row">
+                      <label class="col-sm-2 col-form-label text-right">CCV</label>
+                      <div class="col-sm-9">
+                        <input class="form-control disabled" value="••••" disabled="disabled">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="credit-payment-threshold-make">
-                <div class="credit-payment-threshold-make-pending">
-                  <span>pending amount</span>
-                  <h4><%= ApplicationController::FormatNumber.new(@totalPrice).formatCurrency() %></h4>
-                </div>
-              </div>
-            </div>
-            <div class="credit-payment-threshold mt-3 clearfix">
-              <div class="credit-payment-threshold-type mt-3">
-                <div class="credit-payment-threshold-type-card">
-                  <span class="credit_ic">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><path d="M352.7,1047a1.816,1.816,0,0,1,1.4.6,1.974,1.974,0,0,1,.6,1.4v12a2.051,2.051,0,0,1-2,2h-16a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12a2.051,2.051,0,0,1,2-2Zm0,4v-2h-16v2Zm0,10v-6h-16v6Z" transform="translate(-334.7 -1047)"/></svg>
-                  </span>
-                  <span>
-                    Automatic Payment
-                  </span>
-                </div>
-              </div>
-              <div class="credit-payment-threshold-payment">
-                <a nohref class="btn btn-default primary outline">Make Payment</a>
-              </div>
+
+                <div class="row mt-3">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-9">
+                    <a href="<%= account_payment_remove_url %>" data-method="post" class="blue-nd">Remove</a>
+                  </div>
+                </div>   
+              <% else %>
+                <%= form_for "", url: {action: :paymentVerify, controller: :account}, method: :post, html: { id: 'form', multipart: true } do |f|%>
+                  <div class="form-group vertical row">
+                    <%= f.label :name, 'Name on Card', class: 'col-sm-2 col-form-label text-right' %>
+                    <div class="col-sm-6">
+                      <%= f.text_field :name, class: 'form-control', :required => true %>
+                      <small id="namelHelp" class="form-text text-muted">Please enter fullname in your card.</small>
+                    </div>
+                  </div>
+
+                  <div class="form-group vertical row">
+                    <%= f.label :number, 'Card Number', class: 'col-sm-2 col-form-label text-right' %>
+                    <div class="col-sm-6">
+                      <div class="credit-format-card">
+                        <%= f.text_field :number, class: 'form-control credit-format cc_type_unknown', :required => true %>
+                        <span class="card-type"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group vertical row expire clearfix">
+                    <%= f.label "", 'MM / YY', class: 'col-sm-2 col-form-label text-right' %>
+                    <div class="col-sm-6">
+                      <select name='exp_month' id='exp_month' class="form-control">
+                        <option value=''>Month</option>
+                        <option value='01'>January</option>
+                        <option value='02'>February</option>
+                        <option value='03'>March</option>
+                        <option value='04'>April</option>
+                        <option value='05'>May</option>
+                        <option value='06'>June</option>
+                        <option value='07'>July</option>
+                        <option value='08'>August</option>
+                        <option value='09'>September</option>
+                        <option value='10'>October</option>
+                        <option value='11'>November</option>
+                        <option value='12'>December</option>
+                      </select>
+                      <select name='exp_year' id='exp_year' class="form-control">
+                        <% @oneYear = (Date.today + 1.years).strftime("%Y") %>
+                        <% @twoYear = (Date.today + 2.years).strftime("%Y") %>
+                        <% @threeYear = (Date.today + 3.years).strftime("%Y") %>
+                        <% @fourYear = (Date.today + 4.years).strftime("%Y") %>
+                        <% @fiveYear = (Date.today + 5.years).strftime("%Y") %>
+                        <option value=''>Year</option>
+                        <option value='<%= @oneYear %>'><%= @oneYear %></option>
+                        <option value='<%= @twoYear %>'><%= @twoYear %></option>
+                        <option value='<%= @threeYear %>'><%= @threeYear %></option>
+                        <option value='<%= @fourYear %>'><%= @fourYear %></option>
+                        <option value='<%= @fiveYear %>'><%= @fiveYear %></option>
+                      </select>
+                      <div class="form-group vertical row">
+                        <%= f.label "", 'CCV', class: 'col-sm-4 col-form-label text-right' %>
+                        <div class="col-sm-8">
+                          <%= f.text_field :cvc, class: 'form-control', :required => true %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-9">
+                      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+                        Verify
+                      <% end %>
+                      <a href="<%= account_url %>" class="btn btn-light">Back</a>
+                    </div>
+                  </div>   
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
-        <% if !current_user.subscription.nil? %>
-        <div class="dashboard__container-card-item transaction">
-          <div class="dashboard__container-card-item-heading">
-            <h6>Transactions</h6>
-            <span>Payment history for all subscriptions at the end of the day, for storage service, will cash out at the end of the month</span>
-          </div>
-          <div class="transaction">
-            <div class="transaction-detail clearfix">
-              <a href="<%= account_url %>/transaction">
-                <span class="transaction_ic">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20"><path d="M277.7,906.8a2.051,2.051,0,0,1,2,2v14a2.051,2.051,0,0,1-2,2h-14a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-14a2.051,2.051,0,0,1,2-2h1v-2h2v2h8v-2h2v2Zm0,16v-11h-14v11Zm-2-9v2h-10v-2Zm-3,4v2h-7v-2Z" transform="translate(-261.7 -904.8)"/></svg>
-                </span>
-                <span>View Detail</span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <% end %>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>

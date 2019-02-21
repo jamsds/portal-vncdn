@@ -1,5 +1,6 @@
 //= require libs/echart.min
 //= require libs/moment.min
+//= require libs/cc-format
 
 $(document).on('turbolinks:load', function() {
 	$(".portal__main-navigation-account-avatar").click(function(){

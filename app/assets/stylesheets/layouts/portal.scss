@@ -610,14 +610,32 @@
 								&.ticket,
 								&.transaction,
 								&.package,
-								&.subscription {
+								&.subscription,
+								&.credit {
 									.credit-remaining,
 									.customer-total,
 									.ticket-total,
-									.subscription-total {
+									.subscription-total,
+									.credit-verify {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
+										}
+									}
+									.credit-verify {
+										.expire {
+											.col-sm-6 {
+												margin-right: -1rem;
+												select:nth-child(1), select:nth-child(2) {
+													width: calc((100% * 1/4) - 1rem);
+													margin-right: 1rem;
+													float: left;
+												}
+												.form-group {
+													width: calc(100% * 2/4);
+													float: right;
+												}
+											}
 										}
 									}
 									.credit-payment {
@@ -663,7 +681,8 @@
 									.transaction-detail,
 									.ticket-detail,
 									.package-detail,
-									.subscription-detail {
+									.subscription-detail,
+									.credit-card-detail {
 										margin-top: 1rem;
 										padding-top: 1rem;
 										border-top: 1px solid $gray;
@@ -678,7 +697,8 @@
 											.customer_ic,
 											.transaction_ic,
 											.ticket_ic,
-											.package_ic {
+											.package_ic,
+											.credit_ic {
 												margin-right: 0.5rem;
 												path {
 													fill: inherit;
