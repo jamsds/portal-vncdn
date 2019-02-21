@@ -612,10 +612,41 @@
 									.ticket-total,
 									.subscription-total,
 									.credit-verify,
-									.info-sale, .info-support {
+									.info-sale, .info-support,
+									.deposit-available-card {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
+										}
+									}
+									.deposit-available-card {
+										width: 50%;
+										&-item {
+											margin-top: 0.5rem;
+											padding: 0.5rem 0;
+											border-bottom: 1px solid $gray;
+											background-color: $silver;
+											position: relative;
+											&-ic {
+												width: 35px;
+												height: 35px;
+												float: left;
+												margin-left: 1rem;
+												margin-right: 1rem;
+												&.cc_type_jc {
+													background: image-url('jc') no-repeat center;
+      										background-size: contain;
+												}
+											}
+											&-info {
+												float: left;
+												margin: 0.5rem 0;
+											}
+										}
+										small {
+											a {
+												font-size: inherit;
+											}
 										}
 									}
 									.info-uuid {
