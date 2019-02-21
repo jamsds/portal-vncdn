@@ -592,7 +592,6 @@
 										font-size: 0.875rem;
 									}
 								}
-								&.info {}
 								&.trending {
 									height: 300px;
 									margin-bottom: 0;
@@ -605,14 +604,26 @@
 								&.package,
 								&.subscription,
 								&.credit,
-								&.billing {
+								&.billing,
+								&.info {
 									.credit-remaining,
 									.customer-total,
 									.ticket-total,
 									.subscription-total,
-									.credit-verify {
+									.credit-verify,
+									.info-sale, .info-support {
 										margin-top: 1.5rem;
 										span {
+											font-size: 0.875rem;
+										}
+									}
+									.info-uuid {
+										margin-top: 0.5rem;
+										padding-top: 0.5rem;
+										span {
+											font-size: 0.875rem;
+										}
+										h6 {
 											font-size: 0.875rem;
 										}
 									}
