@@ -15,5 +15,12 @@ module PortalVncdn
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    Rails.configuration.stripe = {
+		  :publishable_key => "pk_test_JRPmFYqqT4NWN5BItQKv4Qmn",
+		  :secret_key      => "sk_test_zI04lzKlEyXKmttBMSUKn9Gx"
+		}
+
+		Stripe.api_key = Rails.configuration.stripe[:secret_key]
   end
 end

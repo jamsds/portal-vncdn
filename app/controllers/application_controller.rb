@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   require "net/http"
   require "date"
 
+  # Payment
+  require "stripe"
+
 	# Set Variables Request
 	before_action :set_variables
 

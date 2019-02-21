@@ -103,6 +103,76 @@ class AccountController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def charge
+    @thisMonth = Date.today.strftime("%Y-%m")
+
+    bwdPrice = current_user.subscription.bwd_price
+    stgPrice = current_user.subscription.stg_price
+
+    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
+      bwdUsage = 0
+    else
+      # usage value need to convert to GB, because pricing is price per GB
+      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+    end
+
+    if current_user.storages.find_by(monthly: @thisMonth).nil?
+      stgUsage = 0
+    else
+      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+    end
+
+    totalCredit = current_user.credit.credit_value
+    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
+
+    @totalPrice = totalPrice
+  end
+
+  def chargeTest
+    # customer = Stripe::Customer.create(
+    #   :email => current_user.email,
+    #   :source => params[:stripeToken],
+    # )
+
+    @thisMonth = Date.today.strftime("%Y-%m")
+
+    bwdPrice = current_user.subscription.bwd_price
+    stgPrice = current_user.subscription.stg_price
+
+    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
+      bwdUsage = 0
+    else
+      # usage value need to convert to GB, because pricing is price per GB
+      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+    end
+
+    if current_user.storages.find_by(monthly: @thisMonth).nil?
+      stgUsage = 0
+    else
+      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+    end
+
+    totalCredit = current_user.credit.credit_value
+    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
+
+    @totalPrice = totalPrice
+
+    charged = Stripe::Charge.create(
+      :amount => @totalPrice.to_i,
+      :currency => "vnd",
+      :source => "tok_amex",
+      :description => "Charge for #{current_user.email}",
+      receipt_email: "#{current_user.email}",
+    )
+
+    @response = JSON.parse(charged)
+
+    puts @response
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to account_charges_path
+  end
+
   private
   	def detail_params
   		params.require(:user).permit(:name, :phone, :company)

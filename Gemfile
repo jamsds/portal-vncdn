@@ -57,6 +57,9 @@ gem "paperclip-storage-ftp"
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
+# Payment
+gem 'stripe'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
