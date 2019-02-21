@@ -107,7 +107,7 @@
             <% end %>
             <div class="deposit">
               <%= form_for "", url: {action: :depositCharge, controller: :account}, method: :post, html: { id: 'form', multipart: true } do |f|%>
-                <% if current_user.credit.stripe_token.present? %>
+                <% if current_user.credit.card_token.present? %>
                   <div class="deposit-available-card">
                     <span>Available Linked Card</span>
                     <div class="deposit-available-card-item clearfix">
