@@ -22,16 +22,16 @@ class AccountController < ApplicationController
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
 
-      if current_user.bandwidths.nil?
-        bwdUsage = 0
-      else
+      if current_user.bandwidths.present?
         bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+      else
+        bwdUsage = 0
       end
 
-      if current_user.storages.nil?
-        stgUsage = 0
-      else
+      if current_user.storages.present?
         stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+      else
+        stgUsage = 0
       end
 
       totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
@@ -115,7 +115,7 @@ class AccountController < ApplicationController
       reseller: @reseller,
       expiration_date: @expiration_date
     )
-    
+
     redirect_back(fallback_location: root_path)
   end
 
