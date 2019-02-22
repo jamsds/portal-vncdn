@@ -187,21 +187,26 @@ class AccountController < ApplicationController
   end
 
   def depositCharge
-    if params[:type].nil?
-      charge = Stripe::Charge.create(
-        :amount => params[:amount],
-        :currency => "vnd",
-        :customer => current_user.credit.stripe_token,
-        :source => current_user.credit.card_token,
-        :description => "deposit on account #{current_user.email}"
-      )
+    if params[:amount].to_i < 500000
+      flash[:verify_error] = "Deposit minimum is #{ApplicationController::FormatNumber.new(500000).formatPricing()}"
+      redirect_to account_billing_deposit_path
+    else
+      if params[:type].nil?
+        charge = Stripe::Charge.create(
+          :amount => params[:amount],
+          :currency => "vnd",
+          :customer => current_user.credit.stripe_token,
+          :source => current_user.credit.card_token,
+          :description => "deposit on account #{current_user.email}"
+        )
 
-      if charge["status"] == "succeeded"
-        current_user.credit.increment! :credit_value, charge["amount"]
-        redirect_to account_billing_path
-      else
-        flash[:verify_error] = "Can't process with this card, please check again."
-        redirect_to account_payment_path
+        if charge["status"] == "succeeded"
+          current_user.credit.increment! :credit_value, charge["amount"]
+          redirect_to account_billing_path
+        else
+          flash[:verify_error] = "Can't process with this card, please check again."
+          redirect_to account_payment_path
+        end
       end
     end
   rescue Stripe::InvalidRequestError => e
