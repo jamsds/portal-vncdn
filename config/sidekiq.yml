@@ -1,12 +1,21 @@
 :enabled: true
 :schedule:
+  # Check traffic usage with swiftfederation every 20 mins.
   usage_bandwidth:
     cron: '0,20,40 * * * *'
     class: UsageBandwidth
+
+  # Check storage usage with swiftfederation every 4 hours.
   usage_storage:
     cron: '0 */4 * * *'
     class: UsageStorage
 
+  # Automatic Charge Monthly
+  charge_monthly:
+    cron: '0 0 1 * *'
+    class: ChargeMonthly
+
+# ENV requrie log file with daemon
 development:
   :logfile: ./log/sidekiq_development.log
   :verbose: true
