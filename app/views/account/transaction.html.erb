@@ -107,11 +107,28 @@
               <table class="table croped mt-3">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>Type</th>
                     <th>Description</th>
-                    <th class="text-right">Amount (VNĐ)</th>
+                    <th>Amount (VNĐ)</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Date</th>
                   </tr>
                 </thead>
+                <tbody>
+                  <% if current_user.credit.transactions.present? %>
+                  <% current_user.credit.transactions.where(date: Date.current.strftime("%Y-%m")).order("created_at ASC").each do |transaction| %>
+                  <tr>
+                    <td><%= transaction.transaction_type.capitalize %></td>
+                    <td><%= transaction.description %></td>
+                    <td><%= ApplicationController::FormatNumber.new(transaction.amount).formatPricing() %></td>
+                    <td><% if transaction.stripe_id.nil? %>Credit<% else %><%= transaction.card_brand %> •••• <%= transaction.card_number %><% end %></td>
+                    <td><span class="status status-<%= transaction.status %>"><%= transaction.status.capitalize %></span></td>
+                    <td><%= transaction.created_at.in_time_zone("Asia/Bangkok").strftime("%d/%m/%Y %H:%M") %></td>
+                  </tr>
+                  <% end %>
+                  <% end %>
+                </tbody>
               </table>
             </div>
           </div>

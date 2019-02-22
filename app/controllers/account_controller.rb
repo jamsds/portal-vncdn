@@ -119,16 +119,41 @@ class AccountController < ApplicationController
   end
 
   def paymentCharge
-    charge = Stripe::Charge.create(
-      :amount => 1000000,
-      :currency => "vnd",
-      :customer => current_user.credit.stripe_token,
-      :source => current_user.credit.card_token,
-      :description => "payment charge on account #{current_user.email}"
-    )
-  rescue Stripe::CardError => e
-    flash[:verify_error] = e.message
-    redirect_to account_payment_path
+    if current_user.subscription.nil?
+      render json: "{\"code\":\"Subscription.Invalid\",\"message\":\"Current user not have a subscription. Please check again.\"}"
+    else
+      @thisMonth = Date.today.strftime("%Y-%m")
+
+      bwdPrice = current_user.subscription.bwd_price
+      stgPrice = current_user.subscription.stg_price
+
+      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
+      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
+
+      @totalPrice = (stgPrice * (stgUsage / 1000000000.00)) + (bwdPrice * (bwdUsage / 1000000000.00))
+
+      if current_user.credit.credit_value != 0
+        # idecrese credit balance
+        current_user.credit.decrement! :credit_value, @totalPrice
+        @status = 'succeeded'
+      else
+        @status = 'failed'
+      end
+
+      @subscription = current_user.subscription.name
+      @package = Package.find(current_user.subscription.package).name
+
+      # create transaction
+      current_user.credit.transactions.create(
+        description: "Delivery Appliance running in global: #{ApplicationController::FormatNumber.new(bwdUsage).formatHumanSize()}, and File Appliance in global: #{ApplicationController::FormatNumber.new(stgUsage).formatHumanSize()} (Source:#{@package} [#{@subscription}])",
+        transaction_type: 'Charge',
+        amount: @totalPrice,
+        status: @status,
+        date: Date.current.strftime("%Y-%m")
+      )
+
+      redirect_to account_billing_path
+    end
   end
 
   def paymentVerify
@@ -197,11 +222,16 @@ class AccountController < ApplicationController
           :currency => "vnd",
           :customer => current_user.credit.stripe_token,
           :source => current_user.credit.card_token,
-          :description => "deposit on account #{current_user.email}"
+          :description => "Deposit Credit Balance for account #{current_user.uuid}"
         )
 
         if charge["status"] == "succeeded"
+          # increse credit balance
           current_user.credit.increment! :credit_value, charge["amount"]
+
+          # create transaction
+          current_user.credit.transactions.create(description: charge["description"], transaction_type: 'deposit', stripe_id: charge["id"], amount: charge["amount"], card_id: charge["source"]["id"], card_name: charge["source"]["name"], card_number: charge["source"]["last4"], card_brand: charge["source"]["brand"], status: charge["status"], date: Date.current.strftime("%Y-%m"))
+
           redirect_to account_billing_path
         else
           flash[:verify_error] = "Can't process with this card, please check again."

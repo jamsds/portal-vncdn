@@ -521,6 +521,26 @@
 										}
 									}
 								}
+								&.transaction {
+									.transaction {
+										&-table {
+											span.status {
+												font-size: 0.75rem;
+												display: inline-block;
+												padding: 0.25rem 0.5rem;
+												border-radius: 1rem;
+												&-succeeded {
+													color: #24b47e;
+													background-color: #24b47e33;
+												}
+												&-failed {
+													color: $black-5nd;
+													background-color: $gray-nd;
+												}
+											}
+										}
+									}
+								}
 							}
 							&-col-5 {
 								width: calc((100% * 1/2) - 1rem);
