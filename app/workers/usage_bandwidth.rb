@@ -23,17 +23,21 @@ class UsageBandwidth
 			@user = User.find(subscription.user_id)
 
 			# Because every bandwidth log will be generated once time per month,
-      # so we need to a defining month of logs, if it exists we don't need to create new
-      # puts user.bandwidths.where(monthly: @thisMonth).present?
+			# so we need to a defining month of logs, if it exists we don't need to create new
+			# puts user.bandwidths.where(monthly: @thisMonth).present?
 			if !@user.bandwidths.where(monthly: @thisMonth).present?
-				@user.bandwidths.create(monthly: @thisMonth, last_update: @last_update)
+				@user.bandwidths.create(monthly: @thisMonth)
 			end
 
 			# Set start time is last update
-			if @user.bandwidths.find_by(monthly: @thisMonth).last_update.present? || (Date.current - current_user.bandwidths.find_by(monthly: @thisMonth).last_update.to_date).to_i > 1
+			if @user.bandwidths.find_by(monthly: @thisMonth).last_update.present?
 				@startTime = @user.bandwidths.find_by(monthly: @thisMonth).last_update.strftime("%Y-%m-%dT%H:%M:00Z")
+				if (Date.current - @user.bandwidths.find_by(monthly: @thisMonth).last_update.to_date).to_i != 0
+					@user.bandwidths.find_by(monthly: @thisMonth).update(last_update: @last_update)
+					return
+				end
 			else
-				@startTime = (endTime - 20*60).strftime("%Y-%m-%dT%H:%M:00Z")
+				@startTime = @endTime
 			end
 
 			# Time format for testing
@@ -41,7 +45,7 @@ class UsageBandwidth
 			# @endTime = "2019-02-20T04:00:00Z"
 
 			# Instead, each log is bandwidth update, a last_update record will be updated time of last sidekiq run
-      @user.bandwidths.find_by(monthly: @thisMonth).update(last_update: @last_update)
+			@user.bandwidths.find_by(monthly: @thisMonth).update(last_update: @last_update)
 
 			@listDomain = []
 
@@ -62,16 +66,19 @@ class UsageBandwidth
 			@listDomain.each do |domain|
 				# puts domain["name"]
 				@requestURI = "/api/v1.1/customerVolume/?domain="+domain["name"]+"&startTime="+@startTime+"&endTime="+@endTime
-				@bandwidths = JSON.parse(ApplicationController::SyncProcess.new("#{@requestURI}").postRequest())
+				bandwidths = ApplicationController::SyncProcess.new("#{@requestURI}").postRequest()
 
-				@bandwidths.each do |bandwidth|
-					bandwidth["volumes"].each do |value|
-						# Test
-						puts value["value"]
+				if bandwidths != "[]"
+					@bandwidths = JSON.parse(bandwidths)
+					@bandwidths.each do |bandwidth|
+						bandwidth["volumes"].each do |value|
+							# Test
+							puts value["value"]
 
-						# Data save on database be converted MB for decrease the decimal string length
-						# Update new bandwidth value by increase data of bandwidth log
-						@user.bandwidths.find_by(monthly: @thisMonth).increment! :bandwidth_usage, value["value"]/1000.00
+							# Data save on database be converted MB for decrease the decimal string length
+							# Update new bandwidth value by increase data of bandwidth log
+							@user.bandwidths.find_by(monthly: @thisMonth).increment! :bandwidth_usage, value["value"]/1000.00
+						end
 					end
 				end
 			end
