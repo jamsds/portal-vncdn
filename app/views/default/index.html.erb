@@ -57,7 +57,7 @@
 		<div class="dashboard__container">
 			<% if current_user.credit.credit_value == 0 && current_user.credit.payment_type == 1 %>
         <div class="dashboard__container-message warning">
-        	<h6><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#d97917"/></svg></span>Your subscription has been suspended</h6>
+        	<h6><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#d97917"/></svg></span>Your subscription has been suspended</h6>
           <p>Opp ! You have <%= current_user.credit.transactions.where(status: "failed").size %> transaction failed. Please check your payment and resolve this problem.</p>
         </div>
       <% end %>
@@ -69,7 +69,9 @@
             <span>Traffics & Storage all accounts dependened</span>
           </div>
           <div class="usage">
-          	<div class="usage-trend"></div>
+          	<div class="usage-trend">
+          		<div id="totalBandwidth" style="width:100%; height:150px;"></div>
+          	</div>
           </div>
 				</div>
 			</div>
@@ -124,3 +126,105 @@
 		</div>
 	</div>
 </div>
+<% if current_user.accountType == 2 %>
+<script type="text/javascript">
+	function beautifyDateTime(param) {
+		return moment(param).format("YYYY-MM");
+	}
+
+	function formatHitRateUnit(param) {
+    return param + '%';
+  }
+
+  function formatRequest(param) {
+    return param;
+  }
+
+	function formatVolumeUnit(param) {
+    var volumeUnit = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB", "NB", "DB", "CB", "XB"];
+    var i = 0;
+
+    while (param > 1000) {
+      param = param / 1000;
+      ++i;
+    }
+    param = (Math.round(param * 100) / 100).toFixed(2) + " " + volumeUnit[i];
+    return param;
+  }
+
+  function formatBandwidthUnit(param) {
+    var unit = ["bps", "Kbps", "Mbps", "Gbps", "Tbps", "Pbps", "Ebps", "Zbps", "Ybps", "Bbps", "Nbps", "Dbps", "Cbps", "Xbps"];
+
+    var i = 0;
+    while (param > 1000) {
+      param = param / 1000;
+      ++i;
+    }
+    param = (Math.round(param * 100) / 100).toFixed(2) + " " + unit[i];
+    return param;
+  }
+
+	var requestTotalBandwidthChart = echarts.init(document.getElementById('totalBandwidth'));
+  var option = {
+  	tooltip: {
+	  	trigger: 'axis',
+	  	formatter: function (params) {
+        return formatVolumeUnit(params[0].data);
+      }
+	  },
+	  legend: {
+      data:['Total Bandwidth']
+    },
+    grid: {
+    	left: '2%',
+      right: '2%',
+      bottom: '20px'
+    },
+    xAxis: {
+    	type: 'category',
+      boundaryGap : false,
+      data: [
+      	<% @totalTime.each do |time| %>
+      		"<%= time %>",
+      	<% end %>
+      ],
+      axisLabel: {
+      	formatter: function (value, index) {
+          return beautifyDateTime(value);
+        }
+      }
+    },
+    yAxis: {
+    	show: false,
+    	type: 'value',
+      axisLabel: {
+        formatter: function (value, index) {
+          return formatVolumeUnit(value);
+        }
+      }
+    },
+    color: [
+    	'#f68100'
+    ],
+    toolbox: {
+      show : true,
+      feature : {
+        saveAsImage : {
+        	show: true,
+        	title: ' ',
+        }
+      }
+    },
+    series: [{
+      name: 'Total Bandwidth',
+      type: 'line',
+      data:[
+      	<% @totalBandwidth.each do |bandwidth| %>
+      		"<%= bandwidth %>",
+      	<% end %>
+      ]
+    }]
+  };
+  requestTotalBandwidthChart.setOption(option);
+</script>
+<% end %>

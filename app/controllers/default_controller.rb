@@ -36,7 +36,7 @@ class DefaultController < ApplicationController
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
 
-      if current_user.bandwidths.present?
+      if current_user.bandwidths.where(monthly: @thisMonth).present?
         bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
       else
         bwdUsage = 0
@@ -53,5 +53,31 @@ class DefaultController < ApplicationController
       @totalPrice = totalPrice
       @threshold = (totalPrice/1000000.00) * 100
     end
+
+    if current_user.accountType == 2
+	    @totalBandwidth = []
+	    @totalTime = []
+
+	    @currentBandwidth = []
+	    @customerBandwidth = []
+
+	    User.where(parent_uuid: current_user.username).each do |customer|
+	    	customer.bandwidths.each do |bandwidth|
+	    		@customerBandwidth << bandwidth.bandwidth_usage * 1000.00
+	    	end
+	    end
+
+	    current_user.bandwidths.each do |bandwidth|
+	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
+	    	@totalTime << bandwidth.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
+	    end
+
+	    @currentBandwidth.zip(@customerBandwidth).each do |current, customer|
+	    	@totalBandwidth << current + customer
+	    end
+
+	    puts @totalTime
+	    puts @totalBandwidth
+	  end
 	end
 end
