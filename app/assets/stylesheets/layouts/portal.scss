@@ -734,8 +734,17 @@
 													}
 												}
 												&-card {
+													display: -webkit-flex;
+													font-size: 0.875rem;
+											    font-weight: 600;
+											    color: #3a3a3a;
+											    fill: #3a3a3a;
+											    .credit_ic {
+											    	margin-right: 0.5rem;
+											    }
 													span:nth-child(2) {
 														font-size: 0.875rem;
+														margin-top: 0.15rem;
 													}
 												}
 											}

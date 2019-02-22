@@ -28,12 +28,11 @@ class AccountController < ApplicationController
 
       bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
       stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-
-      totalCredit = current_user.credit.credit_value
+      
       totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
 
       @totalPrice = totalPrice
-      @threshold = (totalPrice/totalCredit) * 100
+      @threshold = (totalPrice/1000000.00) * 100
     end
   end
 
