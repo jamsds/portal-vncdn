@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
     t.string "card_brand"
     t.string "status"
     t.decimal "value", precision: 15, scale: 2, default: "0.0"
-    t.string "date"
+    t.string "monthly"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

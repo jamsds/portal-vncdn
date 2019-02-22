@@ -116,7 +116,7 @@
                 </thead>
                 <tbody>
                   <% if current_user.credit.transactions.present? %>
-                  <% current_user.credit.transactions.where(date: Date.today.strftime("%Y-%m")).order("created_at ASC").each do |transaction| %>
+                  <% current_user.credit.transactions.where(monthly: Date.today.strftime("%Y-%m")).order("created_at ASC").each do |transaction| %>
                   <tr>
                     <td><%= transaction.transaction_type %></td>
                     <td><%= transaction.description %></td>

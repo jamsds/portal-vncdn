@@ -24,7 +24,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
       # for bandwidth & storage usage
       t.decimal  :value,   precision: 15, scale: 2, default: 0
 
-    	t.string   :date
+    	t.string   :monthly
       t.timestamps
     end
   end

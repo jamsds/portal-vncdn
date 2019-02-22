@@ -16,7 +16,10 @@ class AccountController < ApplicationController
   def billing
     @thisMonth = Date.today.strftime("%Y-%m")
 
-    if current_user.credit.transactions.where(date: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present? || current_user.subscription.nil?
+    if current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
+      @totalPrice = 0
+      @threshold = 0
+    elsif current_user.subscription.nil?
       @totalPrice = 0
       @threshold = 0
     else
@@ -180,7 +183,18 @@ class AccountController < ApplicationController
           current_user.credit.increment! :credit_value, charge["amount"]
 
           # create transaction
-          current_user.credit.transactions.create(description: charge["description"], transaction_type: 'deposit', stripe_id: charge["id"], amount: charge["amount"], card_id: charge["source"]["id"], card_name: charge["source"]["name"], card_number: charge["source"]["last4"], card_brand: charge["source"]["brand"], status: charge["status"], date: Date.current.strftime("%Y-%m"))
+          current_user.credit.transactions.create(
+            description: charge["description"],
+            transaction_type: 'deposit',
+            stripe_id: charge["id"],
+            amount: charge["amount"],
+            card_id: charge["source"]["id"],
+            card_name: charge["source"]["name"],
+            card_number: charge["source"]["last4"],
+            card_brand: charge["source"]["brand"],
+            status: charge["status"],
+            monthly: Date.current.strftime("%Y-%m")
+          )
 
           redirect_to account_billing_path
         else
