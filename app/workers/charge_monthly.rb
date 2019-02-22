@@ -13,7 +13,7 @@ class ChargeMonthly
 			@user = User.find(subscription.user_id)
 			
       # Effect only with subscription type automatic payment
-      if subscription.subscription_type == 2
+      if subscription.payment_type == 2
   			# Get bandwidth & storage usage on this month
   			bwdUsage = @user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
         stgUsage = @user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
@@ -41,7 +41,7 @@ class ChargeMonthly
           monthly: @thisMonth
         )
       # Effect only with subscription type monthly
-      elsif subscription.subscription_type == 3
+      elsif subscription.payment_type == 3
 
       end
 		end
