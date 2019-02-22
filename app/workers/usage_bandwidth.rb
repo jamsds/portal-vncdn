@@ -30,7 +30,7 @@ class UsageBandwidth
 			end
 
 			# Set start time is last update
-			if @user.bandwidths.find_by(monthly: @thisMonth).last_update.present?
+			if @user.bandwidths.find_by(monthly: @thisMonth).last_update.present? || (Date.current - current_user.bandwidths.find_by(monthly: @thisMonth).last_update.to_date).to_i > 1
 				@startTime = @user.bandwidths.find_by(monthly: @thisMonth).last_update.strftime("%Y-%m-%dT%H:%M:00Z")
 			else
 				@startTime = (endTime - 20*60).strftime("%Y-%m-%dT%H:%M:00Z")
