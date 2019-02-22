@@ -198,7 +198,7 @@ class AccountController < ApplicationController
           # create transaction
           current_user.credit.transactions.create(
             description: charge["description"],
-            transaction_type: 'deposit',
+            transaction_type: 'Deposit',
             stripe_id: charge["id"],
             amount: charge["amount"],
             card_id: charge["source"]["id"],
