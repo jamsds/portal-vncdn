@@ -22,13 +22,13 @@ class AccountController < ApplicationController
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
 
-      if current_user.bandwidths.present?
+      if current_user.bandwidths.where(monthly: @thisMonth).present?
         bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
       else
         bwdUsage = 0
       end
 
-      if current_user.storages.present?
+      if current_user.storages.where(monthly: @thisMonth).present?
         stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
       else
         stgUsage = 0

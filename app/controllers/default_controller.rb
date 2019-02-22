@@ -42,7 +42,7 @@ class DefaultController < ApplicationController
         bwdUsage = 0
       end
 
-      if current_user.storages.present?
+      if current_user.storages.where(monthly: @thisMonth).present?
         stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
       else
         stgUsage = 0
