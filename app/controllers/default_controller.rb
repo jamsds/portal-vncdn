@@ -56,14 +56,20 @@ class DefaultController < ApplicationController
 
     if current_user.accountType == 2
 	    @totalBandwidth = []
+	    @totalStorage = []
 	    @totalTime = []
 
 	    @currentBandwidth = []
 	    @customerBandwidth = []
+	    @currentStorage = []
+	    @customerStorage = []
 
 	    User.where(parent_uuid: current_user.username).each do |customer|
 	    	customer.bandwidths.each do |bandwidth|
 	    		@customerBandwidth << bandwidth.bandwidth_usage * 1000.00
+	    	end
+	    	customer.storages.each do |storage|
+	    		@customerStorage << storage.storage_usage * 1000.00
 	    	end
 	    end
 
@@ -72,12 +78,17 @@ class DefaultController < ApplicationController
 	    	@totalTime << bandwidth.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
 	    end
 
+	    current_user.storages.each do |storage|
+	    	@currentStorage << storage.storage_usage * 1000.00
+	    end
+
 	    @currentBandwidth.zip(@customerBandwidth).each do |current, customer|
 	    	@totalBandwidth << current + customer
 	    end
 
-	    puts @totalTime
-	    puts @totalBandwidth
+	    @currentStorage.zip(@customerStorage).each do |current, customer|
+	    	@totalStorage << current + customer
+	    end
 	  end
 	end
 end
