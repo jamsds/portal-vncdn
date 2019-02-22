@@ -106,7 +106,16 @@ class AccountController < ApplicationController
       @reseller = subscription_params["reseller"]
     end
 
-    current_user.create_subscription(name: subscription_params["name"], package: @package.id, payment_type: subscription_params["payment_type"],bwd_limit: @package.bwd_limit, stg_limit: @package.stg_limit, reseller: @reseller, expiration_date: @expiration_date)
+    current_user.create_subscription(
+      name: subscription_params["name"],
+      package: @package.id,
+      payment_type: subscription_params["payment_type"],
+      bwd_limit: @package.bwd_limit,
+      stg_limit: @package.stg_limit,
+      reseller: @reseller,
+      expiration_date: @expiration_date
+    )
+    
     redirect_back(fallback_location: root_path)
   end
 
