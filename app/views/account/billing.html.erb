@@ -108,7 +108,6 @@
               <span>Credit Remaining</span>
               <h4><%= ApplicationController::FormatNumber.new(current_user.credit.credit_value).formatCurrency() %></h4>
             </div>
-            <% if current_user.credit.stripe_token.present? %>
             <div class="credit-card-detail clearfix">
               <a href="<%= account_payment_url %>">
                 <span class="credit_ic">
@@ -117,7 +116,6 @@
                 <span><% if current_user.credit.card_token.present? %>1<% else %>0<% end %> credit card linked to your account</span>
               </a>
             </div>
-            <% end %>
           </div>
 				</div>
         <div class="dashboard__container-card-item deposit">

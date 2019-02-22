@@ -822,6 +822,13 @@
 												span {
 													font-size: 0.875rem;
 												}
+												.deposit-available-card {
+													width: 100%;
+													&-item {
+														border-top: 1px solid transparent;
+														border-bottom: unset;
+													}
+												}
 											}
 										}
 									}
