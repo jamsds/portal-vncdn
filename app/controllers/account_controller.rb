@@ -16,34 +16,19 @@ class AccountController < ApplicationController
   def billing
     @thisMonth = Date.today.strftime("%Y-%m")
 
-    if current_user.subscription.nil?
-      bwdPrice = 0
-      stgPrice = 0
-    else
-      bwdPrice = current_user.subscription.bwd_price
-      stgPrice = current_user.subscription.stg_price
-    end
-
-    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
-      bwdUsage = 0
-    else
-      # usage value need to convert to GB, because pricing is price per GB
-      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
-    end
-
-    if current_user.storages.find_by(monthly: @thisMonth).nil?
-      stgUsage = 0
-    else
-      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-    end
-
-    totalCredit = current_user.credit.credit_value
-    totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
-
-    if current_user.subscription.nil?
+    if current_user.credit.transactions.where(date: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present? || current_user.subscription.nil?
       @totalPrice = 0
       @threshold = 0
     else
+      bwdPrice = current_user.subscription.bwd_price
+      stgPrice = current_user.subscription.stg_price
+
+      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+
+      totalCredit = current_user.credit.credit_value
+      totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
+
       @totalPrice = totalPrice
       @threshold = (totalPrice/totalCredit) * 100
     end
@@ -119,41 +104,6 @@ class AccountController < ApplicationController
   end
 
   def paymentCharge
-    if current_user.subscription.nil?
-      render json: "{\"code\":\"Subscription.Invalid\",\"message\":\"Current user not have a subscription. Please check again.\"}"
-    else
-      @thisMonth = Date.today.strftime("%Y-%m")
-
-      bwdPrice = current_user.subscription.bwd_price
-      stgPrice = current_user.subscription.stg_price
-
-      bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
-      stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
-
-      @totalPrice = (stgPrice * (stgUsage / 1000000000.00)) + (bwdPrice * (bwdUsage / 1000000000.00))
-
-      if current_user.credit.credit_value != 0
-        # idecrese credit balance
-        current_user.credit.decrement! :credit_value, @totalPrice
-        @status = 'succeeded'
-      else
-        @status = 'failed'
-      end
-
-      @subscription = current_user.subscription.name
-      @package = Package.find(current_user.subscription.package).name
-
-      # create transaction
-      current_user.credit.transactions.create(
-        description: "Delivery Appliance running in global: #{ApplicationController::FormatNumber.new(bwdUsage).formatHumanSize()}, and File Appliance in global: #{ApplicationController::FormatNumber.new(stgUsage).formatHumanSize()} (Source:#{@package} [#{@subscription}])",
-        transaction_type: 'Charge',
-        amount: @totalPrice,
-        status: @status,
-        date: Date.current.strftime("%Y-%m")
-      )
-
-      redirect_to account_billing_path
-    end
   end
 
   def paymentVerify
