@@ -55,11 +55,17 @@
 			</div>
 		</div>
 		<div class="dashboard__container">
+			<% if current_user.credit.credit_value == 0 && current_user.credit.payment_type == 1 %>
+        <div class="dashboard__container-message warning">
+        	<h6><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#d97917"/></svg></span>Your subscription has been suspended</h6>
+          <p>Opp ! You have <%= current_user.credit.transactions.where(status: "failed").size %> transaction failed. Please check your payment and resolve this problem.</p>
+        </div>
+      <% end %>
 			<% if current_user.accountType == 2 %>
 			<div class="dashboard__container-card">
 				<div class="dashboard__container-card-item mb-3 usage">
 					<div class="dashboard__container-card-item-heading">
-            <h6>Usages</h6>
+            <h6 class="mb-0">Usages</h6>
             <span>Traffics & Storage all accounts dependened</span>
           </div>
           <div class="usage">
@@ -91,6 +97,10 @@
 	            <span>Estimated charge for billing period</span>
 	          </div>
 	          <div class="billing">
+	          	<div class="billing-period">
+	          		<span><%= @startDateOfThisMonth %> - <%= @dateTodayOfThisMonth %></span>
+	          		<h6><%= ApplicationController::FormatNumber.new(@totalPrice).formatCurrency() %></h6>
+	          	</div>
 	          	<div class="billing-detail clearfix">
 	          		<a href="<%= account_billing_url %>">
 	            		<span class="billing_ic">

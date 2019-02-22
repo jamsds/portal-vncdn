@@ -371,15 +371,28 @@
 						overflow-y: scroll;
 						background-color: $silver;
 						&-message {
-							height: 52px;
 							padding: 1rem;
 							margin-bottom: 1rem;
+							border-radius: 0.25rem;
 							background-color: $gray;
 							border: 1px solid $gray-nd;
+							box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+							.alert_ic {
+								margin-right: 0.5rem;
+							}
 							&.warning {
 								color: #856404;
-								background-color: #fff3cd;
-								border-color: #ffeeba;
+								background-color: #fff3cd80;
+								border-color: #ffeebabf;
+								h6 {
+									font-size: 0.875rem;
+									margin-bottom: 0;
+								}
+								p {
+									font-size: 0.875rem;
+									margin-bottom: 0;
+									margin-left: 1.75rem;
+								}
 							}
 						}
 						&-table {
@@ -635,7 +648,8 @@
 									.info-sale, .info-support,
 									.deposit-available-card,
 									.deposit-amount,
-									.deposit-choose-method {
+									.deposit-choose-method,
+									.billing-period {
 										margin-top: 1.5rem;
 										span {
 											font-size: 0.875rem;
