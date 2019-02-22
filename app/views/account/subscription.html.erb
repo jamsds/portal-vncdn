@@ -227,7 +227,7 @@
                     </script>
                   </div>
                   <div class="progress-number mt-1 clearfix">
-                    <small class="float-left">You've reached <%= @bwdPercent.round(3) %>% of bandwidth limit</small>
+                    <small class="float-left">You've reached <%= ApplicationController::FormatNumber.new(@bwdPercent).formatPercent() %> of bandwidth limit</small>
                     <small class="float-right"><%= ApplicationController::FormatNumber.new(current_user.subscription.bwd_limit).formatHumanSize() %></small>
                   </div>
                 </div>
@@ -251,7 +251,7 @@
                     </script>
                   </div>
                   <div class="progress-number mt-1 clearfix">
-                    <small class="float-left">You've reached <%= @stgPercent.round(3) %>% of storage limit</small>
+                    <small class="float-left">You've reached <%= ApplicationController::FormatNumber.new(@stgPercent).formatPercent() %> of storage limit</small>
                     <small class="float-right"><%= ApplicationController::FormatNumber.new(current_user.subscription.stg_limit).formatHumanSize() %></small>
                   </div>
                 </div>

@@ -72,16 +72,16 @@ class AccountController < ApplicationController
     @thisMonth = Date.today.strftime("%Y-%m")
     @expired = (Date.today + (1.month + 14.days)).strftime("%d/%m/%Y")
 
-    if current_user.bandwidths.find_by(monthly: @thisMonth).nil?
-      @bwdUsage = 0
-    else
+    if current_user.bandwidths.find_by(monthly: @thisMonth).present?
       @bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
+    else
+      @bwdUsage = 0
     end
 
-    if current_user.storages.find_by(monthly: @thisMonth).nil?
-      @stgUsage = 0
-    else
+    if current_user.storages.find_by(monthly: @thisMonth).present?
       @stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
+    else
+      @stgUsage = 0
     end
 
     if current_user.subscription.nil?

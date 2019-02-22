@@ -150,7 +150,7 @@
                   </script>
                 </div>
                 <div class="progress-number mt-1 clearfix">
-                  <small class="float-left">You've reached <%= @threshold.round(3) %>% of your payment threshold</small>
+                  <small class="float-left">You've reached <%= ApplicationController::FormatNumber.new(@threshold).formatPercent() %> of your payment threshold</small>
                   <small class="float-right">Payment threshold: <%= ApplicationController::FormatNumber.new(1000000.00).formatCurrency() %></small>
                 </div>
               </div>
