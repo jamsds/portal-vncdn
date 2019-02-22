@@ -66,19 +66,48 @@
 				This customer personal information not complete.
 			</div>
 			<% end %>
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card">
-	        <div class="dashboard__container-card-item transaction">
-	          <div class="transaction">
-	          	<h6 class="mb-0"><%= @startDateOfThisMonth %> – <%= @dateTodayOfThisMonth %></h6>
-	          </div>
-	        </div>
-	        <div class="dashboard__container-card-item transaction">
-	          <div class="transaction">
-	          	<h6 class="mb-0"><%= @previousMonthWithYear %></h6>
-	          </div>
-	        </div>
-				</div>
+			<div class="dashboard__container-border clearfix">
+        <div class="dashboard__container-border-item mb-3 transaction">
+          <div class="dashboard__container-border-item-heading">
+            <h6><%= @startDateOfThisMonth %> - <%= @dateTodayOfThisMonth %></h6>
+          </div>
+          <div class="transaction">
+            <div class="transaction-table">
+              <table class="table croped mt-3 mb-0">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th style="width: 50%">Description</th>
+                    <th>Amount (VNĐ)</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @customer.credit.transactions.present? %>
+                  <% @customer.credit.transactions.where(monthly: Date.today.strftime("%Y-%m")).order("created_at ASC").each do |transaction| %>
+                  <tr>
+                    <td><%= transaction.transaction_type %></td>
+                    <td><%= transaction.description %></td>
+                    <td><%= ApplicationController::FormatNumber.new(transaction.amount).formatPricing() %></td>
+                    <td><% if transaction.stripe_id.nil? %>Credit<% else %><%= transaction.card_brand %> •••• <%= transaction.card_number %><% end %></td>
+                    <td><span class="status status-<%= transaction.status %>"><%= transaction.status.capitalize %></span></td>
+                  </tr>
+                  <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard__container-border-item transaction">
+          <div class="dashboard__container-border-item-heading">
+            <h6><%= @previousMonthWithYear %></h6>
+          </div>
+          <div class="transaction">
+          	<div class="transaction-table"></div>
+          </div>
+        </div>
 			</div>
 		</div>
 	</div>
