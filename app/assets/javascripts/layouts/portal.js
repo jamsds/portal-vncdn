@@ -52,6 +52,9 @@ $(document).on('turbolinks:load', function() {
         $(".deposit-confirm").toggleClass("hidden")
         $("#amount-value").text('₫' + parseFloat($("#amount").val(), 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
       });
+      $(".btn-submit").click(function() {
+        $("#form").submit();
+      });
       $("#amountlHelp").removeClass("notice")
     } else {
       $("#amountlHelp").addClass("notice")
