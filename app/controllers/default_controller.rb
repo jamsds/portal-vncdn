@@ -65,20 +65,20 @@ class DefaultController < ApplicationController
 	    @customerStorage = []
 
 	    User.where(parent_uuid: current_user.username).each do |customer|
-	    	customer.bandwidths.each do |bandwidth|
+	    	customer.bandwidths.order("created_at ASC").each do |bandwidth|
 	    		@customerBandwidth << bandwidth.bandwidth_usage * 1000.00
 	    	end
-	    	customer.storages.each do |storage|
+	    	customer.storages.order("created_at ASC").each do |storage|
 	    		@customerStorage << storage.storage_usage * 1000.00
 	    	end
 	    end
 
-	    current_user.bandwidths.each do |bandwidth|
+	    current_user.bandwidths.order("created_at ASC").each do |bandwidth|
 	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
 	    	@totalTime << bandwidth.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
 	    end
 
-	    current_user.storages.each do |storage|
+	    current_user.storages.order("created_at ASC").each do |storage|
 	    	@currentStorage << storage.storage_usage * 1000.00
 	    end
 

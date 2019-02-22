@@ -186,7 +186,7 @@
     	type: 'category',
       boundaryGap : false,
       data: [
-      	<% @totalTime.order("created_at ASC").each do |time| %>
+      	<% @totalTime.each do |time| %>
       		"<%= time %>",
       	<% end %>
       	"2019-03-01T00:00:00Z",
@@ -232,7 +232,7 @@
 	      name: 'Total Storage',
 	      type: 'line',
 	      data:[
-	      	<% @totalStorage.order("created_at ASC").each do |storage| %>
+	      	<% @totalStorage.each do |storage| %>
 	      		"<%= storage %>",
 	      	<% end %>
 	      ]
@@ -241,7 +241,7 @@
 	      name: 'Total Bandwidth',
 	      type: 'line',
 	      data:[
-	      	<% @totalBandwidth.order("created_at ASC").each do |bandwidth| %>
+	      	<% @totalBandwidth.each do |bandwidth| %>
 	      		"<%= bandwidth %>",
 	      	<% end %>
 	      ]
