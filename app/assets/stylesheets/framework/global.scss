@@ -197,6 +197,12 @@ a, p {
   font-size: 1rem;
 }
 
+.text-muted {
+  &.notice {
+    color: $primary !important;
+  }
+}
+
 // Button
 .btn,
 a.btn {

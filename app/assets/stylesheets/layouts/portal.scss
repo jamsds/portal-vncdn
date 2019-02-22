@@ -771,6 +771,33 @@
 										}
 									}
 								}
+								&.deposit {
+									position: relative;
+									.deposit-confirm {
+										width: 100%;
+										height: 100%;
+										position: absolute;
+										z-index: 1;
+										top: 0;
+										left: 0;
+										padding: 3.5rem 2.5rem;
+										background-color: rgba(255,255,255,.9);
+										&-wrapper {
+											width: 50%;
+											height: 100%;
+											padding: 1rem;
+											border-radius: 0.25rem;
+											background-color: $light;
+											box-shadow: $shadow-default;
+											&-detail {
+												margin-top: 1.5rem;
+												span {
+													font-size: 0.875rem;
+												}
+											}
+										}
+									}
+								}
 								&:hover {
 									box-shadow: $shadow-default;
 								}

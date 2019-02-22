@@ -45,4 +45,16 @@ $(document).on('turbolinks:load', function() {
       $(this).toggle(id.indexOf(value) !== -1);
     });
   });
+
+  $("#amount").on('keyup', function() {
+    if ($("#amount").val() != "" && parseInt($(this).val(), 10).toFixed(0) >= 500000) {
+      $(".btn-deposit").click(function() {
+        $(".deposit-confirm").removeClass("hidden")
+        $("#amount-value").text('₫' + parseFloat($("#amount").val(), 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString())
+      });
+      $("#amountlHelp").removeClass("notice")
+    } else {
+      $("#amountlHelp").addClass("notice")
+    }
+  })
 })
