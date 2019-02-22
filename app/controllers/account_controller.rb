@@ -1,10 +1,6 @@
 class AccountController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-		@user_child = User.where(parent_uuid: current_user.username)
-  end
-
   def detailUpdate
     if current_user.update(detail_params)
       redirect_back(fallback_location: root_path)
@@ -28,7 +24,7 @@ class AccountController < ApplicationController
 
       bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
       stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-      
+
       totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
 
       @totalPrice = totalPrice
