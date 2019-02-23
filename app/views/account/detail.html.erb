@@ -97,6 +97,11 @@
 <div class="portal__main-center primary croped">
 	<div class="dashboard">
 		<div class="dashboard__container">
+      <% if current_user.phone.nil? %>
+      <div class="dashboard__container-message warning">
+        <p class="mb-0 ml-0"><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#d97917"/></svg></span><span>Please update your personal information</span></p>
+      </div>
+      <% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
 					<%= form_for [current_user], :url => url_for(account_detail_update_path), html: {} do |f| %>
