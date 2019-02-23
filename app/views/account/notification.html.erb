@@ -98,84 +98,131 @@
 	<div class="dashboard">
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
+        <%= form_for [current_user.notification], :url => url_for(account_notification_update_path), html: {} do |f| %>
 				<div class="dashboard__container-card-item">
-					<%= form_for [current_user.notification], :url => url_for(account_notification_update_path), html: {} do |f| %>
-					  <div class="form-group row">
-		          <label class="col-sm-2 col-form-label text-right">Transactions</label>
-		          <div class="col-sm-9 col-form-value">
-		          	<div class="switch-group clearfix">
-							    <label class="switch">
-									  <%= f.check_box :notify_transaction, { class: 'custom-control-input', checked: current_user.notification.notify_transaction }, "true", "false" %>
-									  <span class="slider round"></span>
-									</label>
-									<%= f.label :notify_transaction, 'Send email transactions every day', class: 'switch-group-label' %>
-								</div>
-		          </div>
-		        </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Generals</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_general, { class: 'custom-control-input', checked: current_user.notification.notify_general }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_general, 'General announcements & account notifications', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
 
-		        <div class="form-group row">
-		          <label class="col-sm-2 col-form-label text-right">Credit Charged</label>
-		          <div class="col-sm-9 col-form-value">
-		          	<div class="switch-group clearfix">
-							    <label class="switch">
-									  <%= f.check_box :notify_credit, { class: 'custom-control-input', checked: current_user.notification.notify_credit }, "true", "false" %>
-									  <span class="slider round"></span>
-									</label>
-									<%= f.label :notify_credit, 'Send email credit charged every 15 minutes, only work for payment type credit.', class: 'switch-group-label' %>
-								</div>
-		          </div>
-		        </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Billings</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_billing, { class: 'custom-control-input', checked: current_user.notification.notify_billing }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_billing, 'Invoices & billing notifications', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
 
-		        <div class="form-group row">
-		          <label class="col-sm-2 col-form-label text-right">Subscriptions</label>
-		          <div class="col-sm-9 col-form-value">
-		          	<div class="switch-group clearfix">
-							    <label class="switch">
-									  <%= f.check_box :notify_subscription, { class: 'custom-control-input', checked: current_user.notification.notify_subscription }, "true", "false" %>
-									  <span class="slider round"></span>
-									</label>
-									<%= f.label :notify_subscription, 'Send email subscription modify.', class: 'switch-group-label' %>
-								</div>
-		          </div>
-		        </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Subscriptions</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_subscription, { class: 'custom-control-input', checked: current_user.notification.notify_subscription }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_subscription, 'Subscription Alert', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        <div class="dashboard__container-card-item">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Transactions</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_transaction, { class: 'custom-control-input', checked: current_user.notification.notify_transaction }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_transaction, 'Every transactions generated for your account', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
 
-		        <div class="form-group row">
-		          <label class="col-sm-2 col-form-label text-right">Invoices</label>
-		          <div class="col-sm-9 col-form-value">
-		          	<div class="switch-group clearfix">
-							    <label class="switch">
-									  <%= f.check_box :notify_invoice, { class: 'custom-control-input', checked: current_user.notification.notify_invoice }, "true", "false" %>
-									  <span class="slider round"></span>
-									</label>
-									<%= f.label :notify_invoice, 'Send email notify next duedate invoice.', class: 'switch-group-label' %>
-								</div>
-		          </div>
-		        </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Credits</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_credit, { class: 'custom-control-input', checked: current_user.notification.notify_credit }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_credit, 'Send me notification every my credit balance change', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
+        </div>
 
-		        <div class="form-group row">
-		          <label class="col-sm-2 col-form-label text-right">Product Updates</label>
-		          <div class="col-sm-9 col-form-value">
-		          	<div class="switch-group clearfix">
-							    <label class="switch">
-									  <%= f.check_box :notify_product, { class: 'custom-control-input', checked: current_user.notification.notify_product }, "true", "false" %>
-									  <span class="slider round"></span>
-									</label>
-									<%= f.label :notify_product, 'Send email release product update.', class: 'switch-group-label' %>
-								</div>
-		          </div>
-		        </div>
+        <div class="dashboard__container-card-item">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Support</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_support, { class: 'custom-control-input', checked: current_user.notification.notify_support }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_support, 'Tickets Alert', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
 
-		        <div class="row mt-3">
-		          <div class="col-sm-2"></div>
-		          <div class="col-sm-9">
-					      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
-						      Submit
-						    <% end %>
-						    <a href="<%= url_for(:back) %>" class="btn btn-light">Back</a>
-		          </div>
-		        </div>
-					<% end %>
-				</div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Products</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_product, { class: 'custom-control-input', checked: current_user.notification.notify_product }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_product, 'Release product update & product announcements', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% if current_user.accountType == 2 %>
+        <div class="dashboard__container-card-item">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label text-right">Reseller</label>
+            <div class="col-sm-9 col-form-value">
+              <div class="switch-group clearfix">
+                <label class="switch">
+                  <%= f.check_box :notify_reseller, { class: 'custom-control-input', checked: current_user.notification.notify_reseller }, "true", "false" %>
+                  <span class="slider round"></span>
+                </label>
+                <%= f.label :notify_reseller, 'Send me a notification about customers: registrations, billings, transactions', class: 'switch-group-label' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <div class="row mt-3">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-9">
+			      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+				      Submit
+				    <% end %>
+				    <a href="<%= url_for(:back) %>" class="btn btn-light">Back</a>
+          </div>
+        </div>
+        <% end %>
 			</div>
 		</div>
 	</div>

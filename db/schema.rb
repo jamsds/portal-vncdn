@@ -43,11 +43,14 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
 
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id"
-    t.boolean "notify_invoice", default: true
-    t.boolean "notify_credit", default: false
+    t.boolean "notify_general", default: true
+    t.boolean "notify_billing", default: true
+    t.boolean "notify_product", default: true
     t.boolean "notify_transaction", default: true
     t.boolean "notify_subscription", default: true
-    t.boolean "notify_product", default: true
+    t.boolean "notify_credit", default: false
+    t.boolean "notify_support", default: false
+    t.boolean "notify_reseller", default: false
     t.index ["user_id"], name: "index_notifications_on_user_id", unique: true
   end
 
