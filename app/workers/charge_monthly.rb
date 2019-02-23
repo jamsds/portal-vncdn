@@ -8,6 +8,9 @@ class ChargeMonthly
     @previousMonth = (Date.today - 1.months).strftime("%Y-%m")
 
   	# Only exec with subscription status is active
+    # Subscription subscription_type == 1 is free trial
+    # If user upgrade subscription, and then subscription_type update to 2 is invidual account
+    # Update subscription_type == 2 on production, because in test we manual modify account
 		Subscription.where(status: 1).each do |subscription|
 
 			# Find user
