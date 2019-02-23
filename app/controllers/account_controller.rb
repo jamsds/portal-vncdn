@@ -184,7 +184,7 @@ class AccountController < ApplicationController
     else
       if params[:type].nil?
         charge = Stripe::Charge.create(
-          :amount => params[:amount],
+          :amount => params[:amount].to_i,
           :currency => "vnd",
           :customer => current_user.credit.stripe_token,
           :source => current_user.credit.card_token,
@@ -193,14 +193,14 @@ class AccountController < ApplicationController
 
         if charge["status"] == "succeeded"
           # increse credit balance
-          current_user.credit.increment! :credit_value, params[:amount]
+          current_user.credit.increment! :credit_value, params[:amount].to_i
 
           # create transaction
           current_user.credit.transactions.create(
             description: "Deposit Credit Balance for account #{current_user.uuid}",
             transaction_type: 'Deposit',
             stripe_id: current_user.credit.stripe_token,
-            amount: params[:amount],
+            amount: params[:amount].to_i,
             card_id: current_user.credit.card_token,
             card_name: current_user.credit.card_name,
             card_number: current_user.credit.last4,
@@ -230,7 +230,7 @@ class AccountController < ApplicationController
       description: "Deposit Credit Balance for account #{current_user.uuid}",
       transaction_error: e.message,
       transaction_type: 'Deposit',
-      amount: params[:amount],
+      amount: params[:amount].to_i,
       card_id: current_user.credit.card_token,
       card_name: current_user.credit.card_name,
       card_number: current_user.credit.last4,
