@@ -117,7 +117,8 @@ class AccountController < ApplicationController
       expiration_date: @expiration_date
     )
 
-    MailerWorker::FreeTrial.perform_in(1.minutes, current_user.id)
+    # Notification Free Trial Mailer
+    MailerWorker::FreeTrial.perform_in(0.minutes, current_user.id)
 
     redirect_to account_subscription_path
   end
