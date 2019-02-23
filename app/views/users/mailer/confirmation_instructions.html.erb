@@ -1,5 +1,40 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<body style="margin:0">
+  <div style="background-color:#f8f9fa;font-weight:normal">
+    <table bgcolor="#f8f9fa" width="600" align="center" cellspacing="0" cellpadding="0" border="0" style="width:600px;max-width:600px;margin:0 auto;background-color:#f8f9fa;border-collapse:collapse">
+      <tbody>
+        <tr>
+          <td style="padding:2rem">
+            <img src="http://id.demo.vncdn.vn/assets/logo_dark.png" width="150px" height="auto">
+          </td>
+          <td style="text-align:right;font-family:Google Sans,Roboto,Arial;padding:2rem">
+            <a href="http://id.demo.vncdn.vn" style="font-size:16px;line-height:20px;letter-spacing:0.75px;color:#1a73e8;font-weight:500;text-decoration:none">
+              Go to your Console 
+              <img src="http://id.demo.vncdn.vn/assets/forward_ic.png" width="15px" height="15px">
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table bgcolor="#ffffff" width="600" align="center" cellspacing="0" cellpadding="0" border="0" style="width:600px;max-width:600px;margin:0 auto;background-color:#ffffff;border-collapse:collapse;border-radius: 6px">
+		  <tbody>
+		    <tr>
+		      <td style="font-family:Google Sans,Roboto,Arial;font-size:1rem;letter-spacing:0.75px;padding:2rem">
+		        <h1 style="font-size:1.75rem;margin-top:0.5rem;margin-bottom:1rem"><b>Email Confirmation</b></h1>
+		        <h3 style="font-size:1rem"><b>Welcome <%= @email %></b></h3>
+		        <p>You can confirm your account email through the link below:</p>
+		        <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+   	<table bgcolor="#f8f9fa" width="600" align="center" cellspacing="0" cellpadding="0" border="0" style="width:600px;max-width:600px;margin:0 auto;background-color:#f8f9fa;border-collapse:collapse">
+      <tbody>
+        <tr>
+          <td style="font-family:Google Sans,Roboto,Arial;font-size:0.875rem;color:#888888;font-weight:normal;letter-spacing:0.75px;padding:2rem">
+            <p>This email was sent to <%= @email %> because you indicated that you’d like to receive updates and tips about your VNCDN account.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
