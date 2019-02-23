@@ -70,7 +70,7 @@ class AccountController < ApplicationController
 
   def subscription
     @thisMonth = Date.today.strftime("%Y-%m")
-    @expired = (Date.today + (1.month + 14.days)).strftime("%d/%m/%Y")
+    @expired = (Date.today + (1.month + 14.days)).strftime("%b %d, %Y")
 
     if current_user.bandwidths.find_by(monthly: @thisMonth).present?
       @bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
