@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
     t.string "description"
     t.string "transaction_type"
     t.string "stripe_id"
+    t.string "transaction_error"
     t.decimal "amount", precision: 15, scale: 2, default: "0.0"
     t.string "card_id"
     t.string "card_name"
