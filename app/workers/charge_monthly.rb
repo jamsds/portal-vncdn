@@ -72,22 +72,29 @@ class ChargeMonthly
 
             # Update credit balance
             @user.credit.decrement! :credit_value, @totalPrice
-            @status = 'succeeded'
+
+            # Create transaction of this month
+            @user.credit.transactions.create(
+              description: @description,
+              transaction_type: 'Automatic Payment',
+              amount: @totalPrice,
+              status: 'succeeded',
+              monthly: @previousMonth
+            )
           else
-            @status = 'failed'
+            # Create transaction of this month
+            @user.credit.transactions.create(
+              description: @description,
+              transaction_error: 'Deposit balance not enough for this payment. Please check your credit again',
+              transaction_type: 'Automatic Payment',
+              amount: @totalPrice,
+              status: 'failed',
+              monthly: @previousMonth
+            )
 
             # Suspend subscription if payment failed
             @user.subscription.update(status: 2)
           end
-
-          # Create transaction of this month
-          @user.credit.transactions.create(
-            description: @description,
-            transaction_type: 'Automatic Payment',
-            amount: @totalPrice,
-            status: @status,
-            monthly: @previousMonth
-          )
         end
       end
 		end
@@ -97,7 +104,8 @@ class ChargeMonthly
 
       # Create transaction failed
       @user.credit.transactions.create(
-        description: e.message,
+        description: @description,
+        transaction_error: e.message,
         transaction_type: 'Automatic Payment',
         amount: @totalPrice.to_i,
         card_id: @user.credit.card_token,
