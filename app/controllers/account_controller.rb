@@ -119,10 +119,9 @@ class AccountController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def paymentCharge
-  end
-
+  # Complete
   def paymentVerify
+    # Encrypt Card Information
     token = Stripe::Token.create(
       card: {
         name: params[:name],
@@ -133,37 +132,43 @@ class AccountController < ApplicationController
       },
     )
 
+    # If current_user add new card, we need create user in Stripe and update card information on database
     if current_user.credit.stripe_token.nil?
+
+      # Create customer on Stripe
       customer = Stripe::Customer.create(
         :email => "#{current_user.email}",
         :description => "#{current_user.username}",
         :source => token
       )
 
-      customer["sources"].each do |customer|
-        @card_name = customer["name"]
-        @card_token = customer["id"]
-        @card_brand = customer["brand"]
-        @exp_month = customer["exp_month"]
-        @exp_year = customer["exp_year"]
-        @last4 = customer["last4"]
-        @funding = customer["funding"]
-      end
-
+      # Update card info into current_user on database
       @update = current_user.credit.update(
         stripe_token: customer["id"],
-        card_name: @card_name,
-        card_token: @card_token,
-        card_brand: @card_brand,
-        expires: "#{@exp_month}/#{@exp_year}",
-        last4: @last4,
-        funding: @funding
+        card_name: customer["sources"]["name"],
+        card_token: customer["sources"]["id"],
+        card_brand: customer["sources"]["brand"],
+        expires: "#{customer["sources"]["exp_month"]}/#{customer["sources"]["exp_year"]}",
+        last4: customer["sources"]["last4"],
+        funding: customer["sources"]["funding"]
       )
+
+    # If current_user remove card, and then we only update new card in Stripe, with stripe_token to define Stripe customer
     else
+
+      # Update card info on Stripe
       customer = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
       created = customer.sources.create(source: token)
 
-      @update = current_user.credit.update(card_name: created["name"], card_token: created["id"], card_brand: created["brand"], expires: "#{created["exp_month"]}/#{created["exp_year"]}", last4: created["last4"], funding: created["funding"])
+      # Update card info into current_user on database
+      @update = current_user.credit.update(
+        card_name: created["name"],
+        card_token: created["id"],
+        card_brand: created["brand"],
+        expires: "#{created["exp_month"]}/#{created["exp_year"]}",
+        last4: created["last4"],
+        funding: created["funding"]
+      )
     end
 
     if @update
