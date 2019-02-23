@@ -14,8 +14,17 @@ class ChargeMonthly
 			@user = User.find(subscription.user_id)
 
       # Get bandwidth & storage usage on previous month
-      bwdUsage = @user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
-      stgUsage = @user.storages.find_by(monthly: @previousMonth).storage_usage * 1000.00
+      if @user.bandwidths.present?
+        bwdUsage = @user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
+      else
+        bwdUsage = 0
+      end
+
+      if @user.storages.present?
+        stgUsage = @user.storages.find_by(monthly: @previousMonth).storage_usage * 1000.00
+      else
+        stgUsage = 0
+      end
 
       # Calculator usage pricing
       @totalPrice = (@user.subscription.stg_price * (stgUsage / 1000000000.00)) + (@user.subscription.bwd_price * (bwdUsage / 1000000000.00))
