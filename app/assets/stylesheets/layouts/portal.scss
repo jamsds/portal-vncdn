@@ -390,8 +390,12 @@
 								}
 								p {
 									font-size: 0.875rem;
+									display: -webkit-flex;
 									margin-bottom: 0;
 									margin-left: 1.5rem;
+									span:nth-child(2) {
+										margin-top: 0.15rem;
+									}
 								}
 							}
 						}
