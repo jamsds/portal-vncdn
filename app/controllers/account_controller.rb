@@ -42,8 +42,6 @@ class AccountController < ApplicationController
   end
 
   def transaction
-    @startDateOfThisMonth = Date.current.beginning_of_month.strftime("%B %d")
-    @dateTodayOfThisMonth = Date.current.strftime("%d, %Y")
   end
 
   def passwordUpdate
