@@ -17,13 +17,13 @@ class ChargeMonthly
 			@user = User.find(subscription.user_id)
 
       # Get bandwidth & storage usage on previous month
-      if @user.bandwidths.present?
+      if @user.bandwidths.present? && @user.bandwidths.find_by(monthly: @previousMonth).present?
         bwdUsage = @user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
       else
         bwdUsage = 0
       end
 
-      if @user.storages.present?
+      if @user.storages.present? && @user.storages.find_by(monthly: @previousMonth).present?
         stgUsage = @user.storages.find_by(monthly: @previousMonth).storage_usage * 1000.00
       else
         stgUsage = 0
