@@ -115,7 +115,7 @@
 	          </div>
 	          <div class="billing">
 	          	<div class="billing-period">
-	          		<span><%= @startDateOfThisMonth %> - <%= @dateTodayOfThisMonth %></span>
+	          		<span><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %></span>
 	          		<h6><%= ApplicationController::FormatNumber.new(@totalPrice).formatCurrency() %></h6>
 	          	</div>
 	          	<div class="billing-detail clearfix">
