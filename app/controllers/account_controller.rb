@@ -178,11 +178,13 @@ class AccountController < ApplicationController
   end
 
   def depositCharge
+    # Minimum amount at least 500.000
     if params[:amount].to_i < 500000
       flash[:verify_error] = "Deposit minimum is #{ApplicationController::FormatNumber.new(500000).formatPricing()}"
       redirect_to account_billing_deposit_path
     else
       if params[:type].nil?
+        # Stripe charge with credit card
         charge = Stripe::Charge.create(
           :amount => params[:amount].to_i,
           :currency => "vnd",
@@ -192,10 +194,10 @@ class AccountController < ApplicationController
         )
 
         if charge["status"] == "succeeded"
-          # increse credit balance
+          # Update credit balance
           current_user.credit.increment! :credit_value, params[:amount].to_i
 
-          # create transaction
+          # Create transaction succeeded
           current_user.credit.transactions.create(
             description: "Deposit Credit Balance for account #{current_user.uuid}",
             transaction_type: 'Deposit',
@@ -216,6 +218,8 @@ class AccountController < ApplicationController
         end
       end
     end
+
+  # Rescure Error
   rescue TypeError => e
     flash[:verify_error] = e.message
     redirect_to account_billing_deposit_path
@@ -225,7 +229,7 @@ class AccountController < ApplicationController
   rescue Stripe::CardError => e
     flash[:verify_error] = e.message
 
-    # create transaction failed
+    # Create transaction failed
     current_user.credit.transactions.create(
       description: "Deposit Credit Balance for account #{current_user.uuid}",
       transaction_error: e.message,
