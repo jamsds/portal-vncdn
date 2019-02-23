@@ -90,9 +90,9 @@ class DefaultController < ApplicationController
 
 	rescue TypeError => e
 		flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_back(fallback_location: root_path)
   rescue NoMethodError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_back(fallback_location: root_path)
 	end
 end
