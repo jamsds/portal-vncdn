@@ -18,4 +18,20 @@ class NotificationMailer < ApplicationMailer
       subject: "Free Trial Subscription",
     )
   end
+
+  def new_card_email(id)
+    @user = User.find(id)
+
+    @name = @user.name
+    @email = @user.email
+
+    @card_brand = @user.credit.card_brand
+    @card_number = @user.credit.last4
+
+    mail(
+      to: @email,
+      content_type: "text/html",
+      subject: "Credit Card Notifications",
+    )
+  end
 end

@@ -157,6 +157,9 @@ class AccountController < ApplicationController
         funding: customer["sources"]["funding"]
       )
 
+      # Notification New Card Mailer
+      MailerWorker::NewCard.perform_in(0.minutes, current_user.id)
+
     # If current_user remove card, and then we only update new card in Stripe, with stripe_token to define Stripe customer
     else
 
