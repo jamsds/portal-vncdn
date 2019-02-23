@@ -193,18 +193,18 @@ class AccountController < ApplicationController
 
         if charge["status"] == "succeeded"
           # increse credit balance
-          current_user.credit.increment! :credit_value, charge["amount"]
+          current_user.credit.increment! :credit_value, params[:amount]
 
           # create transaction
           current_user.credit.transactions.create(
-            description: charge["description"],
+            description: "Deposit Credit Balance for account #{current_user.uuid}",
             transaction_type: 'Deposit',
-            stripe_id: charge["id"],
-            amount: charge["amount"],
-            card_id: charge["source"]["id"],
-            card_name: charge["source"]["name"],
-            card_number: charge["source"]["last4"],
-            card_brand: charge["source"]["brand"],
+            stripe_id: current_user.credit.stripe_token,
+            amount: params[:amount],
+            card_id: current_user.credit.card_token,
+            card_name: current_user.credit.card_name,
+            card_number: current_user.credit.last4,
+            card_brand: current_user.credit.card_brand,
             status: charge["status"],
             monthly: Date.current.strftime("%Y-%m")
           )
@@ -224,7 +224,8 @@ class AccountController < ApplicationController
 
     # create transaction failed
     current_user.credit.transactions.create(
-      description: e.message,
+      description: "Deposit Credit Balance for account #{current_user.uuid}",
+      transaction_error: e.message,
       transaction_type: 'Deposit',
       amount: params[:amount],
       card_id: current_user.credit.card_token,
