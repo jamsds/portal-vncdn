@@ -31,59 +31,61 @@ class ChargeMonthly
 
       @description = "Delivery Appliance running in global: #{ApplicationController::FormatNumber.new(bwdUsage).formatHumanSize()}, and File Appliance in global: #{ApplicationController::FormatNumber.new(stgUsage).formatHumanSize()} (Source:#{Package.find(@user.subscription.package).name} [#{@user.subscription.name}])"
 			
-      # Effect only with subscription type automatic payment by credit card
-      if @user.subscription.payment_type == 2 && @user.credit.card_token.present?
-        charge = Stripe::Charge.create(
-          :amount => @totalPrice.to_i,
-          :currency => "vnd",
-          :customer => @user.credit.stripe_token,
-          :source => @user.credit.card_token,
-          :description => @description
-        )
+      if @totalPrice != 0
+        # Effect only with subscription type automatic payment by credit card
+        if @user.subscription.payment_type == 2 && @user.credit.card_token.present?
+          charge = Stripe::Charge.create(
+            :amount => @totalPrice.to_i,
+            :currency => "vnd",
+            :customer => @user.credit.stripe_token,
+            :source => @user.credit.card_token,
+            :description => @description
+          )
 
-        # Defind charge succeeded response from Stripe
-        if charge["status"] == "succeeded"
+          # Defind charge succeeded response from Stripe
+          if charge["status"] == "succeeded"
 
-          # Create transaction succeeded
+            # Create transaction succeeded
+            @user.credit.transactions.create(
+              description: @description,
+              transaction_type: 'Automatic Payment',
+              stripe_id: charge["id"],
+              amount: @totalPrice.to_i,
+              card_id: @user.credit.card_token,
+              card_name: @user.credit.card_name,
+              card_number: @user.credit.last4,
+              card_brand: @user.credit.card_brand,
+              status: 'succeeded',
+              monthly: @previousMonth
+            )
+          end
+        end
+
+        # Effect only with subscription type automatic payment by deposit
+        if @user.subscription.payment_type == 2 && @user.credit.card_token.nil?
+
+          # Check credit
+          if @user.credit.credit_value != 0 && @user.credit.credit_value > @totalPrice
+
+            # Update credit balance
+            @user.credit.decrement! :credit_value, @totalPrice
+            @status = 'succeeded'
+          else
+            @status = 'failed'
+
+            # Suspend subscription if payment failed
+            @user.subscription.update(status: 2)
+          end
+
+          # Create transaction of this month
           @user.credit.transactions.create(
             description: @description,
             transaction_type: 'Automatic Payment',
-            stripe_id: charge["id"],
-            amount: @totalPrice.to_i,
-            card_id: @user.credit.card_token,
-            card_name: @user.credit.card_name,
-            card_number: @user.credit.last4,
-            card_brand: @user.credit.card_brand,
-            status: 'succeeded',
+            amount: @totalPrice,
+            status: @status,
             monthly: @previousMonth
           )
         end
-      end
-
-      # Effect only with subscription type automatic payment by deposit
-      if @user.subscription.payment_type == 2 && @user.credit.card_token.nil?
-
-        # Check credit
-        if @user.credit.credit_value != 0 && @user.credit.credit_value > @totalPrice
-
-          # Update credit balance
-          @user.credit.decrement! :credit_value, @totalPrice
-          @status = 'succeeded'
-        else
-          @status = 'failed'
-
-          # Suspend subscription if payment failed
-          @user.subscription.update(status: 2)
-        end
-
-        # Create transaction of this month
-        @user.credit.transactions.create(
-          description: @description,
-          transaction_type: 'Automatic Payment',
-          amount: @totalPrice,
-          status: @status,
-          monthly: @previousMonth
-        )
       end
 		end
 
