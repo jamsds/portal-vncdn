@@ -51,6 +51,8 @@ class DefaultController < ApplicationController
       @totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
     end
 
+    @customer = User.where(parent_uuid: current_user.username)
+
     if current_user.accountType == 2
 	    @totalBandwidth = []
 	    @totalStorage = []
@@ -61,7 +63,11 @@ class DefaultController < ApplicationController
 	    @currentStorage = []
 	    @customerStorage = []
 
-	    User.where(parent_uuid: current_user.username).each do |customer|
+	    current_user.bandwidths.order("created_at ASC").each do |time|
+	    	@totalTime << time.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
+	    end
+
+	    @customer.each do |customer|
 	    	customer.bandwidths.order("created_at ASC").each do |bandwidth|
 	    		@customerBandwidth << bandwidth.bandwidth_usage * 1000.00
 	    	end
@@ -72,20 +78,23 @@ class DefaultController < ApplicationController
 
 	    current_user.bandwidths.order("created_at ASC").each do |bandwidth|
 	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
-	    	@totalTime << bandwidth.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
 	    end
 
 	    current_user.storages.order("created_at ASC").each do |storage|
 	    	@currentStorage << storage.storage_usage * 1000.00
 	    end
 
-	    @currentBandwidth.zip(@customerBandwidth).each do |current, customer|
-	    	@totalBandwidth << current + customer
-	    end
-
-	    @currentStorage.zip(@customerStorage).each do |current, customer|
-	    	@totalStorage << current + customer
-	    end
+	    if @customer.present?
+		    @currentBandwidth.zip(@customerBandwidth).each do |current, customer|
+		    	@totalBandwidth << current + customer
+		    end
+		    @currentStorage.zip(@customerStorage).each do |current, customer|
+		    	@totalStorage << current + customer
+		    end
+		  else
+		  	@totalBandwidth = @currentBandwidth
+		  	@totalStorage = @currentStorage
+		  end
 	  end
 
 	rescue TypeError => e
