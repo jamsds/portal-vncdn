@@ -6,7 +6,25 @@
         <h1 style="font-size:1.75rem;margin-top:0;margin-bottom:1.5rem"><b>Credit Card Linked</b></h1>
         <h3 style="font-size:1rem;margin-bottom:1rem;display:block;;float:unset"><b>Dear <%= @name %>,</b></h3>
         <p style="margin-top:1rem;margin-bottom:1rem">You recently linked a Credit Card to your account. Your card information in bellow:</p>
-        <p style="margin-top:1rem;margin-bottom:1rem"><%= @card_brand %> •••• <%= @card_number %></p>
+        <table align="center" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;border-collapse:collapse">
+          <tbody>
+            <tr>
+              <td style="width:25%">
+                <span>Brand</span>
+                <h3 style="font-size:1rem;margin-bottom:1rem;display:block;;float:unset"><b><%= @card_brand %></b></h3>
+              </td>
+              <td style="width:25%">
+                <span>Number</span>
+                <h3 style="font-size:1rem;margin-bottom:1rem;display:block;;float:unset"><b>•••• <%= @card_number %></b></h3>
+              </td>
+              <td style="width:25%">
+                <span>Expires</span>
+                <h3 style="font-size:1rem;margin-bottom:1rem;display:block;;float:unset"><b><%= @expires %></b></h3>
+              </td>
+              <td style="width:25%"></td>
+            </tr>
+          </tbody>
+        </table>
         <p style="margin-top:1rem;margin-bottom:0">Please check your card available for making payment. You don't need to receive an invoice every month. Your subscription payment automatic and we will send you a receipt on the first day of the month.</p>
       </td>
     </tr>

@@ -27,6 +27,7 @@ class NotificationMailer < ApplicationMailer
 
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
+    @expires = @user.credit.expires
 
     mail(
       to: @email,
