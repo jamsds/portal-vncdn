@@ -221,6 +221,20 @@ class AccountController < ApplicationController
     redirect_to account_billing_deposit_path
   rescue Stripe::CardError => e
     flash[:verify_error] = e.message
+
+    # create transaction failed
+    current_user.credit.transactions.create(
+      description: e.message,
+      transaction_type: 'Deposit',
+      amount: params[:amount],
+      card_id: current_user.credit.card_token,
+      card_name: current_user.credit.card_name,
+      card_number: current_user.credit.last4,
+      card_brand: current_user.credit.card_brand,
+      status: 'failed',
+      monthly: Date.current.strftime("%Y-%m")
+    )
+
     redirect_to account_payment_path
   end
 

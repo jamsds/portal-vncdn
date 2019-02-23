@@ -121,7 +121,7 @@
                     <td><%= transaction.transaction_type %></td>
                     <td><%= transaction.description %></td>
                     <td><%= ApplicationController::FormatNumber.new(transaction.amount).formatPricing() %></td>
-                    <td><% if transaction.stripe_id.nil? %>Credit<% else %><%= transaction.card_brand %> •••• <%= transaction.card_number %><% end %></td>
+                    <td><% if transaction.card_id.nil? %>Credit<% else %><%= transaction.card_brand %> •••• <%= transaction.card_number %><% end %></td>
                     <td><span class="status status-<%= transaction.status %>"><%= transaction.status.capitalize %></span></td>
                   </tr>
                   <% end %>
