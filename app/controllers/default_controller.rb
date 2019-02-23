@@ -88,8 +88,11 @@ class DefaultController < ApplicationController
 	    end
 	  end
 
-	  rescue NoMethodError => e
-    	flash[:method_error] = e.message
-    	redirect_to root_path
+	rescue TypeError => e
+		flash[:method_error] = e.message
+  	redirect_to root_path
+  rescue NoMethodError => e
+  	flash[:method_error] = e.message
+  	redirect_to root_path
 	end
 end
