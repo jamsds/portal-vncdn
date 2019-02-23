@@ -6,6 +6,7 @@ class DefaultController < ApplicationController
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
+	
 	def index
 		if current_user.uuid.nil?
 			@requestURI = "/v1.1/createCustomer/"
