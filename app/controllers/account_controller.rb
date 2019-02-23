@@ -146,7 +146,7 @@ class AccountController < ApplicationController
         :source => token
       )
 
-      customer["source"].each do |source|
+      customer["sources"].each do |source|
         @source = source
       end
 
@@ -162,7 +162,7 @@ class AccountController < ApplicationController
       )
 
       # Notification New Card Mailer
-      MailerWorker::NewCard.perform_in(0.minutes, current_user.id)
+      MailerWorker::NewCard.perform_in(1.minutes, current_user.id)
 
     # If current_user remove card, and then we only update new card in Stripe, with stripe_token to define Stripe customer
     else
@@ -185,6 +185,9 @@ class AccountController < ApplicationController
     if @update
       redirect_to account_payment_path
     end
+  rescue Stripe::APIConnectionError => e
+    flash[:verify_error] = e.message
+    redirect_to account_payment_path
   rescue Stripe::CardError => e
     flash[:verify_error] = e.message
     redirect_to account_payment_path
