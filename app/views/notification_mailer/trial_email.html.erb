@@ -5,8 +5,8 @@
       <td style="font-family:Google Sans,Roboto,Arial;font-size:1rem;letter-spacing:0.75px;padding:2rem">
         <h1 style="font-size:1.75rem;margin-top:0;margin-bottom:1rem"><b>Welcome to VNCDN</b></h1>
         <h3 style="font-size:1rem"><b>Dear <%= @name %>,</b></h3>
-        <p>You recently created a Free Trial subscription for your account.<br/>
-        Now, you have free 14 days for trial. With free <%= ApplicationController::FormatNumber.new(@bwdLimit).formatHumanSize() %> traffic and free <%= ApplicationController::FormatNumber.new(@stgLimit).formatHumanSize() %> cloud storage.</p>
+        <p>You recently created a Free Trial subscription for your account</p>
+        <p>Now, you have free 14 days for trial. With free <%= ApplicationController::FormatNumber.new(@bwdLimit).formatHumanSize() %> traffic and free <%= ApplicationController::FormatNumber.new(@stgLimit).formatHumanSize() %> cloud storage.</p>
         <p style="margin-bottom:0">The trial package will expire on <%= (Date.current + 14.days).strftime("%b %d, %Y") %></p>
       </td>
     </tr>
