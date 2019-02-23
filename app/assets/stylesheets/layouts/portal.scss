@@ -379,6 +379,8 @@
 							box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 							.alert_ic {
 								margin-right: 0.5rem;
+						    display: -webkit-flex;
+						    float: left;
 							}
 							&.warning {
 								color: #856404;
@@ -391,8 +393,6 @@
 								p {
 									font-size: 0.875rem;
 									display: block;
-									margin-bottom: 0;
-									margin-left: 1.5rem;
 									span:nth-child(2) {
 										margin-top: 0.15rem;
 									}
