@@ -150,7 +150,15 @@ class AccountController < ApplicationController
         @funding = customer["funding"]
       end
 
-      @update = current_user.credit.update(stripe_token: customer["id"], card_name: @card_name, card_token: @card_token, card_brand: @card_brand, expires: "#{@exp_month}/#{@exp_year}", last4: @last4, funding: @funding)
+      @update = current_user.credit.update(
+        stripe_token: customer["id"],
+        card_name: @card_name,
+        card_token: @card_token,
+        card_brand: @card_brand,
+        expires: "#{@exp_month}/#{@exp_year}",
+        last4: @last4,
+        funding: @funding
+      )
     else
       customer = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
       created = customer.sources.create(source: token)
@@ -166,17 +174,19 @@ class AccountController < ApplicationController
     redirect_to account_payment_path
   end
 
+  # Complete
   def paymentRemove
+    # Stripe remove card with card_token of current_user
     customer = Stripe::Customer.retrieve("#{current_user.credit.stripe_token}")
-    deleted = customer.sources.retrieve("#{current_user.credit.card_token}").delete
+    customer.sources.retrieve("#{current_user.credit.card_token}").delete
 
-    @update = current_user.credit.update(card_name: nil, card_token: nil, card_brand: nil, expires: nil, last4: nil, funding: nil)
-    
-    if @update
+    # Clear card_token of current_user
+    if current_user.credit.update(card_token: nil, card_brand: nil, card_name: nil, expires: nil, last4: nil, funding: nil)
       redirect_to account_payment_path
     end
   end
 
+  # Complete
   def depositCharge
     # Minimum amount at least 500.000
     if params[:amount].to_i < 500000
