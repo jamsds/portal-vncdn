@@ -146,15 +146,19 @@ class AccountController < ApplicationController
         :source => token
       )
 
+      customer["source"].each do |source|
+        @source = source
+      end
+
       # Update card info into current_user on database
       @update = current_user.credit.update(
         stripe_token: customer["id"],
-        card_name: customer["sources"]["name"],
-        card_token: customer["sources"]["id"],
-        card_brand: customer["sources"]["brand"],
-        expires: "#{customer["sources"]["exp_month"]}/#{customer["sources"]["exp_year"]}",
-        last4: customer["sources"]["last4"],
-        funding: customer["sources"]["funding"]
+        card_name: @source["name"],
+        card_token: @source["id"],
+        card_brand: @source["brand"],
+        expires: "#{@source["exp_month"]}/#{@source["exp_year"]}",
+        last4: @source["last4"],
+        funding: @source["funding"]
       )
 
       # Notification New Card Mailer
