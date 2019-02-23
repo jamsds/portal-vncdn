@@ -216,6 +216,9 @@ class AccountController < ApplicationController
         end
       end
     end
+  rescue TypeError => e
+    flash[:verify_error] = e.message
+    redirect_to account_billing_deposit_path
   rescue Stripe::InvalidRequestError => e
     flash[:verify_error] = e.message
     redirect_to account_billing_deposit_path
