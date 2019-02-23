@@ -59,12 +59,21 @@ class DefaultController < ApplicationController
 	    @totalTime = []
 
 	    @currentBandwidth = []
-	    @customerBandwidth = []
 	    @currentStorage = []
+
+	    @customerBandwidth = []
 	    @customerStorage = []
 
 	    current_user.bandwidths.order("created_at ASC").each do |time|
 	    	@totalTime << time.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
+	    end
+
+	    current_user.bandwidths.order("created_at ASC").each do |bandwidth|
+	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
+	    end
+
+	    current_user.storages.order("created_at ASC").each do |storage|
+	    	@currentStorage << storage.storage_usage * 1000.00
 	    end
 
 	    @customer.each do |customer|
@@ -76,20 +85,12 @@ class DefaultController < ApplicationController
 	    	end
 	    end
 
-	    current_user.bandwidths.order("created_at ASC").each do |bandwidth|
-	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
-	    end
-
-	    current_user.storages.order("created_at ASC").each do |storage|
-	    	@currentStorage << storage.storage_usage * 1000.00
-	    end
-
 	    if @customer.present?
-		    @currentBandwidth.zip(@customerBandwidth).each do |current, customer|
-		    	@totalBandwidth << current + customer
+		    @customerBandwidth.zip(@currentBandwidth).each do |customer, current|
+		    	@totalBandwidth << customer + current
 		    end
-		    @currentStorage.zip(@customerStorage).each do |current, customer|
-		    	@totalStorage << current + customer
+		    @customerStorage.zip(@currentStorage).each do |customer, current|
+		    	@totalStorage << customer + current
 		    end
 		  else
 		  	@totalBandwidth = @currentBandwidth
@@ -97,8 +98,8 @@ class DefaultController < ApplicationController
 		  end
 	  end
 
-  rescue NoMethodError => e
-  	flash[:method_error] = e.message
-  	redirect_back(fallback_location: root_path)
+	  rescue NoMethodError => e
+	  	flash[:method_error] = e.message
+	  	redirect_back(fallback_location: root_path)
 	end
 end
