@@ -15,7 +15,7 @@ class NotificationMailer < ApplicationMailer
     mail(
       to: @email,
       content_type: "text/html",
-      subject: "Free Trial Subscription",
+      subject: "VNCDN - Trial Subscription",
     )
   end
 
@@ -32,7 +32,7 @@ class NotificationMailer < ApplicationMailer
     mail(
       to: @email,
       content_type: "text/html",
-      subject: "Credit Card Notifications",
+      subject: "VNCDN - Card Linked Notification",
     )
   end
 end
