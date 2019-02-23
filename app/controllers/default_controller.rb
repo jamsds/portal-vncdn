@@ -24,14 +24,13 @@ class DefaultController < ApplicationController
 		@startDateOfThisMonth = Date.current.beginning_of_month.strftime("%B %d")
 		@dateTodayOfThisMonth = Date.current.strftime("%d, %Y")
 
+		# Define data usage on this month
 		@thisMonth = Date.today.strftime("%Y-%m")
 
     if current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
       @totalPrice = 0
-      @threshold = 0
     elsif current_user.subscription.nil?
       @totalPrice = 0
-      @threshold = 0
     else
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
@@ -48,10 +47,7 @@ class DefaultController < ApplicationController
         stgUsage = 0
       end
 
-      totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
-
-      @totalPrice = totalPrice
-      @threshold = (totalPrice/1000000.00) * 100
+      @totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
     end
 
     if current_user.accountType == 2
