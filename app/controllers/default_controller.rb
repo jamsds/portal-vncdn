@@ -22,9 +22,6 @@ class DefaultController < ApplicationController
 			Notification.create(user_id: current_user.id)
 		end
 
-		@startDateOfThisMonth = Date.current.beginning_of_month.strftime("%B %d")
-		@dateTodayOfThisMonth = Date.current.strftime("%d, %Y")
-
 		# Define data usage on this month
 		@thisMonth = Date.today.strftime("%Y-%m")
 
@@ -58,44 +55,9 @@ class DefaultController < ApplicationController
 	    @totalStorage = []
 	    @totalTime = []
 
-	    @currentBandwidth = []
-	    @currentStorage = []
-
-	    @customerBandwidth = []
-	    @customerStorage = []
-
 	    current_user.bandwidths.order("created_at ASC").each do |time|
 	    	@totalTime << time.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
 	    end
-
-	    current_user.bandwidths.order("created_at ASC").each do |bandwidth|
-	    	@currentBandwidth << bandwidth.bandwidth_usage * 1000.00
-	    end
-
-	    current_user.storages.order("created_at ASC").each do |storage|
-	    	@currentStorage << storage.storage_usage * 1000.00
-	    end
-
-	    @customer.each do |customer|
-	    	customer.bandwidths.order("created_at ASC").each do |bandwidth|
-	    		@customerBandwidth << bandwidth.bandwidth_usage * 1000.00
-	    	end
-	    	customer.storages.order("created_at ASC").each do |storage|
-	    		@customerStorage << storage.storage_usage * 1000.00
-	    	end
-	    end
-
-	    if @customer.present?
-		    @customerBandwidth.zip(@currentBandwidth).each do |customer, current|
-		    	@totalBandwidth << customer + current
-		    end
-		    @customerStorage.zip(@currentStorage).each do |customer, current|
-		    	@totalStorage << customer + current
-		    end
-		  else
-		  	@totalBandwidth = @currentBandwidth
-		  	@totalStorage = @currentStorage
-		  end
 	  end
 
 	  rescue NoMethodError => e
