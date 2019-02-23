@@ -21,11 +21,11 @@ class CreateSubscriptions < ActiveRecord::Migration[5.2]
 
         # subscription_type == 1 & 2
         # traffic & storage usage limit per month
-        # reseller or admin can modify this limit, every subscription modified will change to subscription_type == 2
+        # reseller or admin can modify this limit, every subscription modified will change to subscription_type == 3
         t.decimal  :bwd_limit,      precision: 15, default: 0
         t.decimal  :stg_limit,      precision: 15, default: 0
 
-        # reseller or admin can modify this pricing, every subscription modified will change to subscription_type == 2
+        # reseller or admin can modify this pricing, every subscription modified will change to subscription_type == 3
         t.decimal  :bwd_price,      precision: 15, default: 0
         t.decimal  :stg_price,      precision: 15, default: 0
 
