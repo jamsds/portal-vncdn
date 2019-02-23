@@ -87,5 +87,9 @@ class DefaultController < ApplicationController
 	    	@totalStorage << current + customer
 	    end
 	  end
+
+	  rescue NoMethodError => e
+    	flash[:method_error] = e.message
+    	redirect_to root_path
 	end
 end
