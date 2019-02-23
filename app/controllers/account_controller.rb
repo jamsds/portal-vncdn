@@ -93,6 +93,7 @@ class AccountController < ApplicationController
     end
   end
 
+  # Free Subscription Complete
   def subscriptionAdd
     @package = Package.first
 
@@ -116,7 +117,7 @@ class AccountController < ApplicationController
       expiration_date: @expiration_date
     )
 
-    redirect_back(fallback_location: root_path)
+    redirect_to account_subscription_path
   end
 
   # Complete
