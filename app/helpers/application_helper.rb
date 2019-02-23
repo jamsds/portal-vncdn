@@ -31,7 +31,7 @@ module ApplicationHelper
   def paymentType(id)
     case id
       when 1
-        'Pay As You Go'
+        'Automatic Payment'
       when 2
         'Monthly'
     end
