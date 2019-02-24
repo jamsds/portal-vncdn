@@ -29,6 +29,8 @@ class DefaultController < ApplicationController
 
 		# Define data usage on this month
 		@thisMonth = Date.today.strftime("%Y-%m")
+		@previousMonth = (Date.current - 1.month).strftime("%Y-%m")
+
 
     if current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
       @totalPrice = 0
@@ -40,21 +42,33 @@ class DefaultController < ApplicationController
 
       if current_user.bandwidths.where(monthly: @thisMonth).present?
         bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
+        @bwdCurrentMonth = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
       else
         bwdUsage = 0
       end
 
       if current_user.storages.where(monthly: @thisMonth).present?
         stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
+        @stgPreviousMonth = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
       else
         stgUsage = 0
       end
 
+      if current_user.bandwidths.where(monthly: @previousMonth).present?
+	      @bwdPreviousMonth = current_user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
+	    else
+	      @bwdPreviousMonth = 0
+	    end
+
+	    if current_user.storages.where(monthly: @previousMonth).present?
+	      @stgPreviousMonth = current_user.storages.find_by(monthly: @previousMonth).storage_usage * 1000.00
+	    else
+	      @stgPreviousMonth = 0
+	    end
+
       @totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
     end
-
-    @customer = User.where(parent_uuid: current_user.username)
-
+    
     if current_user.accountType == 2
 	    @totalBandwidth = []
 	    @totalStorage = []
@@ -85,6 +99,6 @@ class DefaultController < ApplicationController
 
   rescue NoMethodError => e
   	flash[:method_error] = e.message
-  	redirect_to errors_path
+  	redirect_back(fallback_location: root_path)
 	end
 end

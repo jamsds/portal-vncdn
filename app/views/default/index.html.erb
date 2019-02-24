@@ -93,7 +93,7 @@
 			<% end %>
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-col-4">
-					<div class="dashboard__container-card-item info">
+					<div class="dashboard__container-card-item info hidden">
 						<div class="dashboard__container-card-item-heading">
 	            <h6>Sales & Technical Support</h6>
 	            <span>Contact for emergency</span>
@@ -134,6 +134,18 @@
 						<div class="dashboard__container-card-item-heading">
 	            <h6>Trending</h6>
 	            <span>Summary usage trend in the year</span>
+	          </div>
+	          <div class="trending">
+	          	<div class="trending-compair clearfix">
+	          		<div class="trending-compair-previous">
+	          			<h6><%= (Date.current - 1.month).beginning_of_month.strftime("%B %d") %> - <%= (Date.current - 1.month).end_of_month.strftime("%d, %Y") %></h6>
+	          			<%= ApplicationController::FormatNumber.new(@bwdPreviousMonth).formatHumanSize() %>
+	          		</div>
+	          		<div class="trending-compair-current">
+	          			<h6><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %></h6>
+	          			<%= ApplicationController::FormatNumber.new(@bwdCurrentMonth).formatHumanSize() %>
+	          		</div>
+	          	</div>
 	          </div>
 					</div>
 				</div>

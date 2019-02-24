@@ -631,8 +631,25 @@
 									}
 								}
 								&.trending {
-									height: 300px;
 									margin-bottom: 0;
+									.trending {
+										.trending-compair {
+											margin-top: 1.5rem;
+											padding: 1rem;
+											height: 92px;
+											border-radius: 0.25rem;
+											background-color: $silver;
+											&-previous, &-current {
+												width: calc(50% - 1rem);
+												height: 60px;
+												margin-right: 1rem;
+												float: left;
+											}
+											&-previous {
+												border-right: 1px solid $gray-nd;
+											}
+										}
+									}
 								}
 								&.list {}
 								&.credit,
