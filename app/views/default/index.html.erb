@@ -147,7 +147,7 @@
 	          			</div>
 	          		</div>
 	          		<div class="trending-compair-current">
-	          			<span><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %> (cost estimated)</span>
+	          			<span><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %></span>
 	          			<div class="trending-compair-previous-usage clearfix">
 	          				<div class="trending-compair-previous-usage-unit">
 	          					<h6 class="primary"><%= ApplicationController::FormatNumber.new(@bwdCurrentMonth).formatHumanSize() %></h6>
@@ -239,7 +239,7 @@
 			}
 		},
 	  legend: {
-      data:['Total Storage','Total Traffic']
+      data:['Storage','Traffic']
     },
     grid: {
     	left: '3%',
@@ -283,7 +283,7 @@
     },
     series: [
 	    {
-	      name: 'Total Storage',
+	      name: 'Storage',
 	      type: 'line',
 	      data:[
 	      	<% @totalStorage.each do |storage| %>
@@ -292,7 +292,7 @@
 	      ]
 	    },
 	    {
-	      name: 'Total Traffic',
+	      name: 'Traffic',
 	      type: 'line',
 	      data:[
 	      	<% @totalBandwidth.each do |bandwidth| %>

@@ -40,25 +40,25 @@ class DefaultController < ApplicationController
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
 
-      if current_user.bandwidths.where(monthly: @previousMonth).present?
+      if current_user.bandwidths.find_by(monthly: @previousMonth).present?
 	      @bwdPreviousMonth = current_user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
 	    else
 	      @bwdPreviousMonth = 0
 	    end
 
-	    if current_user.storages.where(monthly: @previousMonth).present?
+	    if current_user.storages.find_by(monthly: @previousMonth).present?
 	      @stgPreviousMonth = current_user.storages.find_by(monthly: @previousMonth).storage_usage * 1000.00
 	    else
 	      @stgPreviousMonth = 0
 	    end
 
-      if current_user.bandwidths.where(monthly: @thisMonth).present?
+      if current_user.bandwidths.find_by(monthly: @thisMonth).present?
         @bwdCurrentMonth = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
       else
         bwdUsage = 0
       end
 
-      if current_user.storages.where(monthly: @thisMonth).present?
+      if current_user.storages.find_by(monthly: @thisMonth).present?
         @stgCurrentMonth = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
       else
         stgUsage = 0
