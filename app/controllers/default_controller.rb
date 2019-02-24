@@ -40,20 +40,6 @@ class DefaultController < ApplicationController
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
 
-      if current_user.bandwidths.where(monthly: @thisMonth).present?
-        bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
-        @bwdCurrentMonth = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
-      else
-        bwdUsage = 0
-      end
-
-      if current_user.storages.where(monthly: @thisMonth).present?
-        stgUsage = current_user.storages.find_by(monthly: @thisMonth).storage_usage / 1000000.00
-        @stgPreviousMonth = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
-      else
-        stgUsage = 0
-      end
-
       if current_user.bandwidths.where(monthly: @previousMonth).present?
 	      @bwdPreviousMonth = current_user.bandwidths.find_by(monthly: @previousMonth).bandwidth_usage * 1000.00
 	    else
@@ -66,9 +52,24 @@ class DefaultController < ApplicationController
 	      @stgPreviousMonth = 0
 	    end
 
-      @totalPrice = (stgPrice * stgUsage) + (bwdPrice * bwdUsage)
+      if current_user.bandwidths.where(monthly: @thisMonth).present?
+        @bwdCurrentMonth = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
+      else
+        bwdUsage = 0
+      end
+
+      if current_user.storages.where(monthly: @thisMonth).present?
+        @stgCurrentMonth = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
+      else
+        stgUsage = 0
+      end
+
+	    @previousPrice = (stgPrice * (@stgPreviousMonth / 1000000000.00)) + (bwdPrice * (@bwdPreviousMonth / 1000000000.00))
+      @currentPrice = (stgPrice * (@stgCurrentMonth / 1000000000.00)) + (bwdPrice * (@bwdCurrentMonth / 1000000000.00))
+
+      @percent = (@currentPrice/@previousPrice) * 100.00
     end
-    
+
     if current_user.accountType == 2
 	    @totalBandwidth = []
 	    @totalStorage = []

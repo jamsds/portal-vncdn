@@ -116,7 +116,7 @@
 	          <div class="billing">
 	          	<div class="billing-period">
 	          		<span><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %></span>
-	          		<h6><%= ApplicationController::FormatNumber.new(@totalPrice).formatCurrency() %></h6>
+	          		<h6><%= ApplicationController::FormatNumber.new(@currentPrice).formatCurrency() %></h6>
 	          	</div>
 	          	<div class="billing-detail clearfix">
 	          		<a href="<%= account_billing_url %>">
@@ -133,17 +133,54 @@
 					<div class="dashboard__container-card-item trending">
 						<div class="dashboard__container-card-item-heading">
 	            <h6>Trending</h6>
-	            <span>Summary usage trend in the year</span>
+	            <span>Summary usage trend over previous month</span>
 	          </div>
 	          <div class="trending">
 	          	<div class="trending-compair clearfix">
 	          		<div class="trending-compair-previous">
-	          			<h6><%= (Date.current - 1.month).beginning_of_month.strftime("%B %d") %> - <%= (Date.current - 1.month).end_of_month.strftime("%d, %Y") %></h6>
-	          			<%= ApplicationController::FormatNumber.new(@bwdPreviousMonth).formatHumanSize() %>
+	          			<span><%= (Date.current - 1.month).beginning_of_month.strftime("%B %d") %> - <%= (Date.current - 1.month).end_of_month.strftime("%d, %Y") %></span>
+	          			<div class="trending-compair-previous-usage clearfix">
+	          				<div class="trending-compair-previous-usage-unit">
+	          					<h6 class="primary"><%= ApplicationController::FormatNumber.new(@bwdPreviousMonth).formatHumanSize() %></h6>
+	          					<h6 class="black"><%= ApplicationController::FormatNumber.new(@stgPreviousMonth).formatHumanSize() %></h6>
+	          				</div>
+	          			</div>
 	          		</div>
 	          		<div class="trending-compair-current">
-	          			<h6><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %></h6>
-	          			<%= ApplicationController::FormatNumber.new(@bwdCurrentMonth).formatHumanSize() %>
+	          			<span><%= Date.current.beginning_of_month.strftime("%B %d") %> - <%= Date.current.strftime("%d, %Y") %> (cost estimated)</span>
+	          			<div class="trending-compair-previous-usage clearfix">
+	          				<div class="trending-compair-previous-usage-unit">
+	          					<h6 class="primary"><%= ApplicationController::FormatNumber.new(@bwdCurrentMonth).formatHumanSize() %></h6>
+	          					<h6 class="black"><%= ApplicationController::FormatNumber.new(@stgCurrentMonth).formatHumanSize() %></h6>
+	          				</div>
+	          				<div class="trending-compair-previous-usage-percent">
+	          					<div class="<% if @currentPrice > @previousPrice %>up<% elsif @currentPrice == @previousPrice %>up<% else %>down<% end %>">
+	          						<span class="arrow_ic">
+	          							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 19" width="8" height="18"><path d="M650.3,1194.2l-4,4v-3h-15v-2h15v-3Z" transform="translate(1198.2 -631.3) rotate(90)"/></svg>
+	          						</span>
+	          						<span>
+	          							<% if @currentPrice == @previousPrice %>
+	          								<%= ApplicationController::FormatNumber.new(0.00).formatPercent() %></span>
+	          							<% else %>
+	          								<%= ApplicationController::FormatNumber.new(@percent).formatPercent() %></span>
+	          							<% end %>
+	          					</div>
+	          				</div>
+	          			</div>
+	          		</div>
+	          	</div>
+	          	<div class="trending-compair-unit">
+	          		<div class="trending-compair-unit-traffic">
+	          			<span class="unit_ic">
+	          				<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 20 20"><path d="M4.9,470.5A9.506,9.506,0,0,1,2,463.4a9.9,9.9,0,0,1,2.9-7.1,9.506,9.506,0,0,1,7.1-2.9,10.068,10.068,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1,9.9,9.9,0,0,1-2.9,7.1,9.506,9.506,0,0,1-7.1,2.9A9.9,9.9,0,0,1,4.9,470.5Z" transform="translate(-2 -453.4)" fill="#f68100"/></svg>
+	          			</span>
+	          			<span>Traffic</span>
+	          		</div>
+	          		<div class="trending-compair-unit-storage">
+	          			<span class="unit_ic">
+	          				<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 20 20"><path d="M4.9,470.5A9.506,9.506,0,0,1,2,463.4a9.9,9.9,0,0,1,2.9-7.1,9.506,9.506,0,0,1,7.1-2.9,10.068,10.068,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1,9.9,9.9,0,0,1-2.9,7.1,9.506,9.506,0,0,1-7.1,2.9A9.9,9.9,0,0,1,4.9,470.5Z" transform="translate(-2 -453.4)" fill="#333333"/></svg>
+	          			</span>
+	          			<span>Storage</span>
 	          		</div>
 	          	</div>
 	          </div>
@@ -198,11 +235,11 @@
       formatter: function (params) {
 				let storage = formatVolumeUnit(params[0].data);
 				let traffic = formatVolumeUnit(params[1].data);
-				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f68100;"></span>Bandwidth: '+traffic+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f1f1f1;"></span>Storage: '+storage;
+				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f68100;"></span>Traffic: '+traffic+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f1f1f1;"></span>Storage: '+storage;
 			}
 		},
 	  legend: {
-      data:['Total Storage','Total Bandwidth']
+      data:['Total Storage','Total Traffic']
     },
     grid: {
     	left: '3%',
@@ -255,7 +292,7 @@
 	      ]
 	    },
 	    {
-	      name: 'Total Bandwidth',
+	      name: 'Total Traffic',
 	      type: 'line',
 	      data:[
 	      	<% @totalBandwidth.each do |bandwidth| %>

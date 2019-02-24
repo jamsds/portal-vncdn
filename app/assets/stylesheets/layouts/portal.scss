@@ -636,17 +636,69 @@
 										.trending-compair {
 											margin-top: 1.5rem;
 											padding: 1rem;
-											height: 92px;
 											border-radius: 0.25rem;
 											background-color: $silver;
 											&-previous, &-current {
 												width: calc(50% - 1rem);
-												height: 60px;
 												margin-right: 1rem;
 												float: left;
+												span {
+													font-size: 0.875rem;
+												}
+												h6 {
+													margin-bottom: 0;
+												}
 											}
 											&-previous {
 												border-right: 1px solid $gray-nd;
+												&-usage {
+													margin-top: 1rem;
+													&-unit {
+														width: 50%;
+														float: left;
+														.unit_ic {
+															margin-right: 0.25rem;
+														}
+														h6 {
+															display: block;
+															margin-top: 0.15rem;
+														}
+													}
+													&-percent {
+														width: 50%;
+														float: left;
+														.up {
+															color: #43a047;
+															.arrow_ic {
+																display: inline-block;
+																transform: rotate(180deg);
+																path {
+																	fill: #43a047;
+																}
+															}
+														}
+														.down {
+															color: #d50000;
+															.arrow_ic {
+																path {
+																	fill: #d50000;
+																}
+															}
+														}
+													}
+												}
+											}
+											&-unit {
+												margin-top: 0.5rem;
+												&-traffic, &-storage {
+													span {
+														font-size: 0.875rem;
+														color: $black-5nd;
+													}
+												}
+												.unit_ic {
+													margin-right: 0.25rem;
+												}
 											}
 										}
 									}
