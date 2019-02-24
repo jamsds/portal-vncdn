@@ -55,8 +55,10 @@ class DefaultController < ApplicationController
 	    @totalStorage = []
 	    @totalMonths = []
 
-	    current_user.bandwidths.order("monthly ASC").each do |key|
-	    	@totalMonths << key.monthly
+	    thisYear = Date.current.strftime("%Y")
+
+	    ["01","02","03","04","05","06","07","08","09","10","11","12"].each do |month|
+	    	@totalMonths << "#{thisYear}-#{month}"
 	    end
 
 		  @totalMonths.each do |monthly|
@@ -78,9 +80,6 @@ class DefaultController < ApplicationController
 
 		  	@totalStorage << @monthlyStorage
 		  end
-
-		  puts @totalBandwidth
-		 	puts @totalStorage
 	  end
 
   rescue NoMethodError => e
