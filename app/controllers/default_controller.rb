@@ -6,6 +6,11 @@ class DefaultController < ApplicationController
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
+
+	def errors
+		@requested_path = request.path
+    flash[:routes_error] = @requested_path
+	end
 	
 	def index
 		if current_user.uuid.nil?
@@ -63,27 +68,23 @@ class DefaultController < ApplicationController
 
 		  @totalMonths.each do |monthly|
 		  	@monthlyBandwidth = 0
+		  	@monthlyStorage = 0
 
 		  	Bandwidth.where(monthly: monthly).each do |bandwidth|
 		  		@monthlyBandwidth += bandwidth.bandwidth_usage
 		  	end
 
-		  	@totalBandwidth << @monthlyBandwidth
-		  end
-
-		  @totalMonths.each do |monthly|
-		  	@monthlyStorage = 0
-
 		  	Storage.where(monthly: monthly).each do |storage|
 		  		@monthlyStorage += storage.storage_usage
 		  	end
 
+		  	@totalBandwidth << @monthlyBandwidth
 		  	@totalStorage << @monthlyStorage
 		  end
 	  end
 
   rescue NoMethodError => e
   	flash[:method_error] = e.message
-  	redirect_back(fallback_location: root_path)
+  	redirect_to errors_path
 	end
 end

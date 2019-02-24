@@ -90,4 +90,7 @@ Rails.application.routes.draw do
   require 'sidekiq-scheduler/web'
 
   mount Sidekiq::Web, at: '/sidekiq'
+
+  # existing paths
+  match '*path' => 'default#errors', via: :all
 end
