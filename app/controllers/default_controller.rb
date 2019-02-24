@@ -53,15 +53,38 @@ class DefaultController < ApplicationController
     if current_user.accountType == 2
 	    @totalBandwidth = []
 	    @totalStorage = []
-	    @totalTime = []
+	    @totalMonths = []
 
-	    current_user.bandwidths.order("created_at ASC").each do |time|
-	    	@totalTime << time.created_at.strftime("%Y-%m-%dT%H:%M:00Z")
+	    current_user.bandwidths.order("monthly ASC").each do |key|
+	    	@totalMonths << key.monthly
 	    end
+
+		  @totalMonths.each do |monthly|
+		  	@monthlyBandwidth = 0
+
+		  	Bandwidth.where(monthly: monthly).each do |bandwidth|
+		  		@monthlyBandwidth += bandwidth.bandwidth_usage
+		  	end
+
+		  	@totalBandwidth << @monthlyBandwidth
+		  end
+
+		  @totalMonths.each do |monthly|
+		  	@monthlyStorage = 0
+
+		  	Storage.where(monthly: monthly).each do |storage|
+		  		@monthlyStorage += storage.storage_usage
+		  	end
+
+		  	@totalStorage << @monthlyStorage
+		  end
+
+		  puts @totalBandwidth
+		 	puts @totalStorage
 	  end
 
-	  rescue NoMethodError => e
-	  	flash[:method_error] = e.message
-	  	redirect_back(fallback_location: root_path)
+  rescue NoMethodError => e
+  	flash[:method_error] = e.message
+  	redirect_back(fallback_location: root_path)
 	end
 end
