@@ -957,6 +957,15 @@
 
 // Android/iOS Moblie
 @media screen and (max-width: 576px) {
+	.main__heading {
+		.free-trial-message {
+			display: none;
+			visibility: hidden;
+		}
+		.portal__main-navigation {
+			background-color: $gray;
+		}
+	}
 	.main__content {
 		.portal {
 			&__main {
@@ -968,13 +977,25 @@
 					width: 100%;
 					.dashboard {
 						&__container {
+							height: calc(100vh - (105px));
 							&-card {
 								&-col-4,
 								&-col-8 {
 									width: 100%;
 								}
+								&-item {
+									.form-group {
+										.col-sm-2.text-right {
+											text-align: left !important;
+											padding-left: 1rem;
+										}
+									}
+								}
 							}
 						}
+					}
+					&.croped {
+						width: 100%;
 					}
 				}
 			}
