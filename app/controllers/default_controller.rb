@@ -33,9 +33,9 @@ class DefaultController < ApplicationController
 
 
     if current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
-      @totalPrice = 0
+      @previousPrice = @currentPrice = @stgPreviousMonth = @bwdPreviousMonth = @stgCurrentMonth = @bwdCurrentMonth = 0
     elsif current_user.subscription.nil?
-      @totalPrice = 0
+      @previousPrice = @currentPrice = @stgPreviousMonth = @bwdPreviousMonth = @stgCurrentMonth = @bwdCurrentMonth = 0
     else
       bwdPrice = current_user.subscription.bwd_price
       stgPrice = current_user.subscription.stg_price
