@@ -14,6 +14,18 @@
   <div class="panel">
     <div class="panel__list main">
       <div class="main__options-list">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>" class="main__options-list-item clearfix">
+          <div class="main__options-list-item-ic">
+            <div class="was_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17"><path d="M242.8,1047a2.051,2.051,0,0,1,2,2v13a2.051,2.051,0,0,1-2,2h-18a2.051,2.051,0,0,1-2-2v-13a2.051,2.051,0,0,1,2-2Zm0,15v-13h-9v13Zm-8.1-9.5h7v1.5h-7Zm0,2.5h7v1.5h-7Zm0,2.5h7v1.5h-7Z" transform="translate(-222.8 -1047)" fill="#fff"/></svg>
+            </div>
+          </div>
+          <div class="main__options-list-item-info">
+            <h6>Detail</h6>
+            <small>Detail information this service</small>
+          </div>
+          <div class="main__options-list-item-arrow"></div>
+        </a>
         <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/edit" class="main__options-list-item clearfix">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
@@ -23,6 +35,18 @@
           <div class="main__options-list-item-info">
             <h6>Edit</h6>
             <small>Edit this service</small>
+          </div>
+          <div class="main__options-list-item-arrow"></div>
+        </a>
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>" class="main__options-list-item clearfix">
+          <div class="main__options-list-item-ic">
+            <div class="was_ic">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)" fill="#fff"/></svg>
+            </div>
+          </div>
+          <div class="main__options-list-item-info">
+            <h6>Policies</h6>
+            <small>Config access, cache, etc...</small>
           </div>
           <div class="main__options-list-item-arrow"></div>
         </a>
@@ -67,24 +91,15 @@
 			</div>
 			<% end %>
 			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-table">
-					<div class="dashboard__container-table-select clearfix">
-						<a href="<%= cdn_url %>/<%= params[:propertyId] %>/<%= params[:type] %>" class="dashboard__container-table-select-item">Details</a>
-						<a href="<%= request.fullpath %>" class="dashboard__container-table-select-item active">Reports</a>
-						<a href="<%= cdn_url %>/<%= params[:propertyId] %>/<%= params[:type] %>/logs?domain=<%= params[:domain] %>" class="dashboard__container-table-select-item">Logs</a>
-					</div>
-					<div class="dashboard__container-card mt-3">
-						<div class="dashboard__container-card-item">
-							<div id="bandwidthUsage" style="width:100%; height:300px;"></div>
-							<div class="bandwidthUsageMax p-1 mt-3">
-								<div id="bandwidthMaxAvg" style="width:100%; height:150px;"></div>
-							</div>
-						</div>
-						<div class="dashboard__container-card-item">
-							<div id="requestOrigin" style="width:100%; height:300px;"></div>
-						</div>
-					</div>
-				</div>
+        <div class="dashboard__container-card-item">
+          <div id="bandwidthUsage" style="width:100%; height:300px;"></div>
+          <div class="bandwidthUsageMax p-1 mt-3">
+            <div id="bandwidthMaxAvg" style="width:100%; height:150px;"></div>
+          </div>
+        </div>
+        <div class="dashboard__container-card-item">
+          <div id="requestOrigin" style="width:100%; height:300px;"></div>
+        </div>
 			</div>
 		</div>
 	</div>
