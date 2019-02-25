@@ -341,11 +341,14 @@ class DeliveryController < ApplicationController
 		if params[:ptype] == 'a'
 			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
 			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+		elsif params[:ptype] == 'c'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
 		end
 
-		JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
-		redirect_to "/cdn/#{params[:propertyId]}/d/policies/#{params[:ptype]}"
+		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
 	end
 
 	def deliveryDeletePolicy

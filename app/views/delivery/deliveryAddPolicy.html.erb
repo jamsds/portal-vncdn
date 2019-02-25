@@ -96,6 +96,7 @@
 						<div class="form-group">
 							<%= f.label :name, 'Policy Name' %>
 							<%= f.text_field :name, class: 'form-control', required: true %>
+							<%= f.hidden_field :dtype, value: params[:type] %>
 							<%= f.hidden_field :ptype, value: params[:ptype] %>
 							<%= f.hidden_field :propertyId, value: params[:propertyId] %>
 						</div>
