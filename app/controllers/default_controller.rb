@@ -100,6 +100,11 @@ class DefaultController < ApplicationController
 
   rescue NoMethodError => e
   	flash[:method_error] = e.message
-  	redirect_to errors_path
+
+  	if e.message == "undefined method `transactions' for nil:NilClass"
+  		redirect_to root_path
+  	else
+  		redirect_to errors_path
+  	end
 	end
 end
