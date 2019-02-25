@@ -80,7 +80,7 @@
 		<div class="dashboard__heading">
 			<div class="dashboard__heading-action-list clearfix">
 				<div class="dashboard__heading-action-item">
-					<a href="<%= cdn_create_url %>" class="btn btn-sm ml-2">
+					<a href="<%= request.fullpath %>/add" class="btn btn-sm ml-2">
 						<span class="add_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)"/></svg>
 						</span>
@@ -112,7 +112,7 @@
                 	<td><%= whitelist["url"] %></td>
                 	<td><%= whitelist["location"] %></td>
                 	<td><%= whitelist["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= whitelist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confim="Are you sure?">Delete</a></td>
                 </tr>
               <% end %>
             </tbody>
@@ -138,7 +138,7 @@
                 	<td><%= blacklist["url"] %></td>
                 	<td><%= blacklist["location"] %></td>
                 	<td><%= blacklist["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= blacklist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confim="Are you sure?">Delete</a></td>
                 </tr>
               <% end %>
             </tbody>
@@ -164,7 +164,7 @@
                 	<td><%= token["url"] %></td>
                 	<td><%= token["location"] %></td>
                 	<td><%= token["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= token["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confim="Are you sure?">Delete</a></td>
                 </tr>
               <% end %>
             </tbody>

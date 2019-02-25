@@ -4,13 +4,13 @@ class DeliveryController < ApplicationController
 	before_action :verify_subscription
 
 	# Set Request Method
-	before_action :post_method, only: [:deliveryAdd, :deliveryReport, :deliveryLog]
+	before_action :post_method, only: [:deliveryAdd, :deliveryReport, :deliveryLog, :deliveryCreatePolicy]
 	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit, :deliveryPolicy]
 	before_action :put_method, only: [:deliveryUpdate, :deliveryStop, :deliveryStart]
-	before_action :delete_method, only: [:deliveryDelete]
+	before_action :delete_method, only: [:deliveryDelete, :deliveryDeletePolicy]
 
 	# Set End Point Request
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete, :deliveryPolicy]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete, :deliveryPolicy, :deliveryCreatePolicy, :deliveryDeletePolicy]
 
 	def delivery
 		@domainList = []
@@ -34,7 +34,6 @@ class DeliveryController < ApplicationController
 		end
 
 		@domainItems = @domainList.paginate(:page => params[:page], :per_page => params[:per_page])
-
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -335,9 +334,27 @@ class DeliveryController < ApplicationController
 			@response.each do |item|
 				@redirects << item
 			end
-
-			puts @redirects
 		end
+	end
+
+	def deliveryCreatePolicy
+		if params[:ptype] == 'a'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+		end
+
+		JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+		redirect_to "/cdn/#{params[:propertyId]}/d/policies/#{params[:ptype]}"
+	end
+
+	def deliveryDeletePolicy
+		if params[:ptype] == 'a'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls/#{params[:policyId]}"
+			RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+		end
+
+		redirect_back(fallback_location: root_path)
 	end
 
   private

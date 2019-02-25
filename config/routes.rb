@@ -50,7 +50,12 @@ Rails.application.routes.draw do
   get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
   get '/cdn/:propertyId/:type/reports', to: "delivery#deliveryReport"
   get '/cdn/:propertyId/:type/logs', to: "delivery#deliveryLog"
+
   get '/cdn/:propertyId/:type/policies/:ptype', to: "delivery#deliveryPolicy"
+
+  get '/cdn/:propertyId/:type/policies/:ptype/add', to: "delivery#deliveryAddPolicy"
+  post '/cdn/policies/create', to: "delivery#deliveryCreatePolicy"
+  delete '/cdn/:propertyId/:type/policies/:ptype/:policyId', to: "delivery#deliveryDeletePolicy"
 
   get '/cdn/create', to: "delivery#deliveryCreate"
   post '/cdn/add', to: "delivery#deliveryAdd"
@@ -93,6 +98,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 
   # existing paths
-  match '/errors', to: "default#bugs", via: :all
-  match '*path' => 'default#errors', via: :all
+  # match '/errors', to: "default#bugs", via: :all
+  # match '*path' => 'default#errors', via: :all
 end
