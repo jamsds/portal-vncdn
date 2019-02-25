@@ -208,8 +208,8 @@
     var volumeUnit = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB", "NB", "DB", "CB", "XB"];
     var i = 0;
 
-    while (param > 1000) {
-      param = param / 1000;
+    while (param > 1024) {
+      param = param / 1024;
       ++i;
     }
     param = (Math.round(param * 100) / 100).toFixed(2) + " " + volumeUnit[i];
