@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
   get '/cdn/:propertyId/:type/reports', to: "delivery#deliveryReport"
   get '/cdn/:propertyId/:type/logs', to: "delivery#deliveryLog"
+  get '/cdn/:propertyId/:type/policies', to: "delivery#deliveryPolicy"
 
   get '/cdn/create', to: "delivery#deliveryCreate"
   post '/cdn/add', to: "delivery#deliveryAdd"
