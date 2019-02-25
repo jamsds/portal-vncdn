@@ -1,17 +1,17 @@
-<div class="portal__main-heading">
-	<a href="<%= url_for(:back) %>" class="btn btn-default btn-sm ml-2">
-    <span class="back_ic">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12">
-        <path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#333333"/>
-      </svg>
-    </span>
-    <span>
-      Back
-    </span>
-  </a>
-</div>
 <div class="portal__main-left expanded">
 	<div class="panel">
+		<div class="panel__heading">
+			<a href="<%= url_for(:back) %>" class="btn btn-default btn-sm ml-2">
+		    <span class="back_ic">
+		      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12">
+		        <path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#333333"/>
+		      </svg>
+		    </span>
+		    <span>
+		      Back
+		    </span>
+		  </a>
+		</div>
 		<div class="panel__list main">
 			<div class="main__options-list">
         <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>" class="main__options-list-item clearfix">
@@ -38,7 +38,7 @@
           </div>
           <div class="main__options-list-item-arrow"></div>
         </a>
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies?domain=<%= params[:domain] %>" class="main__options-list-item clearfix active">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a?domain=<%= params[:domain] %>" class="main__options-list-item clearfix active">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)" fill="#fff"/></svg>
@@ -84,8 +84,165 @@
 </div>
 <div class="portal__main-center primary croped">
 	<div class="dashboard">
+		<div class="dashboard__heading">
+			<div class="dashboard__heading-action-list clearfix">
+				<div class="dashboard__heading-action-item">
+					<a href="<%= cdn_create_url %>" class="btn btn-sm ml-2">
+						<span class="add_ic">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)"/></svg>
+						</span>
+						<span>Add Policies</span>
+					</a>
+				</div>
+			</div>
+		</div>
 		<div class="dashboard__container">
-			delivery.policies
+			<% if params[:ptype] == 'a' %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card-item">
+					<table class="table croped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Match Type</th>
+                <th>URL Path</th>
+                <th>GEO</th>
+                <th>IP</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @whitelists.each do |whitelist| %>
+                <tr>
+                	<td><%= whitelist["name"] %></td>
+                	<td><%= whitelist["matchType"].capitalize %></td>
+                	<td><%= whitelist["url"] %></td>
+                	<td><%= whitelist["location"] %></td>
+                	<td><%= whitelist["subnet"] %></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+				<div class="dashboard__container-card-item">
+					<table class="table croped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Match Type</th>
+                <th>URL Path</th>
+                <th>GEO</th>
+                <th>IP</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @blacklists.each do |blacklist| %>
+                <tr>
+                	<td><%= blacklist["name"] %></td>
+                	<td><%= blacklist["matchType"].capitalize %></td>
+                	<td><%= blacklist["url"] %></td>
+                	<td><%= blacklist["location"] %></td>
+                	<td><%= blacklist["subnet"] %></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+				<div class="dashboard__container-card-item">
+					<table class="table croped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Match Type</th>
+                <th>URL Path</th>
+                <th>GEO</th>
+                <th>IP</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tokens.each do |token| %>
+                <tr>
+                	<td><%= token["name"] %></td>
+                	<td><%= token["matchType"].capitalize %></td>
+                	<td><%= token["url"] %></td>
+                	<td><%= token["location"] %></td>
+                	<td><%= token["subnet"] %></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+			</div>
+			<% elsif params[:ptype] == 'c' %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card-item">
+					<table class="table croped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Match Type</th>
+                <th>URL Path</th>
+                <th>Host Header</th>
+                <th>TTL</th>
+                <th>Ignore No Caches</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @caches.each do |cache| %>
+                <tr>
+                	<td><%= cache["name"] %></td>
+                	<td><%= cache["matchType"].capitalize %></td>
+                	<td><%= cache["url"] %></td>
+                	<td><%= cache["hostHeader"] %></td>
+                	<td><%= cache["ttl"] %></td>
+                	<td>
+                		<% if cache["ignoreClientNoCache"] == true %>Client,<% end %>
+                		<% if cache["ignoreOriginNoCache"] == true %>Origin Server,<% end %>
+                		<% if cache["ignoreQueryString"] == true %>Query String<% end %>
+                	</td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+			</div>
+			<% elsif params[:ptype] == 'r' %>
+			<div class="dashboard__container-card clearfix">
+				<div class="dashboard__container-card-item">
+					<table class="table croped mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Match Type</th>
+                <th>URL Path</th>
+                <th>Redirect URL Location</th>
+                <th>Status Code</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @redirects.each do |redirect| %>
+                <tr>
+                	<td><%= redirect["name"] %></td>
+                	<td><%= redirect["matchType"].capitalize %></td>
+                	<td><%= redirect["url"] %></td>
+                	<td><%= redirect["redirectionURL"] %></td>
+                	<td><%= redirect["statusCode"] %></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+				</div>
+			</div>
+			<% end %>
 		</div>
 	</div>
 </div>

@@ -5,12 +5,12 @@ class DeliveryController < ApplicationController
 
 	# Set Request Method
 	before_action :post_method, only: [:deliveryAdd, :deliveryReport, :deliveryLog]
-	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit]
+	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit, :deliveryPolicy]
 	before_action :put_method, only: [:deliveryUpdate, :deliveryStop, :deliveryStart]
 	before_action :delete_method, only: [:deliveryDelete]
 
 	# Set End Point Request
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete, :deliveryPolicy]
 
 	def delivery
 		@domainList = []
@@ -298,6 +298,47 @@ class DeliveryController < ApplicationController
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
+
+  def deliveryPolicy
+  	if params[:ptype] == 'a'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			@whitelists = []
+			@blacklists = []
+			@tokens = []
+
+			@response.each do |item|
+				if item["type"] == "allow"
+					@whitelists << item
+				elsif item["type"] == "deny"
+					@blacklists << item
+				elsif item["type"] == "token"
+					@tokens << item
+				end
+			end
+		elsif params[:ptype] == 'c'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			@caches = []
+
+			@response.each do |item|
+				@caches << item
+			end
+		elsif params[:ptype] == 'r'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections"
+			@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+
+			@redirects = []
+
+			@response.each do |item|
+				@redirects << item
+			end
+
+			puts @redirects
+		end
+	end
 
   private
   	def verify_subscription
