@@ -70,7 +70,54 @@
 						<a href="<%= request.fullpath %>/logs?domain=<%= @response["name"] %>" class="dashboard__container-table-select-item">Logs</a>
 					</div>
 					<div class="dashboard__container-table-content mt-3">
-						<%= @response["name"] %>
+            <div class="dashboard__container-card-item">
+  						<div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">PropertyID</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><%= @response["id"] %></p>
+                  <small>Please provide PropertyID when you request support.</small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">Delivery Domain</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><%= @response["name"] %></p>
+                  <small>You should set a CNAME to delivery edge for web acceleration to work</small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">Origin</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><%= @response["originUrl"] %></p>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">Streaming</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><% if @response["streamingService"] == true %>On<% else %>Off<% end %></p>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">Delivery Edge</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><% if current_user.subscription.subscription_type == 1 %>vietnam.edge.vncdn.vn<% else %>global.edge.vncdn.vn<% end %></p>
+                </div>
+              </div>
+              <% if params[:type] == "d" %>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label text-right">WAF</label>
+                <div class="col-sm-8 col-form-value">
+                  <p><% if @response["f5WafEnabled"] == false %>Disabled<% else %>Enabled<% end %></p>
+                </div>
+              </div>
+              <% end %>
+              <div class="form-group vertical row">
+                <label class="col-sm-2 col-form-label text-right">Secret Token</label>
+                <div class="col-sm-8 col-form-value">
+                  <input placeholder="Enter your name" class="form-control" type="text" value="<%= @response["tokenSecret"] %>" id="token" disabled="disabled">
+                </div>
+              </div>
+            </div>
 					</div>
 				</div>
 			</div>
