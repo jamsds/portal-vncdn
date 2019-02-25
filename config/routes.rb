@@ -92,7 +92,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 
   # existing paths
+  match '/errors', to: "default#bugs", via: :all
   match '*path' => 'default#errors', via: :all
-
-  get '/errors', to: "default#errors"
 end

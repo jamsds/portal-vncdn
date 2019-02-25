@@ -9,9 +9,7 @@ class DefaultController < ApplicationController
 
 	def errors
 		@requested_path = request.path
-		if !@requested_path == '/errors'
-    	flash[:routes_error] = @requested_path
-    end
+		flash[:routes_error] = @requested_path
 	end
 	
 	def index
