@@ -17,7 +17,7 @@
 				<span class="notice">To create a Website Acceleration/Large File Download, select one of the options:</span>
 			</div>
 			<div class="create__options-list">
-				<div class="create__options-list-item clearfix<% if params[:type].nil? %> active<% end %>" onclick="window.location = '<%= cdn_url %>/create'">
+				<a href="<%= cdn_create_url %>" class="create__options-list-item clearfix<% if params[:type].nil? %> active<% end %>">
 					<div class="create__options-list-item-ic">
 						<div class="was_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
@@ -35,8 +35,8 @@
 						</div>
 						<% end %>
 					</div>
-				</div>
-				<div class="create__options-list-item clearfix<% if params[:type].present? %> active<% end %>" onclick="window.location = '<%= cdn_url %>/create?type=lfd'">
+				</a>
+				<a href="<%= cdn_create_url %>?type=lfd" class="create__options-list-item clearfix<% if params[:type].present? %> active<% end %>">
 					<div class="create__options-list-item-ic">
 						<div class="lfd_ic">
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M409.6,280.4h18v18h-18Zm15.9,16v-14h-14v14Zm-9.9-8v2h-2v-2Zm3.9-4v2h-2v-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm4.1-4v2h-2v-2Z" transform="translate(-409.6 -280.4)""/></svg>
@@ -53,7 +53,7 @@
 						</div>
 						<% end %>
 					</div>
-				</div>
+				</a>
 			</div>
 		</div>
 	</div>
