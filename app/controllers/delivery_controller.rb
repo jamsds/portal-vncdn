@@ -37,6 +37,7 @@ class DeliveryController < ApplicationController
 
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -50,6 +51,7 @@ class DeliveryController < ApplicationController
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -63,6 +65,7 @@ class DeliveryController < ApplicationController
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -133,6 +136,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -183,6 +187,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -202,6 +207,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -231,6 +237,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -250,6 +257,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -269,6 +277,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
@@ -286,6 +295,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
   	redirect_to errors_path
   end
 
