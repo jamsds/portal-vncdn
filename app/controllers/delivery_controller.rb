@@ -37,7 +37,7 @@ class DeliveryController < ApplicationController
 
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryDetail
@@ -50,7 +50,7 @@ class DeliveryController < ApplicationController
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryEdit
@@ -63,7 +63,7 @@ class DeliveryController < ApplicationController
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryReport
@@ -133,7 +133,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryLog
@@ -183,7 +183,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryAdd
@@ -200,6 +200,9 @@ class DeliveryController < ApplicationController
 		if @response
 			redirect_to cdn_path
 		end
+	rescue SocketError => e
+  	flash[:method_error] = e.message
+  	redirect_to errors_path
   end
 
   def deliveryUpdate
@@ -228,7 +231,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryStop
@@ -247,7 +250,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryStart
@@ -266,7 +269,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   def deliveryDelete
@@ -283,7 +286,7 @@ class DeliveryController < ApplicationController
 		end
 	rescue SocketError => e
   	flash[:method_error] = e.message
-  	redirect_to root_path
+  	redirect_to errors_path
   end
 
   private

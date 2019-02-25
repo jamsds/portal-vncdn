@@ -9,7 +9,9 @@ class DefaultController < ApplicationController
 
 	def errors
 		@requested_path = request.path
-    flash[:routes_error] = @requested_path
+		if !@requested_path == '/errors'
+    	flash[:routes_error] = @requested_path
+    end
 	end
 	
 	def index
@@ -100,6 +102,6 @@ class DefaultController < ApplicationController
 
   rescue NoMethodError => e
   	flash[:method_error] = e.message
-  	redirect_back(fallback_location: root_path)
+  	redirect_to errors_path
 	end
 end

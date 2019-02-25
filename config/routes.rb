@@ -93,4 +93,6 @@ Rails.application.routes.draw do
 
   # existing paths
   match '*path' => 'default#errors', via: :all
+
+  get '/errors', to: "default#errors"
 end
