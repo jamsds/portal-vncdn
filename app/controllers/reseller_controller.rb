@@ -110,12 +110,17 @@ class ResellerController < ApplicationController
   end
 
   def resellerUpdate
-    if current_user.update(portal_params)
-      flash[:success] = "This record has been updated successfully"
+    if portal_params["domain"] == "reseller.vncdn.vn"
+      flash[:verify_notice] = "Domain unavailable for use. Please check and use another domain."
       redirect_back(fallback_location: reseller_path)
     else
-      flash[:danger] = "Error! Please check again"
-      render 'account'
+      if current_user.update(portal_params)
+        flash[:success] = "This record has been updated successfully"
+        redirect_back(fallback_location: reseller_path)
+      else
+        flash[:danger] = "Error! Please check again"
+        render 'account'
+      end
     end
   end
 

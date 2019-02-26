@@ -52,6 +52,9 @@
 	            <h6>Branding</h6>
 	            <span>Config for your reseller page, make it look like your own page</span>
 	          </div>
+	          <% if flash[:verify_notice] %>
+	            <div class="alert alert-warning mt-3"><%= flash[:verify_notice] %></div>
+	          <% end %>
 						<%= form_for [current_user], :url => url_for(reseller_configuration_update_path), html: { class: 'mt-3', multipart: true } do |f| %>
 						<% if current_user.logo.exists? %>
 							<div class="form-group row mb-3">
