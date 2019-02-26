@@ -9,7 +9,7 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    @host = request.host
+    :locals => { :host => Thread.current[:request_host] }
 
     @bwdLimit = @user.subscription.bwd_limit
     @stgLimit   = @user.subscription.stg_limit
@@ -27,7 +27,7 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    @host = request.host
+    :locals => { :host => Thread.current[:request_host] }
 
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
