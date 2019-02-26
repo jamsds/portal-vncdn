@@ -75,21 +75,29 @@ class DefaultController < ApplicationController
 	    @totalStorage = []
 	    @totalMonths = []
 
+	    @customers = []
+
 	    thisYear = Date.current.strftime("%Y")
 
 	    ["01","02","03","04","05","06","07","08","09","10","11","12"].each do |month|
 	    	@totalMonths << "#{thisYear}-#{month}"
 	    end
 
+	    if User.where(parent_uuid: current_user.username).present?
+		    User.where(parent_uuid: current_user.username).each do |customer|
+		    	@customers << customer.id
+		    end
+		  end
+
 		  @totalMonths.each do |monthly|
 		  	@monthlyBandwidth = 0
 		  	@monthlyStorage = 0
 
-		  	Bandwidth.where(monthly: monthly).each do |bandwidth|
+		  	Bandwidth.where(monthly: monthly, user_id: @customers.to_s.split(/,/).map{|chr| chr.to_i}).each do |bandwidth|
 		  		@monthlyBandwidth += bandwidth.bandwidth_usage * 1000.00
 		  	end
 
-		  	Storage.where(monthly: monthly).each do |storage|
+		  	Storage.where(monthly: monthly, user_id: @customers.to_s.split(/,/).map{|chr| chr.to_i}).each do |storage|
 		  		@monthlyStorage += storage.storage_usage * 1000.00
 		  	end
 
