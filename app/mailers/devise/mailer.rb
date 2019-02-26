@@ -4,9 +4,8 @@ if defined?(ActionMailer)
   class Devise::Mailer < Devise.parent_mailer.constantize
     include Devise::Mailers::Helpers
 
-    def confirmation_instructions(record, token, request, opts={})
+    def confirmation_instructions(record, token, opts={})
       @token = token
-      @host = request.host
       devise_mail(record, :confirmation_instructions, opts)
     end
 
