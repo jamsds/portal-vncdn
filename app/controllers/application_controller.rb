@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
 
 	# Set Variables Request
 	before_action :set_variables
-	before_action :default_url_options
 
 	# Swiftfederation Config
 	$ACCESS_KEY_ID = '0cavp8cG1vd149Oy'
@@ -135,10 +134,6 @@ class ApplicationController < ActionController::Base
 
 			$X_SPD_DATE = Time.now.utc.strftime("%Y%m%dT%H%M%SZ")
 		end
-
-		def default_url_options
-	    { host: request.host_with_port }
-	  end
 
 		def base_endpoint
 			$END_POINT = 'https://base-api.swiftfederation.com'
