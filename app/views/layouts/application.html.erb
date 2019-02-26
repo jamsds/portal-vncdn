@@ -3,7 +3,7 @@
   <head>
     <% @parent_uuid = User.find_by(domain: request.host) %>
     <meta charset="utf-8">
-    <title>Portal :: <% if @parent_uuid.present? && @parent_uuid.domain.present? %><%= @parent_uuid.domain %><% else %>Vncdn<% end %></title>
+    <title>Portal :: <% if @parent_uuid.present? && @parent_uuid.company.present? %><%= @parent_uuid.company %><% else %>Vncdn<% end %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
