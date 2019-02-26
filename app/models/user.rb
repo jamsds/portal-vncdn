@@ -8,7 +8,7 @@ class User < ApplicationRecord
 		s3_permissions: :private,
     :path => "/:class/:attachment/:filename"
 	}
-	do_not_validate_attachment_file_type :logo
+  validates_attachment_file_name :logo, :matches => [/png\Z/, /jpe?g\Z/, /svg\Z/]
 	
 	# Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
