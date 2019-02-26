@@ -1133,6 +1133,26 @@
 					}
 					&.croped {
 						width: 100%;
+						.dashboard {
+							&__heading {
+								&-action {
+									&-item {
+										margin-right: 0;
+										&:not(:first-child) {
+											.btn {
+												span:nth-child(2) {
+													display: none;
+													visibility: hidden;
+												}
+											}
+										}
+									}
+								}
+							}
+							&__container {
+								width: 100%;
+							}
+						}
 					}
 				}
 			}
