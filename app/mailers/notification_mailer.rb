@@ -2,6 +2,8 @@ class NotificationMailer < ApplicationMailer
   default from: 'no-reply@vncdn.vn'
   layout 'mailer'
 
+
+
   # Free Trial Subscription
   def trial_email(id)
     @user = User.find(id)
@@ -9,7 +11,11 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    :locals => { :host => Thread.current[:request_host] }
+    if @user.parent_uuid.present?
+      @host = User.find_by(username: @user.parent_uuid).domain
+    else
+      @host = 'reseller.vncdn.vn'
+    end
 
     @bwdLimit = @user.subscription.bwd_limit
     @stgLimit   = @user.subscription.stg_limit
@@ -27,7 +33,11 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    :locals => { :host => Thread.current[:request_host] }
+    if @user.parent_uuid.present?
+      @host = User.find_by(username: @user.parent_uuid).domain
+    else
+      @host = 'reseller.vncdn.vn'
+    end
 
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
