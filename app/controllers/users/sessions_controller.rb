@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 	def create
+		# Verify user reseller owner
 		@user = User.find_by(email: sign_in_params["email"]).parent_uuid
 		@parent_uuid = User.find_by(username: @user).domain
 
