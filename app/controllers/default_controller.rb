@@ -92,7 +92,7 @@ class DefaultController < ApplicationController
 		  @totalMonths.each do |monthly|
 		  	@monthlyBandwidth = 0
 		  	@monthlyStorage = 0
-
+	  	
 		  	Bandwidth.where(monthly: monthly, user_id: @customers).each do |bandwidth|
 		  		@monthlyBandwidth += bandwidth.bandwidth_usage * 1000.00
 		  	end
