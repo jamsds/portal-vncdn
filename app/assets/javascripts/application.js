@@ -14,6 +14,7 @@
 // require libs/moment.min
 
 //= require libs/md5
+//= require libs/axios.min
 
 // Editor
 // require libs/froala/codemirror.min

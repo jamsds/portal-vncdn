@@ -31,7 +31,7 @@
 					<div class="create__options-list-item-arrow">
 						<% if params[:type].nil? %>
 						<div class="arrow_ic">
-							<svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="<%= current_user.color %>"/></svg>
 						</div>
 						<% end %>
 					</div>
@@ -49,7 +49,7 @@
 					<div class="create__options-list-item-arrow">
 						<% if params[:type].present? %>
 						<div class="arrow_ic">
-							<svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="#f68100"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="7.4" height="12" viewBox="0 0 7.4 12"><path d="M267.3,398.2l4.6-4.6-4.6-4.6,1.4-1.4,6,6-6,6Z" transform="translate(-267.3 -387.6)" fill="<%= current_user.color %>"/></svg>
 						</div>
 						<% end %>
 					</div>

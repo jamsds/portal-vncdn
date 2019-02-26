@@ -218,11 +218,11 @@
 										&.active {
 											background-color: $silver;
 											h6 {
-												color: $primary;
+												color: var(--main-color);
 											}
 											.was_ic, .lfd_ic {
 												path {
-													fill: $primary;
+													fill: var(--main-color);
 												}
 											}
 										}
@@ -284,7 +284,7 @@
 										&.active {
 											background-color: $silver;
 											h6 {
-												color: $primary;
+												color: var(--main-color);
 											}
 											.was_ic,
 											.reseller_ic,
@@ -297,7 +297,7 @@
 											.package_ic,
 											.subscription_ic {
 												path {
-													fill: $primary;
+													fill: var(--main-color);
 												}
 											}
 										}
@@ -339,7 +339,7 @@
 									.running_ic {
 										margin-right: 0.5rem;
 										path {
-											fill: $primary;
+											fill: var(--main-color);
 										}
 									}
 									&.disabled {
@@ -489,9 +489,9 @@
 										background-color: transparent;
 									}
 									&.active {
-										color: $primary;
+										color: var(--main-color);
 										&:after {
-											background-color: $primary;
+											background-color: var(--main-color);
 										}
 									}
 								}
@@ -579,7 +579,7 @@
 											.progress {
 												border-radius: 0;
 												&-bar {
-													background-color: $primary;
+													background-color: var(--main-color);
 												}
 											}
 										}
@@ -870,7 +870,7 @@
 													margin-top: 1.5rem;
 													border-radius: 0;
 													&-bar {
-														background-color: $primary;
+														background-color: var(--main-color);
 													}
 												}
 												&-card {

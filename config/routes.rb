@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get '/reseller/subscription', to: "reseller#subscription"
 
   get '/reseller/configuration', to: "reseller#configuration"
+  patch '/reseller/configuration/update', to: "reseller#resellerUpdate"
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "delivery#delivery"
@@ -92,6 +93,9 @@ Rails.application.routes.draw do
 
       post '/customerVolume', to: "v1#customerVolume"
       post '/customerStorage', to: "v1#customerStorage"
+
+      # Check CNAME
+      get '/checkCname', to: "v1#checkCname"
     end
   end
 

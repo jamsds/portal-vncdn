@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_180007) do
+ActiveRecord::Schema.define(version: 2019_02_26_044247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,14 +56,14 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
 
   create_table "packages", force: :cascade do |t|
     t.string "name"
-    t.decimal "bwd_limit", precision: 15, default: "0"
-    t.decimal "stg_limit", precision: 15, default: "0"
-    t.decimal "bwd_price", precision: 15, default: "0"
-    t.decimal "stg_price", precision: 15, default: "0"
-    t.decimal "bwd_price_over", precision: 15, default: "0"
-    t.decimal "stg_price_over", precision: 15, default: "0"
+    t.decimal "bwd_limit", precision: 15
+    t.decimal "stg_limit", precision: 15
+    t.decimal "bwd_price", precision: 15
+    t.decimal "stg_price", precision: 15
+    t.decimal "bwd_price_over", precision: 15
+    t.decimal "stg_price_over", precision: 15
     t.string "reseller"
-    t.decimal "pricing", precision: 15, default: "0"
+    t.decimal "pricing", precision: 15
   end
 
   create_table "storages", force: :cascade do |t|
@@ -82,15 +82,15 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
     t.integer "package"
     t.integer "subscription_type", default: 1
     t.integer "payment_type", default: 1
-    t.decimal "bwd_limit", precision: 15, default: "0"
-    t.decimal "stg_limit", precision: 15, default: "0"
-    t.decimal "bwd_price", precision: 15, default: "0"
-    t.decimal "stg_price", precision: 15, default: "0"
-    t.decimal "bwd_price_over", precision: 15, default: "0"
-    t.decimal "stg_price_over", precision: 15, default: "0"
-    t.decimal "bwd_add", precision: 15, default: "0"
-    t.decimal "stg_add", precision: 15, default: "0"
-    t.decimal "pricing", precision: 15, default: "0"
+    t.decimal "bwd_limit", precision: 15
+    t.decimal "stg_limit", precision: 15
+    t.decimal "bwd_price", precision: 15
+    t.decimal "stg_price", precision: 15
+    t.decimal "bwd_price_over", precision: 15
+    t.decimal "stg_price_over", precision: 15
+    t.decimal "bwd_add", precision: 15
+    t.decimal "stg_add", precision: 15
+    t.decimal "pricing", precision: 15
     t.string "reseller"
     t.integer "status", default: 1
     t.datetime "expiration_date"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_180007) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "color"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

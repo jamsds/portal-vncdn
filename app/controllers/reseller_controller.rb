@@ -109,6 +109,16 @@ class ResellerController < ApplicationController
     @subscriptions = Subscription.where(reseller: current_user.username)
   end
 
+  def resellerUpdate
+    if current_user.update(portal_params)
+      flash[:success] = "This record has been updated successfully"
+      redirect_back(fallback_location: reseller_path)
+    else
+      flash[:danger] = "Error! Please check again"
+      render 'account'
+    end
+  end
+
   private
     def authenticate_reseller
       if current_user.accountType != 2
@@ -126,5 +136,9 @@ class ResellerController < ApplicationController
 
     def package_params
       params.require(:package).permit(:name, :bwd_limit, :stg_limit, :bwd_price, :stg_price, :bwd_price_over, :stg_price_over, :reseller, :pricing)
+    end
+
+    def portal_params
+      params.require(:user).permit(:domain, :logo, :color, :attachment_delete)
     end
 end

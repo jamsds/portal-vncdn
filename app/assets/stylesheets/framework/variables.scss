@@ -12,6 +12,10 @@
   &:-ms-input-placeholder      {@content}  
 }
 
+:root {
+  --main-color: #f68100;
+}
+
 $dark: #111111;
 
 $black: #333333;
@@ -28,7 +32,7 @@ $gray-nd: #e1e1e1;
 $silver: #f8f8f8;
 $light: #ffffff;
 
-$primary: #f68100;
+$primary: var(--main-color);
 $primary-nd: #B11E00;
 
 $blue: #071295;

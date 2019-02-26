@@ -103,8 +103,8 @@ table {
 
 .custom-checkbox {
   .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: $primary;
-    border-color: $primary;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
   }
 }
 
@@ -174,10 +174,48 @@ textarea {
   resize: none;
 }
 
+.custom-file {
+  &-input {
+    height: 47px;
+    display: none;
+    visibility: hidden;
+  }
+  &-label {
+    width: 100%;
+    height: unset;
+    display: block;
+    padding: .75rem .75rem;
+    font-size: .875rem;
+    outline: none;
+    color: #333333;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:focus, &:active, &:hover {
+      box-shadow: 0 0 0 0.2rem rgba(252, 109, 29, 0.33);
+      border-color: rgba(252, 109, 29, 0.33);
+    }
+    &:after {
+      height: unset;
+      padding: .75rem .75rem;
+    }
+  }
+}
+
+.input-group {
+  &.customize {
+    height: 47px;
+  }
+}
+
 // Typography
 a, p, span, h1, h2, h3, h4, h5, h6 {
   &.primary {
-    color: $primary;
+    color: var(--main-color);
   }
   &.blue {
     color: $blue;
@@ -199,7 +237,7 @@ a, p {
 
 .text-muted {
   &.notice {
-    color: $primary !important;
+    color: var(--main-color) !important;
   }
 }
 
@@ -261,15 +299,15 @@ a.btn {
   }
   &.primary {
     color: $light;
-    background-color: $primary;
+    background-color: var(--main-color);
     &:focus, &:active, &:hover,
     &:not(:disabled):not(.disabled):active:focus {
       box-shadow: 0 0 0 0.2rem rgba(252, 109, 29, 0.33);
     }
     &.outline {
-      color: $primary;
+      color: var(--main-color);
       background-color: transparent;
-      border: 2px solid $primary;
+      border: 2px solid var(--main-color);
     }
   }
   &.dark {
@@ -306,12 +344,12 @@ a.btn {
 
 .page-item {
   .page-link {
-    color: $primary;
+    color: var(--main-color);
   }
   &.active {
     .page-link {
-      background-color: $primary;
-      border-color: $primary;
+      background-color: var(--main-color);
+      border-color: var(--main-color);
     }
   }
 }
@@ -366,10 +404,10 @@ a.btn {
     width: 30px;
     height: 30px;
     margin: 4px;
-    border: 4px solid $primary;
+    border: 4px solid var(--main-color);
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: $primary transparent transparent transparent;
+    border-color: var(--main-color) transparent transparent transparent;
     &:nth-child(1) {
       animation-delay: -0.45s;
     }
@@ -428,7 +466,7 @@ a.btn {
 
 input {
   &:checked + .slider {
-    background-color: $primary;
+    background-color: var(--main-color);
   }
   &:focus + .slider {
     box-shadow: 0 0 1px $gray;

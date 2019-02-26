@@ -43,4 +43,22 @@ class Api::V1Controller < ApiController
 		@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 		render json: RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 	end
+
+	# Check CNAME
+	def checkCname
+		if !params[:domain].nil?
+			@domain = params[:domain]
+		end
+
+		url = URI("https://api.mojodns.com/api/dns/#{@domain}/CNAME")
+
+		https = Net::HTTP.new(url.host, url.port)
+		https.use_ssl = true
+
+		request = Net::HTTP::Get.new(url)
+		request["Authorization"] = "c067217a-fd14-45be-8ee5-6f6cd23ce49b"
+
+		response = https.request(request)
+		render json: response.read_body
+	end
 end
