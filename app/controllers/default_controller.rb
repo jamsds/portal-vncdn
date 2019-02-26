@@ -75,7 +75,7 @@ class DefaultController < ApplicationController
 	    @totalStorage = []
 	    @totalMonths = []
 
-	    @customers = []
+	    @customers = [1]
 
 	    thisYear = Date.current.strftime("%Y")
 
