@@ -39,7 +39,7 @@ Rails.application.configure do
       access_key_id: 'BKIKJAA5BMMU2RHO6IBB',
       secret_access_key: 'V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12',
       s3_region: 'us-east-1',
-      s3_host_name: 'http://103.90.220.124'
+      s3_host_name: 'cdn.s3.vnetwork.vn'
     },
     s3_options: {
       endpoint: "http://103.90.220.124",
