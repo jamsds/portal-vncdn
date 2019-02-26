@@ -93,11 +93,11 @@ class DefaultController < ApplicationController
 		  	@monthlyBandwidth = 0
 		  	@monthlyStorage = 0
 
-		  	Bandwidth.where(monthly: monthly, user_id: @customers.to_s.split(/,/).map{|chr| chr.to_i}).each do |bandwidth|
+		  	Bandwidth.where(monthly: monthly, user_id: @customers).each do |bandwidth|
 		  		@monthlyBandwidth += bandwidth.bandwidth_usage * 1000.00
 		  	end
 
-		  	Storage.where(monthly: monthly, user_id: @customers.to_s.split(/,/).map{|chr| chr.to_i}).each do |storage|
+		  	Storage.where(monthly: monthly, user_id: @customers).each do |storage|
 		  		@monthlyStorage += storage.storage_usage * 1000.00
 		  	end
 
