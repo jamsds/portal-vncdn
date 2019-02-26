@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
 	$X_SPD_NONCE = rand(10000..99999)
 	$ROOT_ID = "30133"
 
-	def default_url_options
-    { host: request.host_with_port }
-  end
-
 	class SyncProcess
     def initialize(requestURI)
       @requestURI = requestURI
@@ -139,6 +135,10 @@ class ApplicationController < ActionController::Base
 
 			$X_SPD_DATE = Time.now.utc.strftime("%Y%m%dT%H%M%SZ")
 		end
+
+		def default_url_options
+	    { host: request.host_with_port }
+	  end
 
 		def base_endpoint
 			$END_POINT = 'https://base-api.swiftfederation.com'
