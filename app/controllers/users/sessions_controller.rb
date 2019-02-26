@@ -4,13 +4,11 @@ class Users::SessionsController < Devise::SessionsController
 		if User.find_by(email: sign_in_params["email"]).accountType == 1 && User.find_by(email: sign_in_params["email"]).parent_uuid.present?
 			@parent = User.find_by(email: sign_in_params["email"]).parent_uuid
 			@parent_uuid = User.find_by(username: @parent)
-		elsif User.find_by(email: sign_in_params["email"]).accountType == 2
+		end
+
+		if User.find_by(email: sign_in_params["email"]).accountType == 2
 			@parent_uuid = User.find_by(email: sign_in_params["email"])
-			if @parent_uuid.domain.present?
-				@domain = @parent_uuid.domain
-			else
-				@domain = request.host
-			end
+			@domain = @parent_uuid.domain
 		end
 
 		if @domain == request.host
