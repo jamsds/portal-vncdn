@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	$ROOT_ID = "30133"
 
 	def default_url_options
-    ActionMailer::Base.default_url_options[:host] = request.host
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
 	class SyncProcess
