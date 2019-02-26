@@ -172,7 +172,7 @@
 	          	<div class="trending-compair-unit">
 	          		<div class="trending-compair-unit-traffic">
 	          			<span class="unit_ic">
-	          				<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 20 20"><path d="M4.9,470.5A9.506,9.506,0,0,1,2,463.4a9.9,9.9,0,0,1,2.9-7.1,9.506,9.506,0,0,1,7.1-2.9,10.068,10.068,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1,9.9,9.9,0,0,1-2.9,7.1,9.506,9.506,0,0,1-7.1,2.9A9.9,9.9,0,0,1,4.9,470.5Z" transform="translate(-2 -453.4)" fill="<%= current_user.color %>"/></svg>
+	          				<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 20 20"><path d="M4.9,470.5A9.506,9.506,0,0,1,2,463.4a9.9,9.9,0,0,1,2.9-7.1,9.506,9.506,0,0,1,7.1-2.9,10.068,10.068,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1,9.9,9.9,0,0,1-2.9,7.1,9.506,9.506,0,0,1-7.1,2.9A9.9,9.9,0,0,1,4.9,470.5Z" transform="translate(-2 -453.4)" fill="<% if current_user.color.present? %><%= current_user.color %><% else %>#f68100<% end %>"/></svg>
 	          			</span>
 	          			<span>Traffic</span>
 	          		</div>
@@ -270,7 +270,7 @@
       }
     },
     color: [
-    	"#e1e1e1","<%= current_user.color %>"
+    	"#e1e1e1","<% if current_user.color.present? %><%= current_user.color %><% else %>#f68100<% end %>"
     ],
     toolbox: {
       show : true,

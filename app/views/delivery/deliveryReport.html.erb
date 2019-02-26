@@ -183,7 +183,7 @@
       }
     },
     color: [
-    	"#e1e1e1","<%= current_user.color %>"
+    	"#e1e1e1","<% if current_user.color.present? %><%= current_user.color %><% else %>#f68100<% end %>"
     ],
     toolbox: {
       show : true,
