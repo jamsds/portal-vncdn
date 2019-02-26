@@ -334,6 +334,8 @@ class DeliveryController < ApplicationController
 			@response.each do |item|
 				@redirects << item
 			end
+		elsif params[:ptype] != 'a' || params[:ptype] != 'c' || params[:ptype] != 'r'
+			redirect_to "/cdn/#{params[:propertyId]}/d"
 		end
 	end
 
