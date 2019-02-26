@@ -400,6 +400,55 @@
 										margin-top: 0.15rem;
 									}
 								}
+								.alert_ic {
+									path {
+										fill: #856404;
+									}
+								}
+							}
+							&.success {
+								color: #24b47e;
+								background-color: #24b47e33;
+								border-color: #24b47e33;
+								h6 {
+									font-size: 0.875rem;
+									margin-bottom: 0;
+								}
+								p {
+									font-size: 0.875rem;
+									display: block;
+									margin-bottom: 0;
+									span:nth-child(2) {
+										margin-top: 0.15rem;
+									}
+								}
+								.alert_ic {
+									path {
+										fill: #24b47e;
+									}
+								}
+							}
+							&.danger {
+								color: #851e04;
+								background-color: #ffdbcd80;
+								border-color: #b44a2433;
+								h6 {
+									font-size: 0.875rem;
+									margin-bottom: 0;
+								}
+								p {
+									font-size: 0.875rem;
+									display: block;
+									margin-bottom: 0;
+									span:nth-child(2) {
+										margin-top: 0.15rem;
+									}
+								}
+								.alert_ic {
+									path {
+										fill: #851e04;
+									}
+								}
 							}
 						}
 						&-table {
