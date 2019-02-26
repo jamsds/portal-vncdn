@@ -1,14 +1,16 @@
 class Users::SessionsController < Devise::SessionsController
 	def create
+		# Define user login
+		@thisUser = User.find_by(email: sign_in_params["email"])
+
 		# Verify user reseller owner
-		if User.find_by(email: sign_in_params["email"]).accountType == 1 && User.find_by(email: sign_in_params["email"]).parent_uuid.present?
-			@parent = User.find_by(email: sign_in_params["email"]).parent_uuid
-			@parent_uuid = User.find_by(username: @parent)
+		if @thisUser.accountType == 1 && @thisUser.parent_uuid.present?
+			@parent_uuid = User.find_by(username: @thisUser.parent_uuid)
+			@domain = @parent_uuid.domain
 		end
 
-		if User.find_by(email: sign_in_params["email"]).accountType == 2
-			@parent_uuid = User.find_by(email: sign_in_params["email"])
-			@domain = @parent_uuid.domain
+		if @thisUser.accountType == 2
+			@domain = @thisUser.domain
 		end
 
 		if @domain == request.host
