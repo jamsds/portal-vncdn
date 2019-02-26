@@ -2,7 +2,7 @@
   <div class="container">
     <div class="wrapper mt-5">
       <% @parent_uuid = User.find_by(domain: request.host) %>
-      <h2>Sign up <% if @parent_uuid.present? %>:: <%= @parent_uuid.username %><% end %></h2>
+      <h2>Sign up <% if @parent_uuid.present? %>:: <%= @parent_uuid.company %><% end %></h2>
       <%= @uri %>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -18,7 +18,7 @@
           <%= f.email_field :email, :class => 'form-control', autocomplete: "off", id: 'user-email' %>
           <%= f.hidden_field :username, id: 'user-name' %>
           <% if @parent_uuid.present? %>
-          <%= f.text_field :parent_uuid, value: User.find_by(domain: request.host).username %>
+          <%= f.hidden_field :parent_uuid, value: User.find_by(domain: request.host).username %>
           <% end %>
         </div>
 
