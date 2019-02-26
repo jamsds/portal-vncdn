@@ -27,6 +27,8 @@ class NotificationMailer < ApplicationMailer
 
     @domain = User.find_by(username: @user.parent_uuid).domain
 
+    ActionMailer::Base.default_url_options[:host] pointing to @domain
+
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
     @expires = @user.credit.expires
