@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 	def create
 		# Verify user reseller owner
-		if User.find_by(email: sign_in_params["email"]).accountType == 1
+		if User.find_by(email: sign_in_params["email"]).accountType == 1 && User.find_by(email: sign_in_params["email"]).parent_uuid.present?
 			@parent = User.find_by(email: sign_in_params["email"]).parent_uuid
 			@parent_uuid = User.find_by(username: @parent)
 		elsif User.find_by(email: sign_in_params["email"]).accountType == 2
