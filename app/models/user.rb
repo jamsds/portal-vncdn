@@ -6,7 +6,8 @@ class User < ApplicationRecord
 	has_attached_file :logo, {
 		:default_url => ":attachment/null",
 		s3_permissions: :private,
-    :path => "/:class/:attachment/:filename"
+    :path => "/:class/:attachment/:filename",
+    validate_media_type: false
 	}
   validates_attachment_file_name :logo, :matches => [/png\Z/, /jpe?g\Z/, /svg\Z/]
 	
