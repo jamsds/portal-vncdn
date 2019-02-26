@@ -6,6 +6,7 @@ if defined?(ActionMailer)
 
     def confirmation_instructions(record, token, opts={})
       @token = token
+      @host = Thread.current[:request_host]
       devise_mail(record, :confirmation_instructions, opts)
     end
 
