@@ -3,8 +3,13 @@
     <div class="wrapper mt-5">
       <h2>User :: Log in</h2>
 
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %> mb-0 mt-3"><%= value %></div>
+      <% if flash[:notice].present? || flash[:signed_in].present? %>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %> mb-0 mt-3"><%= value %></div>
+        <% end %>
+      <% end %>
+      <% if flash[:verify_notice] %>
+        <div class="alert alert-warning mb-0 mt-3"><%= flash[:verify_notice] %></div>
       <% end %>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       
