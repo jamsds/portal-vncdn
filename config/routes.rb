@@ -47,6 +47,8 @@ Rails.application.routes.draw do
 
   get '/reseller/subscription', to: "reseller#subscription"
 
+  get '/reseller/configuration', to: "reseller#configuration"
+
   # Content Delivery Network(CDN)
   get '/cdn', to: "delivery#delivery"
   get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
@@ -56,6 +58,9 @@ Rails.application.routes.draw do
   get '/cdn/:propertyId/:type/policies/:ptype', to: "delivery#deliveryPolicy"
 
   get '/cdn/:propertyId/:type/policies/:ptype/add', to: "delivery#deliveryAddPolicy"
+
+  get '/cdn/:propertyId/:type/policies/:ptype/:policyId', to: "delivery#deliveryEditPolicy"
+
   post '/cdn/policies/create', to: "delivery#deliveryCreatePolicy"
   delete '/cdn/:propertyId/:type/policies/:ptype/:policyId', to: "delivery#deliveryDeletePolicy"
 
