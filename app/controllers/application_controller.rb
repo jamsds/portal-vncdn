@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	$ROOT_ID = "30133"
 
 	def set_request_host
-	  Mail.current[:request_host] = request.host
+	  Thread.current[:request_host] = request.host
 	end
 
 	class SyncProcess
