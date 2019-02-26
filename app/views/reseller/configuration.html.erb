@@ -66,11 +66,11 @@
 		          <%= f.label :domain, 'Domain', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9<% if current_user.domain.present? %> col-form-value<% end %>">
 		          	<% if !current_user.domain.present? %>
-		            <%= f.text_field :domain, placeholder: 'Enter your domain', class: 'form-control', :required => true %>
+		            <%= f.text_field :domain, placeholder: 'Enter your domain', class: 'form-control', pattern: "^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?", :required => true %>
 		            <% else %>
 		            <p><%= current_user.domain %> <a href="">(change)</a></p>
 		            <% end %>
-								<small id="domainHelp" class="form-text text-muted">You need change CNAME record of your domain to <strong>reseller.vncdn.vn</strong></small>
+								<small id="domainHelp" class="form-text text-muted">Domain no need http or https. Domain format e.g vnetwork.vn</strong></small>
 		          </div>
 		        </div>
 
@@ -100,11 +100,11 @@
 		          <%= f.label :color, 'Primary Color', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-5<% if current_user.color.present? %> col-form-value<% end %>">
 		          	<% if !current_user.color.present? %>
-		            <%= f.text_field :color, placeholder: 'Enter HEX Color', class: 'form-control', :required => true %>
+		            <%= f.text_field :color, placeholder: 'Enter HEX Color', class: 'form-control', id: 'color-hex', pattern: "^#([0-9a-f]{6})", :required => true %>
 		            <% else %>
 		            <p><%= current_user.color %></p>
 		            <% end %>
-								<small id="colorHelp" class="form-text text-muted">Primary color will replace all variable mark as primary</small>
+								<small id="colorHelp" class="form-text text-muted">Primary color will replace all variable mark as primary. HEX format e.g #FE330A</small>
 		          </div>
 		        </div>
 

@@ -60,4 +60,16 @@ $(document).on('turbolinks:load', function() {
       $("#amountlHelp").addClass("notice")
     }
   })
+
+  $("#color-hex").on('keyup', function() {
+    var hex = new RegExp(/^#([0-9a-f]{6})$/i)
+
+
+
+    if (hex.test($(this).val()) == true) {
+      $("#colorHelp").removeClass("notice")
+    } else {
+      $("#colorHelp").addClass("notice")
+    }
+  })
 })
