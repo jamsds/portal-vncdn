@@ -195,11 +195,11 @@
                 	<td><%= cache["hostHeader"] %></td>
                 	<td><%= cache["ttl"] %></td>
                 	<td>
-                		<% if cache["ignoreClientNoCache"] == true %>Client,<% end %>
-                		<% if cache["ignoreOriginNoCache"] == true %>Origin Server,<% end %>
-                		<% if cache["ignoreQueryString"] == true %>Query String<% end %>
+                		<% if cache["ignoreClientNoCache"] == true %>Client, <% end %>
+                		<% if cache["ignoreOriginNoCache"] == true %>Origin Server<% end %>
+                		<% if cache["ignoreQueryString"] == true %>, Query String<% end %>
                 	</td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= cache["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
                 </tr>
               <% end %>
             </tbody>
@@ -228,7 +228,7 @@
                 	<td><%= redirect["url"] %></td>
                 	<td><%= redirect["redirectionURL"] %></td>
                 	<td><%= redirect["statusCode"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm">Edit</a></td>
+                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
                 </tr>
               <% end %>
             </tbody>

@@ -93,42 +93,132 @@
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
 					<%= form_for "", url: {action: :deliveryCreatePolicy, controller: :delivery}, method: :post, html: { id: 'form', multipart: true } do |f|%>
-						<div class="form-group">
-							<%= f.label :name, 'Policy Name' %>
-							<%= f.text_field :name, class: 'form-control', required: true %>
-							<%= f.hidden_field :dtype, value: params[:type] %>
-							<%= f.hidden_field :ptype, value: params[:ptype] %>
-							<%= f.hidden_field :propertyId, value: params[:propertyId] %>
-						</div>
-						<div class="form-group">
-							<%= f.label :type, 'Policy Type' %>
-							<%= f.select :type, options_for_select([["Whitelist", "allow"], ["Blacklist", "deny"], ["Token Secret Access", "token"]]), {}, {class: 'form-control'} %>
-							<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/d">Secret Token Here</a></small>
-						</div>
-						<div class="form-group">
-							<%= f.label :matchType, 'Match Type' %>
-							<%= f.select :matchType, options_for_select([["Prefix", "prefix"], ["Regex", "regex"]]), {}, {class: 'form-control'} %>
-						</div>
-						<div class="form-group">
-							<%= f.label :url, 'URL Path' %>
-							<%= f.text_field :url, class: 'form-control', value: "/", required: true %>
-						</div>
-						<div class="form-group">
-							<%= f.label :location, 'GEO Restriction' %>
-							<%= f.text_field :location, class: 'form-control' %>
-							<small id="locationHelp" class="form-text text-muted">The GEO code format with ISO standard e.g Vietnam = VI.</small>
-						</div>
-						<div class="form-group">
-							<%= f.label :subnet, 'IP Restriction' %>
-							<%= f.text_field :subnet, class: 'form-control' %>
-							<small id="subnetHelp" class="form-text text-muted">The IP/Subnet field format e.g 0.0.0.0/24.</small>
-						</div>
-						<div class="mt-3">
-				      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
-				        Create
-				      <% end %>
-				      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Back</a>
-				    </div>
+		        <div class="form-group row">
+	            <label class="col-sm-2 col-form-label text-right">Policy Name</label>
+	            <div class="col-sm-8 col-form-value">
+	              <p><%= "#{params[:propertyId]}_#{params[:ptype]}_#{rand(1000..9999)}" %></p>
+	              <small>Policy name auto generated base on your PropertyId and our rules.</small>
+	              <%= f.hidden_field :name, value: "#{params[:propertyId]}_#{params[:ptype]}_#{rand(1000..9999)}" %>
+	              <%= f.hidden_field :dtype, value: params[:type] %>
+								<%= f.hidden_field :ptype, value: params[:ptype] %>
+								<%= f.hidden_field :propertyId, value: params[:propertyId] %>
+	            </div>
+	          </div>
+
+						<% if params[:ptype] == 'a' %>
+						<div class="form-group vertical row">
+		          <%= f.label :type, 'Policy Type', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.select :type, options_for_select([["Whitelist", "allow"], ["Blacklist", "deny"], ["Token Secret Access", "token"]]), {}, {class: 'form-control'} %>
+								<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/d">Secret Token Here</a></small>
+		          </div>
+		        </div>
+						<% end %>
+
+						<div class="form-group vertical row">
+		          <%= f.label :matchType, 'Match Type', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.select :matchType, options_for_select([["Prefix", "prefix"], ["Regex", "regex"]]), {}, {class: 'form-control'} %>
+		          </div>
+		        </div>
+		        <div class="form-group vertical row">
+		          <%= f.label :url, 'URL Path', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :url, class: 'form-control', value: "/", required: true %>
+								<small id="urlHelp" class="form-text text-muted">Enter the URL prefix or pattern for request match. E.g. /abc  or /abc_*.png.</small>
+		          </div>
+		        </div>
+
+						<% if params[:ptype] == 'a' %>
+						<div class="form-group vertical row">
+		          <%= f.label :location, 'GEO Restriction', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :location, class: 'form-control' %>
+								<small id="locationHelp" class="form-text text-muted">The GEO code format with ISO standard e.g Vietnam = VI.</small>
+		          </div>
+		        </div>
+		        <div class="form-group vertical row">
+		          <%= f.label :subnet, 'IP Restriction', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :subnet, class: 'form-control' %>
+								<small id="subnetHelp" class="form-text text-muted">The IP/Subnet field format e.g 0.0.0.0/24.</small>
+		          </div>
+		        </div>
+						<% elsif params[:ptype] == 'c' %>
+						<div class="form-group vertical row">
+		          <%= f.label :hostHeader, 'Host Header', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :hostHeader, class: 'form-control' %>
+								<small id="hostHeaderHelp" class="form-text text-muted">Override the default host header used to make requests to the origin</small>
+		          </div>
+		        </div>
+		        <div class="form-group vertical row">
+		          <%= f.label :ttl, 'TTL', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :ttl, class: 'form-control' %>
+								<small id="ttlHelp" class="form-text text-muted">The length of time in seconds to cache the origin content</small>
+		          </div>
+		        </div>
+		        <div class="form-group row">
+		        	<%= f.label :ignoreOriginNoCache, 'Ignore Origin', class: 'col-sm-2 col-form-label text-right' %>
+              <div class="col-sm-9 col-form-value">
+                <div class="switch-group clearfix">
+                  <label class="switch">
+                  	<%= f.check_box :ignoreOriginNoCache, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                    <span class="slider round"></span>
+                  </label>
+                  <%= f.label :ignoreOriginNoCache, 'Enable this option to ignore no-cache header(s) sent by the origin server', class: 'switch-group-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+		        	<%= f.label :ignoreClientNoCache, 'Ignore Client', class: 'col-sm-2 col-form-label text-right' %>
+              <div class="col-sm-9 col-form-value">
+                <div class="switch-group clearfix">
+                  <label class="switch">
+                  	<%= f.check_box :ignoreClientNoCache, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                    <span class="slider round"></span>
+                  </label>
+                  <%= f.label :ignoreClientNoCache, 'Enable this option to ignore no-cache header(s) from clients', class: 'switch-group-label' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+		        	<%= f.label :ignoreQueryString, 'Ignore Query String', class: 'col-sm-2 col-form-label text-right' %>
+              <div class="col-sm-9 col-form-value">
+                <div class="switch-group clearfix">
+                  <label class="switch">
+                  	<%= f.check_box :ignoreQueryString, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                    <span class="slider round"></span>
+                  </label>
+                  <%= f.label :ignoreQueryString, 'Enable this option to ignore any URL query string when caching an object', class: 'switch-group-label' %>
+                </div>
+              </div>
+            </div>
+            <% elsif params[:ptype] == 'r' %>
+            <div class="form-group vertical row">
+		          <%= f.label :redirectionURL, 'Redirect Destination', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :redirectionURL, class: 'form-control' %>
+								<small id="redirectionURLHelp" class="form-text text-muted">It will redirect to this URL for matched requests.</small>
+		          </div>
+		        </div>
+		        <div class="form-group vertical row">
+		          <%= f.label :statusCode, 'Match Type', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.select :statusCode, options_for_select([["301 - Permanent Redirect", "301"], ["302 - Temporary Redirect", "302"]]), {}, {class: 'form-control'} %>
+		          </div>
+		        </div>
+						<% end %>
+						<div class="row mt-3">
+		          <div class="col-sm-2"></div>
+		          <div class="col-sm-9">
+					      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+						      Create
+						    <% end %>
+						    <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Back</a>
+		          </div>
+		        </div>
 					<% end %>
 				</div>
 			</div>
