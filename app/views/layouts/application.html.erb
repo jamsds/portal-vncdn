@@ -41,7 +41,7 @@
         <a href="<%= root_url %>">
           <% if @parent_uuid.present? && @parent_uuid.accountType == 2 && @parent_uuid.logo.exists? %>
             <div class="portal__main-navigation-brand">
-              <img src="<%= @parent_uuid.logo.expiring_url %>" width="auto" height="40px">
+              <img src="<%= @parent_uuid.logo.expiring_url.gsub('103.90.220.124','cdn.s3.vnetwork.vn') %>" width="auto" height="40px">
             </div>
             <style type="text/css">
               :root {
