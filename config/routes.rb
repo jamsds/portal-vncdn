@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get '/account/subscription', to: "account#subscription"
   post '/account/subscription/add', to: "account#subscriptionAdd"
 
+  get '/account/subscription/upgrade', to: "account#subscriptionUpgrade"
+
   patch '/account/detail/update', to: "account#detailUpdate"
   post  '/account/password/update', to: "account#passwordUpdate"
   patch '/account/notification/update', to: "account#notificationsUpdate"
