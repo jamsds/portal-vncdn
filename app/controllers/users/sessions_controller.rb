@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
 			@domain = @parent_uuid.domain
 		end
 
-		if @thisUser.accountType == 1
+		if @thisUser.accountType == 1 && @thisUser.parent_uuid.nil?
 			@domain = request.host
 		end
 
