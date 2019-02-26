@@ -6,9 +6,14 @@ class Users::SessionsController < Devise::SessionsController
 			@parent_uuid = User.find_by(username: @parent)
 		elsif User.find_by(email: sign_in_params["email"]).accountType == 2
 			@parent_uuid = User.find_by(email: sign_in_params["email"])
+			if @parent_uuid.domain.present?
+				@domain = @parent_uuid.domain
+			else
+				@domain = request.host
+			end
 		end
 
-		if @parent_uuid.domain == request.host
+		if @domain == request.host
  			self.resource = warden.authenticate!(auth_options)
  			set_flash_message!(:notice, :signed_in)
 	    sign_in(resource_name, resource)
