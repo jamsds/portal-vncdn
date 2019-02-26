@@ -6,7 +6,7 @@ if defined?(ActionMailer)
 
     def confirmation_instructions(record, token, opts={})
       @token = token
-      @host = request.host_with_port
+      @host = 'abc.com'
       devise_mail(record, :confirmation_instructions, opts)
     end
 
