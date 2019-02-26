@@ -11,9 +11,7 @@ class Users::SessionsController < Devise::SessionsController
 			@domain = @parent_uuid.domain
 		elsif @thisUser.accountType == 1 && !@thisUser.parent_uuid.present?
 			@domain = 'reseller.vncdn.vn'
-		end
-
-		if @thisUser.accountType == 2
+		elsif @thisUser.accountType == 2
 			@domain = @thisUser.domain
 		end
 
