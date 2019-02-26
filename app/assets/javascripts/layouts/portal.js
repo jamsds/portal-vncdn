@@ -61,11 +61,18 @@ $(document).on('turbolinks:load', function() {
     }
   })
 
+  $("#user_domain").on('keyup', function() {
+    var hex = new RegExp(/^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?/i)
+    if (hex.test($(this).val()) == true) {
+      $("#domainHelp").removeClass("notice")
+    } else {
+      $("#domainHelp").addClass("notice")
+    }
+  })
+  
+
   $("#color-hex").on('keyup', function() {
     var hex = new RegExp(/^#([0-9a-f]{6})$/i)
-
-
-
     if (hex.test($(this).val()) == true) {
       $("#colorHelp").removeClass("notice")
     } else {
