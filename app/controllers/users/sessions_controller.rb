@@ -1,5 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 	def create
+		warden.authenticate!(sign_in_params)
+
 		# Define user login
 		@thisUser = User.find_by(email: sign_in_params["email"])
 
@@ -7,7 +9,9 @@ class Users::SessionsController < Devise::SessionsController
 		if @thisUser.accountType == 1 && @thisUser.parent_uuid.present?
 			@parent_uuid = User.find_by(username: @thisUser.parent_uuid)
 			@domain = @parent_uuid.domain
-		elsif @thisUser.accountType == 1 && !@thisUser.parent_uuid.present?
+		end
+
+		if @thisUser.accountType == 1 && !@thisUser.parent_uuid.present?
 			@domain = request.host
 		end
 
@@ -27,9 +31,4 @@ class Users::SessionsController < Devise::SessionsController
 			redirect_back(fallback_location: root_path)
     end
   end
-
-  private
-   	def sign_in_params
-     	params.require(:user).permit(:email, :password, :remember_me) if params[:user].present?
-   	end
 end
