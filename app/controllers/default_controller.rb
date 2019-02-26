@@ -32,9 +32,9 @@ class DefaultController < ApplicationController
 		@previousMonth = (Date.current - 1.month).strftime("%Y-%m")
 
 
-    if current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
+    if current_user.subscription.nil?
       @previousPrice = @currentPrice = @stgPreviousMonth = @bwdPreviousMonth = @stgCurrentMonth = @bwdCurrentMonth = 0
-    elsif current_user.subscription.nil?
+    elsif current_user.credit.transactions.nil? || current_user.credit.transactions.where(monthly: @thisMonth, transaction_type: "Automatic Payment", status: "succeeded").present?
       @previousPrice = @currentPrice = @stgPreviousMonth = @bwdPreviousMonth = @stgCurrentMonth = @bwdCurrentMonth = 0
     else
       bwdPrice = current_user.subscription.bwd_price
@@ -55,13 +55,13 @@ class DefaultController < ApplicationController
       if current_user.bandwidths.find_by(monthly: @thisMonth).present?
         @bwdCurrentMonth = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage * 1000.00
       else
-        bwdUsage = 0
+        @bwdCurrentMonth = 0
       end
 
       if current_user.storages.find_by(monthly: @thisMonth).present?
         @stgCurrentMonth = current_user.storages.find_by(monthly: @thisMonth).storage_usage * 1000.00
       else
-        stgUsage = 0
+        @stgCurrentMonth = 0
       end
 
 	    @previousPrice = (stgPrice * (@stgPreviousMonth / 1000000000.00)) + (bwdPrice * (@bwdPreviousMonth / 1000000000.00))
