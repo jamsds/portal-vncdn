@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 	layout 'signin'
-	
+
 	def create
 		warden.authenticate!(sign_in_params)
 

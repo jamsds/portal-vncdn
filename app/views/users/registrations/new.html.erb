@@ -2,12 +2,8 @@
   <div class="container">
     <%= render "users/shared/head" %>
     <div class="wrapper">
-      <h2>Sign up <% if @parent_uuid.present? %>:: <%= @parent_uuid.company %><% end %></h2>
-      <%= @uri %>
-
+      <h3 class="mt-0">Sign up</h3>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-
         <div class="form-group mt-4">
           <%= f.label :name %><br />
           <%= f.text_field :name, :class => 'form-control', autofocus: true %>
@@ -15,7 +11,7 @@
 
         <div class="form-group mt-4">
           <%= f.label :email %><br />
-          <%= f.email_field :email, :class => 'form-control', autocomplete: "off", id: 'user-email' %>
+          <%= f.email_field :email, :class => 'form-control', autocomplete: "off", id: 'user-email', pattern: "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*", required: true %>
           <%= f.hidden_field :username, id: 'user-name' %>
           <% if @parent_uuid.present? %>
           <%= f.hidden_field :parent_uuid, value: User.find_by(domain: request.host).username %>
@@ -24,19 +20,23 @@
 
         <div class="form-group mt-3">
           <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
           <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
+          <%= f.hidden_field :password_confirmation %>
+          <% if @minimum_password_length %>
+          <small id="passwordHelp" class="form-text text-muted">Password require <%= @minimum_password_length %> characters minimum</small>
+          <% end %>
         </div>
 
-        <div class="form-group mt-3">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, :class => 'form-control', autocomplete: "off" %>
+        <div class="mt-3 mb-3">
+          <%= f.submit "Register", :class => 'btn btn-default primary btn-block' %>
         </div>
-
-        <div class="actions mt-3">
-          <%= f.submit "Sign up", :class => 'btn btn-default primary' %>
+        <div class="signup__refer">
+          <div class="signup__refer-heading">
+            <p>Sign in to an existing </p>
+          </div>
+          <div class="signup__refer-content">
+            <a href="<%= new_session_path(resource_name) %>" class="btn btn-light btn-block">Customer Sign in</a>
+          </div>
         </div>
       <% end %>
     </div>
@@ -48,6 +48,9 @@
         var username = $(this).val();
         var encrypt = $.md5(username);
         $('#user-name').val(encrypt);
+      });
+      $('#user_password').keyup(function() {
+        $("#user_password_confirmation").val($('#user_password').val());
       });
     </script>
   </div>

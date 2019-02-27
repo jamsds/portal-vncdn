@@ -1101,6 +1101,9 @@
 				}
 			}
     }
+    &-ssid {
+    	&-valid {}
+    }
     .alert {
 			padding: 1rem;
 			margin-bottom: 1rem;
@@ -1199,7 +1202,7 @@
 	    			margin-bottom: 0;
 	    			&:before {
 	    				content: " ";
-					    width: 100px;
+					    width: 75px;
 					    height: 1px;
 					    position: absolute;
 					    top: 10px;
@@ -1208,7 +1211,7 @@
 	    			}
 	    			&:after {
 	    				content: " ";
-					    width: 100px;
+					    width: 75px;
 					    height: 1px;
 					    position: absolute;
 					    top: 10px;

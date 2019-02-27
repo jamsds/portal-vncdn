@@ -86,4 +86,10 @@ $(document).on('turbolinks:load', function() {
       $("#colorHelp").addClass("notice")
     }
   })
+
+  $(".ssid_check").on('click', function() {
+    axios.post('/api/v1.1/checkSSID/?email=' + $("#user_email").val()).then(function(response) {
+      window.location.href = '/users/sign_in?ssid=' + $("#user_email").val()+'&valid=' + response.data.status + '&confirmed=' + response.data.confirmed;
+    })
+  })
 })

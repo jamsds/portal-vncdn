@@ -65,9 +65,13 @@ class Api::V1Controller < ApiController
 	# Check SSID
 	def checkSSID
 		if User.where(email: params[:email]).size == 0
-			render json: "{\"status\":false}"
+			render json: "{\"status\":\"false\"}"
 		else
-			render json: "{\"status\":true}"
+			if User.find_by(email: params[:email]).confirmed_at.nil?
+				render json: "{\"status\":\"true\",\"confirmed\":\"false\"}"
+			else
+				render json: "{\"status\":\"true\",\"confirmed\":\"true\"}"
+			end
 		end
 	end
 end
