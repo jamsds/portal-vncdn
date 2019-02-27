@@ -3,7 +3,7 @@
     <%= render "users/shared/head" %>
     <div class="wrapper">
       <h3 class="mt-0">Sign in</h3>
-      <% if @valid == false %>
+      <% if cookies.signed["_ssid"].present? && @valid == false %>
         <div class="alert warning mb-0 mt-3"><p>Couldn't find this email in our clients</p></div>
       <% end %>
       
