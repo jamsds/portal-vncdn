@@ -4,7 +4,7 @@
       <tbody>
         <tr>
           <td style="padding:2rem">
-            <img src="http://<%= @host %>/assets/logo_dark.png" width="150px" height="auto">
+            <img src="<%= @logo %>" width="150px" height="auto">
           </td>
           <td style="text-align:right;font-family:Google Sans,Roboto,Arial;padding:2rem">
             <a href="http://<%= @host %>" style="font-size:16px;line-height:20px;letter-spacing:0.75px;color:#1a73e8;font-weight:500;text-decoration:none">
@@ -22,7 +22,7 @@
 		        <h1 style="font-size:1.75rem;margin-top:0;margin-bottom:1.5rem"><b>Email Confirmation</b></h1>
 		        <h3 style="font-size:1rem;margin-bottom:1rem;display:block;float:unset"><b>Welcome to VNCDN</b></h3>
 		        <p style="margin-top:1rem;margin-bottom:1rem">Firstly, You need to confirm your account email through the link below:</p>
-		        <p style="margin-top:1rem;margin-bottom:0"><%= link_to 'Confirm My Account', confirmation_url(@resource, confirmation_token: @token, host: @host), {:style => 'color:#fff;background-color:#f68100;padding: 12px 16px;font-size:14px;font-weight:700;box-shadow:none;outline:none;display:inline-block;text-align:center;vertical-align:middle;border: 1px solid transparent;line-height:1.5;border-radius:0.25rem;text-decoration:none'} %></p>
+		        <p style="margin-top:1rem;margin-bottom:0"><%= link_to 'Confirm My Account', confirmation_url(@resource, confirmation_token: @token, host: @host), {:style => 'color:#fff;background-color:<%= @color %>;padding: 12px 16px;font-size:14px;font-weight:700;box-shadow:none;outline:none;display:inline-block;text-align:center;vertical-align:middle;border: 1px solid transparent;line-height:1.5;border-radius:0.25rem;text-decoration:none'} %></p>
 		      </td>
 		    </tr>
 		  </tbody>
