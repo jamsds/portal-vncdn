@@ -24,6 +24,14 @@ $(document).on('turbolinks:load', function() {
 	  }
 	});
 
+  $(document).on("keypress", 'form', function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
 	$(".free-trial-message-close").click(function(){
     var now = new Date();
     var time = now.getTime();
@@ -69,7 +77,6 @@ $(document).on('turbolinks:load', function() {
       $("#domainHelp").addClass("notice")
     }
   })
-  
 
   $("#color-hex").on('keyup', function() {
     var hex = new RegExp(/^#([0-9a-f]{6})$/i)
