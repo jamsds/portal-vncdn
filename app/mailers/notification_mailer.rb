@@ -2,6 +2,8 @@ class NotificationMailer < ApplicationMailer
   default from: 'no-reply@vncdn.vn'
   layout 'mailer'
 
+  before_action :set_variable_mailer
+
   class SetVariable
     def initialize(id)
       @id = id
@@ -44,8 +46,6 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    SetVariable.new(id).variableBuild()
-
     @bwdLimit = @user.subscription.bwd_limit
     @stgLimit   = @user.subscription.stg_limit
     
@@ -62,8 +62,6 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    SetVariable.new(id).variableBuild()
-
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
     @expires = @user.credit.expires
@@ -74,4 +72,9 @@ class NotificationMailer < ApplicationMailer
       subject: "VNCDN - Card Linked Notification",
     )
   end
+
+  private
+    def set_variable_mailer
+      SetVariable.new(id).variableBuild()
+    end
 end
