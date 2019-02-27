@@ -33,6 +33,12 @@ if defined?(ActionMailer)
       def set_variable_mailer
         @host = Thread.current[:request_host]
 
+        if User.find_by(domain: @host).present? && User.find_by(domain: @host).company.present?
+          @company = User.find_by(domain: @host).company
+        else
+          @company = "VNCDN"
+        end
+
         if User.find_by(domain: @host).present? && User.find_by(domain: @host).color.present?
           @color = User.find_by(domain: @host).color
         else

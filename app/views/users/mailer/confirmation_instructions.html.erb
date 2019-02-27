@@ -20,7 +20,7 @@
 		    <tr>
 		      <td style="font-family:Google Sans,Roboto,Arial;font-size:1rem;letter-spacing:0.75px;padding:2rem">
 		        <h1 style="font-size:1.75rem;margin-top:0;margin-bottom:1.5rem"><b>Email Confirmation</b></h1>
-		        <h3 style="font-size:1rem;margin-bottom:1rem;display:block;float:unset"><b>Welcome to VNCDN,</b></h3>
+		        <h3 style="font-size:1rem;margin-bottom:1rem;display:block;float:unset"><b>Welcome to <%= @company %>,</b></h3>
 		        <p style="margin-top:1rem;margin-bottom:1rem">Firstly, You need to confirm your account email through the link below:</p>
 		        <p style="margin-top:1rem;margin-bottom:0"><a href="<%= confirmation_url(@resource, confirmation_token: @token, host: @host) %>" style="color:#fff;background-color:<%= @color%>;padding: 12px 16px;font-size:14px;font-weight:700;box-shadow:none;outline:none;display:inline-block;text-align:center;vertical-align:middle;border: 1px solid transparent;line-height:1.5;border-radius:0.25rem;text-decoration:none">Confirm My Account</a></p>
 		      </td>
@@ -31,7 +31,7 @@
       <tbody>
         <tr>
           <td style="font-family:Google Sans,Roboto,Arial;font-size:0.875rem;color:#888888;font-weight:normal;letter-spacing:0.75px;padding:2rem">
-            <p>This email was sent to <%= @email %> because you indicated that you’d like to receive updates and tips about your VNCDN account.</p>
+            <p>This email was sent to <%= @email %> because you indicated that you’d like to receive updates and tips about your <%= @company %> account.</p>
           </td>
         </tr>
       </tbody>
