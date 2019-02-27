@@ -18,6 +18,8 @@ class NotificationMailer < ApplicationMailer
     end
 
     def variableColor
+      @user = User.find(@id)
+
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).color.present?
         @color = User.find_by(username: @user.parent_uuid).color
       else
@@ -26,6 +28,8 @@ class NotificationMailer < ApplicationMailer
     end
 
     def variableCompany
+      @user = User.find(@id)
+
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).company.present?
         @company = User.find_by(username: @user.parent_uuid).company
       else
@@ -34,6 +38,8 @@ class NotificationMailer < ApplicationMailer
     end
 
     def variableLogo
+      @user = User.find(@id)
+      
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).logo.present?
         @logo = User.find_by(username: @user.parent_uuid).logo
       else
