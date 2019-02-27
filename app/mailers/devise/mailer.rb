@@ -12,19 +12,23 @@ if defined?(ActionMailer)
 
     def reset_password_instructions(record, token, opts={})
       @token = token
+      @host = Thread.current[:request_host]
       devise_mail(record, :reset_password_instructions, opts)
     end
 
     def unlock_instructions(record, token, opts={})
       @token = token
+      @host = Thread.current[:request_host]
       devise_mail(record, :unlock_instructions, opts)
     end
 
     def email_changed(record, opts={})
+      @host = Thread.current[:request_host]
       devise_mail(record, :email_changed, opts)
     end
 
     def password_change(record, opts={})
+      @host = Thread.current[:request_host]
       devise_mail(record, :password_change, opts)
     end
   end
