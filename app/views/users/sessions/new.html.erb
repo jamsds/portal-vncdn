@@ -31,7 +31,7 @@
         <% end %>
 
         <% if @confirmed == false %>
-          <div class="signin__content-ssid-unconfirmed mt-3">
+          <div class="signin__content-ssid-unconfirmed mt-4">
             <p>Oop! We have sent you email confirm, but look like this email not confirmed. Please confirm and come back again</p>
             <p>Didn't receive confirmation instructions?</p>
             <a href="<%= new_confirmation_path(resource_name) %>" class="btn btn-default primary btn-block mb-3">Send Confirmation Instructions Again</a>
@@ -45,7 +45,7 @@
             </div>
           </div>
         <% elsif @permit == false %>
-          <div class="signin__content-ssid-unconfirmed mt-3">
+          <div class="signin__content-ssid-unconfirmed mt-4">
             <p>We have discovered you in our system. But you did not belong to this reseller. Please check with your reseller and log in again.</p>
             <div class="signup__refer">
               <div class="signup__refer-heading">
