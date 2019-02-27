@@ -20,16 +20,16 @@ class Users::SessionsController < Devise::SessionsController
 			if cookies.signed["_ssid"].present?
 				@user = User.find_by(email: cookies.signed["_ssid"])
 
-				if @user.accountType == 1 && @user.parent_uuid.present?
+				if @user.present? && @user.accountType == 1 && @user.parent_uuid.present?
 					@parent = User.find_by(username: @user.parent_uuid)
 					@domain = @parent.domain
-				elsif @user.accountType == 1 && !@user.parent_uuid.present?
+				elsif @user.present? &&  @user.accountType == 1 && !@user.parent_uuid.present?
 					@domain = 'reseller.vncdn.vn'
-				elsif @user.accountType == 2 && @user.domain.present?
+				elsif @user.present? &&  @user.accountType == 2 && @user.domain.present?
 					@domain = @user.domain
 
 					puts @domain
-				elsif @user.accountType == 2 && @user.domain.nil?
+				elsif @user.present? && @user.accountType == 2 && @user.domain.nil?
 					@domain = 'reseller.vncdn.vn'
 				end
 

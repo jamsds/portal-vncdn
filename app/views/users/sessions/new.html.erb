@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-        <% elsif @permit == false %>
+        <% elsif @valid == true && @permit == false %>
           <div class="signin__content-ssid-unconfirmed mt-4">
             <p>We have discovered you in our system. But you did not belong to this reseller. Please check with your reseller and log in again.</p>
             <div class="signup__refer">
@@ -88,7 +88,7 @@
           </div>
         <% end %>
 
-        <% if cookies.signed["_ssid"].nil? || cookies.signed["_ssid"] == "" %>
+        <% if cookies.signed["_ssid"].nil? || cookies.signed["_ssid"] == "" || @valid == false %>
           <p class="btn btn-default primary ssid_check btn-block">Customer Sign in</p>
           <div class="signup__refer">
             <div class="signup__refer-heading">
