@@ -1326,6 +1326,17 @@
 	.main__signin {
 		.signin__content {
 			width: 100%;
+			.wrapper {
+				.signup__refer {
+					&-heading {
+						p {
+							&:before, &:after {
+								width: 35px;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
