@@ -64,6 +64,6 @@ class Api::V1Controller < ApiController
 
 	# Check SSID
 	def checkSSID
-		cookies["_ssid"] = { :value => params[:email], :expires => 1.hours.from_now }
+		cookies.signed["_ssid"] = { :value => params[:email], :expires => 1.hours.from_now }
 	end
 end

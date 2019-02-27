@@ -5,20 +5,20 @@ class Users::SessionsController < Devise::SessionsController
 
   private
   	def checkSSID
-  		if cookies["_ssid"].present? && User.where(email: cookies["_ssid"]).size == 0
+  		if cookies.signed["_ssid"].present? && User.where(email: cookies.signed["_ssid"]).size == 0
 				@valid = false
 			else
 				@valid = true
 			end
 
-			if cookies["_ssid"].present? && User.where(email: cookies["_ssid"]).size != 0 && User.find_by(email: cookies["_ssid"]).confirmed_at.nil?
+			if cookies.signed["_ssid"].present? && User.where(email: cookies.signed["_ssid"]).size != 0 && User.find_by(email: cookies.signed["_ssid"]).confirmed_at.nil?
 				@confirmed = false
 			else
 				@confirmed = true
 			end
 
-			if cookies["_ssid"].present?
-				@user = User.find_by(email: cookies["_ssid"])
+			if cookies.signed["_ssid"].present?
+				@user = User.find_by(email: cookies.signed["_ssid"])
 
 				if @user.accountType == 1 && @user.parent_uuid.present?
 					@parent = User.find_by(username: @user.parent_uuid)

@@ -8,7 +8,7 @@ class DefaultController < ApplicationController
 	before_action :base_endpoint, only: [:index]
 
 	def session
-		cookies["_ssid"] = nil
+		cookies.signed["_ssid"] = nil
 	end
 
 	def errors
