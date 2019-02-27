@@ -30,7 +30,7 @@
           </div>
         <% end %>
 
-        <% if @confirmed == false %>
+        <% if @confirmed == false && @permit == true %>
           <div class="signin__content-ssid-unconfirmed mt-4">
             <p>Oop! We have sent you email confirm, but look like this email not confirmed. Please confirm and come back again</p>
             <p>Didn't receive confirmation instructions?</p>
