@@ -20,6 +20,7 @@
           </span>
           <span>Welcome ! <%= User.find_by(email: params[:ssid]).name %></span>
           <% end %>
+          <%= f.hidden_field :email, value: params[:ssid] %>
         </div>
         <% else %>
         <div class="form-group mt-3">
