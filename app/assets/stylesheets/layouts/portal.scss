@@ -1102,7 +1102,15 @@
 			}
     }
     &-ssid {
-    	&-valid {}
+    	&-valid {
+    		display: -webkit-flex;
+    		.user_ic {
+    			margin-right: 0.25rem;
+    		}
+    		span:nth-child(2) {
+    			margin-top: 0.15rem;
+    		}
+    	}
     }
     .alert {
 			padding: 1rem;
