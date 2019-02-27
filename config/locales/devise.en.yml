@@ -1,0 +1,4 @@
+en:
+  devise:
+    failure:
+      invalid: 'It seem to be your password not match with this email'
