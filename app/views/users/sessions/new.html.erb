@@ -82,7 +82,7 @@
           <p class="btn btn-default primary ssid_check btn-block">Customer Sign in</p>
           <div class="signup__refer">
             <div class="signup__refer-heading">
-              <p>New to <%= @parent_uuid.company %></p>
+              <p>New to <% if @parent_uuid.company.present? %><%= @parent_uuid.company %><% else %>VNCDN<% end %></p>
             </div>
 
             <div class="signup__refer-content">
@@ -93,7 +93,7 @@
       <% end %>
     </div>
     <div class="signin__content-footer">
-      <p>© <%= Date.current.strftime("%Y") %> <%= @parent_uuid.company %></span>
+      <p>© <%= Date.current.strftime("%Y") %> <% if @parent_uuid.company.present? %><%= @parent_uuid.company %><% else %>VNCDN<% end %></span>
     </div>
   </div>
 </div>
