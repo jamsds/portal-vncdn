@@ -92,4 +92,13 @@ $(document).on('turbolinks:load', function() {
       window.location.href = '/users/sign_in?_ssid=checked';
     })
   })
+
+  $(".readable").on('click', function() {
+    $(this).toggleClass( "true" );
+    if ($("#user_password").attr("type") == "password") {
+      $("#user_password").attr("type", "text");
+    } else {
+      $("#user_password").attr("type", "password");
+    }
+  })
 })

@@ -1190,6 +1190,40 @@
 	    background-color: $light;
 	    border-radius: 0.24rem;
 	    box-shadow: $shadow-default;
+	    .form-group {
+	    	.password-readable {
+	    		position: relative;
+	    		.readable {
+	    			width: 35px;
+	    			height: 35px;
+	    			display: -webkit-flex;
+	    			position: absolute;
+	    			z-index: 1;
+	    			top: 5.5px;
+	    			right: 10px;
+	    			cursor: pointer;
+	    			.show_ic {
+    					display: none;
+    					visibility: hidden;
+    					margin: auto;
+    				}
+    				.hide_ic {
+    					display: block;
+    					margin: auto;
+    				}
+	    			&.true {
+	    				.show_ic {
+	    					display: block;
+	    					visibility: visible;
+	    				}
+	    				.hide_ic {
+	    					display: none;
+	    					visibility: hidden;
+	    				}
+	    			}
+	    		}
+	    	}
+	    }
 	    .signup__refer {
 	    	&-heading {
 	    		padding: 0.5rem 0;
