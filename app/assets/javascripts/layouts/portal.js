@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function() {
     $('[data-toggle="tooltip"]').tooltip()
   })
 
-  $('input[name="authenticity_token"]').val(document.querySelector("meta[name=csrf-token]").content);
+  // $('input[name="authenticity_token"]').val(document.querySelector("meta[name=csrf-token]").content);
 
   $(".custom-control-input").on('change', function(e) {
 	  var that;
