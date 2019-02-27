@@ -27,7 +27,7 @@ $(document).on('turbolinks:load', function() {
   $(document).on("keypress", 'form', function (e) {
     var code = e.keyCode || e.which;
     if (code == 13) {
-      e.preventDefault();
+      $(".ssid_check, .btn-signon").click();
       return false;
     }
   });
