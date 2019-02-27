@@ -1079,6 +1079,164 @@
 	}
 }
 
+.main__signin {
+	width: 100%;
+  min-height: 100vh;
+  display: -webkit-flex;
+	background-color: $silver;
+	.signin__content {
+		width: 33.33%;
+    margin: auto;
+    &-head {
+    	&-brand {
+				float: left;
+				cursor: pointer;
+				svg {
+					width: auto;
+					height: 40px;
+				}
+				img {
+					display: block;
+					vertical-align: unset;
+				}
+			}
+    }
+    .alert {
+			padding: 1rem;
+			margin-bottom: 1rem;
+			border-radius: 0.25rem;
+			background-color: $gray;
+			border: 1px solid $gray-nd;
+			word-break: unset;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+			.alert_ic {
+				margin-right: 0.5rem;
+		    display: -webkit-flex;
+		    float: left;
+			}
+			&.warning,
+			&.alert {
+				color: #856404;
+				background-color: #fff3cd80;
+				border-color: #ffeebabf;
+				h6 {
+					font-size: 0.875rem;
+					margin-bottom: 0;
+				}
+				p {
+					font-size: 0.875rem;
+					display: block;
+					margin-bottom: 0;
+					span:nth-child(2) {
+						margin-top: 0.15rem;
+					}
+				}
+				.alert_ic {
+					path {
+						fill: #856404;
+					}
+				}
+			}
+			&.success {
+				color: #24b47e;
+				background-color: #24b47e33;
+				border-color: #24b47e33;
+				h6 {
+					font-size: 0.875rem;
+					margin-bottom: 0;
+				}
+				p {
+					font-size: 0.875rem;
+					display: block;
+					margin-bottom: 0;
+					span:nth-child(2) {
+						margin-top: 0.15rem;
+					}
+				}
+				.alert_ic {
+					path {
+						fill: #24b47e;
+					}
+				}
+			}
+			&.danger {
+				color: #851e04;
+				background-color: #ffdbcd80;
+				border-color: #b44a2433;
+				h6 {
+					font-size: 0.875rem;
+					margin-bottom: 0;
+				}
+				p {
+					font-size: 0.875rem;
+					display: block;
+					margin-bottom: 0;
+					span:nth-child(2) {
+						margin-top: 0.15rem;
+					}
+				}
+				.alert_ic {
+					path {
+						fill: #851e04;
+					}
+				}
+			}
+		}
+    .wrapper {
+    	padding: 1.5rem 2rem;
+	    background-color: $light;
+	    border-radius: 0.24rem;
+	    box-shadow: $shadow-default;
+	    .signup__refer {
+	    	&-heading {
+	    		padding: 0.5rem 0;
+	    		margin-bottom: 1rem;
+	    		p {
+	    			text-align: center;
+	    			font-size: 0.875rem;
+	    			color: $black-5nd;
+	    			position: relative;
+	    			margin-bottom: 0;
+	    			&:before {
+	    				content: " ";
+					    width: 100px;
+					    height: 1px;
+					    position: absolute;
+					    top: 10px;
+					    left: 0;
+					    background-color: $gray-nd;
+	    			}
+	    			&:after {
+	    				content: " ";
+					    width: 100px;
+					    height: 1px;
+					    position: absolute;
+					    top: 10px;
+					    right: 0;
+					    background-color: $gray-nd;
+	    			}
+	    		}
+	    	}
+	    }
+    }
+    &-footer {
+    	margin-top: 3rem;
+    	p {
+    		margin-bottom: 0;
+    		font-family: sans-serif;
+    		font-size: 0.875rem;
+    		color: $black-5nd;
+    	}
+    }
+	}
+}
+
+// Android/iOS Moblie
+@media screen and (max-width: 1024px) {
+	.main__signin {
+	}
+}
+
 // Android/iOS Moblie
 @media screen and (max-width: 576px) {
 	.main__heading {
@@ -1161,5 +1319,7 @@
 				}
 			}
 		}
+	}
+	.main__signin {
 	}
 }

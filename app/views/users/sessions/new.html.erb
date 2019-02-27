@@ -1,37 +1,66 @@
 <div class="signin__content">
   <div class="container">
-    <div class="wrapper mt-5">
-      <h2>User :: Log in</h2>
-
+    <%= render "users/shared/head" %>
+    <div class="wrapper">
+      <h3 class="mt-0">Sign in</h3>
       <% flash.each do |key, value| %>
-        <div class="alert alert-warning mb-0 mt-3"><%= value %></div>
+        <div class="alert <%= key %> mb-0 mt-3"><p><%= value %></p></div>
+      <% end %>
+
+      <% if params[:valid] == 'false' %>
+        <div class="alert warning mb-0 mt-3"><p>Couldn't find this email in our clients</p></div>
       <% end %>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-group mt-4">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, :class => 'form-control', autofocus: true, autocomplete: "email" %>
-        </div>
-
         <div class="form-group mt-3">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, :class => 'form-control', value: params[:ssid], autofocus: true, autocomplete: "email" %>
         </div>
 
-        <% if devise_mapping.rememberable? -%>
-          <div class="form-group">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+        <% if params[:valid] == 'true' %>
+          <div class="form-group mt-3">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
           </div>
-        <% end -%>
 
-        <div class="actions mt-3">
-          <%= f.submit "Log in", :class => 'btn btn-default primary' %>
-        </div>
+          <% if devise_mapping.rememberable? -%>
+            <div class="switch-group clearfix">
+              <label class="switch">
+                <%= f.check_box :remember_me, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                <span class="slider round"></span>
+              </label>
+              <%= f.label :remember_me, 'Remember Session', class: 'switch-group-label' %>
+            </div>
+          <% end -%>
+
+          <div class="mt-3">
+            <%= f.submit "Log in", :class => 'btn btn-default primary' %>
+          </div>
+        <% else %>
+          <p class="btn btn-default primary ssid_check btn-block">Customer Signin</p>
+          <div class="signup__refer">
+            <div class="signup__refer-heading">
+              <p>New to <%= @parent_uuid.company %></p>
+            </div>
+            <div class="signup__refer-content">
+              <a href="<%= new_registration_path(resource_name) %>" class="btn btn-light btn-block">Create New Account</a>
+            </div>
+          </div>
+          <script type="text/javascript">
+            $(".ssid_check").on('click', function() {
+              axios.post('/api/v1.1/checkSSID/?email=' + $("#user_email").val()).then(function(response) {
+                window.location.href = '?ssid=' + $("#user_email").val() + '&valid='+response.data.status;
+              })
+            })
+          </script>
+        <% end %>
       <% end %>
     </div>
-    <div class="text-left mt-5">
+    <div class="text-left mt-3">
       <%= render "users/shared/links" %>
+    </div>
+    <div class="signin__content-footer">
+      <p>© <%= Date.current.strftime("%Y") %> <%= @parent_uuid.company %></span>
     </div>
   </div>
 </div>

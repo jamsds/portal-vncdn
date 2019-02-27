@@ -96,6 +96,9 @@ Rails.application.routes.draw do
 
       # Check CNAME
       get '/checkCname', to: "v1#checkCname"
+
+      # Check SSID
+      post '/checkSSID', to: "v1#checkSSID"
     end
   end
 

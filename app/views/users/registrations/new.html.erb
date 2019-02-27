@@ -1,7 +1,7 @@
 <div class="signin__content">
   <div class="container">
-    <div class="wrapper mt-5">
-      <% @parent_uuid = User.find_by(domain: request.host) %>
+    <%= render "users/shared/head" %>
+    <div class="wrapper">
       <h2>Sign up <% if @parent_uuid.present? %>:: <%= @parent_uuid.company %><% end %></h2>
       <%= @uri %>
 
@@ -40,7 +40,7 @@
         </div>
       <% end %>
     </div>
-    <div class="text-left mt-5">
+    <div class="text-left mt-3">
       <%= render "users/shared/links" %>
     </div>
     <script type="text/javascript">

@@ -61,4 +61,13 @@ class Api::V1Controller < ApiController
 		response = https.request(request)
 		render json: response.read_body
 	end
+
+	# Check SSID
+	def checkSSID
+		if User.where(email: params[:email]).size == 0
+			render json: "{\"status\":false}"
+		else
+			render json: "{\"status\":true}"
+		end
+	end
 end

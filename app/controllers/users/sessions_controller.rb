@@ -25,7 +25,7 @@ class Users::SessionsController < Devise::SessionsController
 			respond_with resource, location: after_sign_in_path_for(resource)
  		else
  			reset_session
-    	flash[:verify_notice] = "Found this user in our system. But you not belong to this reseller. Please check with your reseller and login again."
+    	flash[:warning] = "Found this user in our system. But you not belong to this reseller. Please check with your reseller and login again."
 			redirect_back(fallback_location: root_path)
     end
   end
