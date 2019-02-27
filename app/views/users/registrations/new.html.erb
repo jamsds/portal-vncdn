@@ -40,8 +40,8 @@
         </div>
       <% end %>
     </div>
-    <div class="text-left mt-3">
-      <%= render "users/shared/links" %>
+    <div class="signin__content-footer">
+      <p>© <%= Date.current.strftime("%Y") %> <%= @parent_uuid.company %></span>
     </div>
     <script type="text/javascript">
       $('#user-email').keyup(function() {

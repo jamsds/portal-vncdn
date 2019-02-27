@@ -3,10 +3,6 @@
     <%= render "users/shared/head" %>
     <div class="wrapper">
       <h3 class="mt-0">Sign in</h3>
-      <% flash.each do |key, value| %>
-        <div class="alert <%= key %> mb-0 mt-3"><p><%= value %></p></div>
-      <% end %>
-
       <% if @valid == false %>
         <div class="alert warning mb-0 mt-3"><p>Couldn't find this email in our clients</p></div>
       <% end %>
@@ -20,7 +16,14 @@
             <span>Welcome ! <%= User.find_by(email: cookies["_ssid"]).name %></span>
             <%= f.hidden_field :email, value: cookies["_ssid"] %>
           </div>
+
+          <% flash.each do |key, value| %>
+            <div class="alert <%= key %> mb-0 mt-3"><p><%= value %></p></div>
+          <% end %>
         <% else %>
+          <% flash.each do |key, value| %>
+            <div class="alert <%= key %> mb-0 mt-3"><p><%= value %></p></div>
+          <% end %>
           <div class="form-group mt-3">
             <%= f.label :email %>
             <%= f.email_field :email, :class => 'form-control', value: cookies["_ssid"], autofocus: true, autocomplete: "email" %>
@@ -43,7 +46,7 @@
           </div>
         <% elsif @permit == false %>
           <div class="signin__content-ssid-unconfirmed mt-3">
-            <p>Found this user in our system. But you not belong to this reseller. Please check with your reseller and login again</p>
+            <p>We have discovered you in our system. But you did not belong to this reseller. Please check with your reseller and log in again.</p>
             <div class="signup__refer">
               <div class="signup__refer-heading">
                 <p>Sign in with another account</p>
@@ -59,6 +62,7 @@
           <div class="form-group mt-3">
             <%= f.label :password %>
             <%= f.password_field :password, :class => 'form-control', autocomplete: "off" %>
+            <small><a href="<%= new_password_path(resource_name) %>">Can't you remember the password?</a></small>
           </div>
 
           <div class="mt-3 mb-3">
