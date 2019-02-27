@@ -3,9 +3,9 @@
   	<%= render "users/shared/head" %>
     <div class="wrapper">
     	<h3>Forgot your password?</h3>
-    	
+
 			<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-			  <div class="form-group mt-4">
+			  <div class="form-group mt-3">
 			    <%= f.label :email %><br />
 			    <%= f.email_field :email, :class => 'form-control', autofocus: true, autocomplete: "email" %>
 			  </div>

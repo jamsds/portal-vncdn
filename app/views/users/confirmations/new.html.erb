@@ -9,7 +9,7 @@
 			<% end %>
 
 			<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-			  <div class="form-group mt-4">
+			  <div class="form-group mt-3">
 			    <%= f.label :email %><br />
 			    <%= f.email_field :email, :class => 'form-control', autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
 			  </div>

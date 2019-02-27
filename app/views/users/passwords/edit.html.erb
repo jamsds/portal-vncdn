@@ -2,11 +2,11 @@
   <div class="container">
     <%= render "users/shared/head" %>
     <div class="wrapper">
-      <h2>Change your password</h2>
+      <h3>Change your password</h3>
 
       <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.hidden_field :reset_password_token %>
-        <div class="form-group mt-4">
+        <div class="form-group mt-3">
           <%= f.label :password, "New password" %><br />
           <%= f.password_field :password, :class => 'form-control', autofocus: true, autocomplete: "off" %>
           <% if @minimum_password_length %>
@@ -14,13 +14,21 @@
           <% end %>
         </div>
 
-        <div class="form-group mt-4">
+        <div class="form-group mt-3">
           <%= f.label :password_confirmation, "Confirm new password" %><br />
           <%= f.password_field :password_confirmation, :class => 'form-control', autocomplete: "off" %>
         </div>
 
-        <div class="actions mt-3">
-          <%= f.submit "Change my password", :class => 'btn btn-default primary' %>
+        <div class="mt-3">
+          <%= f.submit "Change my password", :class => 'btn btn-default primary btn-block mb-3' %>
+          <div class="signup__refer">
+            <div class="signup__refer-heading">
+              <p>Sign in with another account</p>
+            </div>
+            <div class="signup__refer-content">
+              <a href="<%= root_url %>" class="btn btn-light btn-block">Customer Sign in</a>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
