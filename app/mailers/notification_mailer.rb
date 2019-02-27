@@ -8,7 +8,7 @@ class NotificationMailer < ApplicationMailer
     end
 
     def variableBuild
-      @user = User.find(id)
+      @user = User.find(@id)
 
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).domain.present?
         @host = User.find_by(username: @user.parent_uuid).domain
