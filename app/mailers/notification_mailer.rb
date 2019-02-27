@@ -7,39 +7,37 @@ class NotificationMailer < ApplicationMailer
       @id = id
     end
 
-    def variableBuild
+    def variableHost
       @user = User.find(@id)
 
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).domain.present?
         @host = User.find_by(username: @user.parent_uuid).domain
-        puts @host
       else
         @host = 'reseller.vncdn.vn'
-        puts @host
       end
+    end
 
+    def variableColor
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).color.present?
         @color = User.find_by(username: @user.parent_uuid).color
-        puts @color
       else
         @color = "#f68100"
-        puts @color
       end
+    end
 
+    def variableCompany
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).company.present?
         @company = User.find_by(username: @user.parent_uuid).company
-        puts @company
       else
         @company = "VNCDN"
-        puts @company
       end
+    end
 
+    def variableLogo
       if @user.parent_uuid.present? && User.find_by(username: @user.parent_uuid).logo.present?
         @logo = User.find_by(username: @user.parent_uuid).logo
-        puts @logo
       else
         @logo = "http://reseller.vncdn.vn/assets/logo_dark.png"
-        puts @logo
       end
     end
   end
@@ -52,7 +50,10 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    SetVariable.new(id).variableBuild()
+    @host = SetVariable.new(id).variableHost()
+    @color = SetVariable.new(id).variableColor()
+    @company = SetVariable.new(id).variableCompany()
+    @logo = SetVariable.new(id).variableLogo()
 
     @bwdLimit = @user.subscription.bwd_limit
     @stgLimit   = @user.subscription.stg_limit
@@ -70,7 +71,10 @@ class NotificationMailer < ApplicationMailer
     @name = @user.name
     @email = @user.email
 
-    SetVariable.new(id).variableBuild()
+    @host = SetVariable.new(id).variableHost()
+    @color = SetVariable.new(id).variableColor()
+    @company = SetVariable.new(id).variableCompany()
+    @logo = SetVariable.new(id).variableLogo()
 
     @card_brand = @user.credit.card_brand
     @card_number = @user.credit.last4
