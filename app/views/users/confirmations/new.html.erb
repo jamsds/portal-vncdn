@@ -28,7 +28,7 @@
 			<% end %>
 		</div>
 		<div class="signin__content-footer">
-      <p>© <%= Date.current.strftime("%Y") %> <% if @parent_uuid.company.present? %><%= @parent_uuid.company %><% else %>VNCDN<% end %></span>
+      <p>© <%= Date.current.strftime("%Y") %> <% if @parent_uuid.present? && @parent_uuid.company.present? %><%= @parent_uuid.company %><% else %>VNCDN<% end %></span>
     </div>
 	</div>
 </div>
