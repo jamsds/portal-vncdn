@@ -1,32 +1,43 @@
 class Users::SessionsController < Devise::SessionsController
 	layout 'signin'
+	prepend_before_action :checkSSID, only: [:new]
+	skip_before_action :verify_authenticity_token, only: [:destroy]
 
-	def create
-		warden.authenticate!(sign_in_params)
+  private
+  	def checkSSID
+  		if cookies["_ssid"].present? && User.where(email: cookies["_ssid"]).size == 0
+				@valid = false
+			else
+				@valid = true
+			end
 
-		# Define user login
-		@thisUser = User.find_by(email: sign_in_params["email"])
+			if cookies["_ssid"].present? && User.where(email: cookies["_ssid"]).size != 0 && User.find_by(email: cookies["_ssid"]).confirmed_at.nil?
+				@confirmed = false
+			else
+				@confirmed = true
+			end
 
-		# Verify user reseller owner
-		if @thisUser.accountType == 1 && @thisUser.parent_uuid.present?
-			@parent_uuid = User.find_by(username: @thisUser.parent_uuid)
-			@domain = @parent_uuid.domain
-		elsif @thisUser.accountType == 1 && !@thisUser.parent_uuid.present?
-			@domain = 'reseller.vncdn.vn'
-		elsif @thisUser.accountType == 2
-			@domain = @thisUser.domain
-		end
+			if cookies["_ssid"].present?
+				@user = User.find_by(email: cookies["_ssid"])
 
-		if @domain == request.host
- 			self.resource = warden.authenticate!(auth_options)
- 			set_flash_message!(:notice, :signed_in)
-	    sign_in(resource_name, resource)
-	    yield resource if block_given?
-			respond_with resource, location: after_sign_in_path_for(resource)
- 		else
- 			reset_session
-    	flash[:warning] = "Found this user in our system. But you not belong to this reseller. Please check with your reseller and login again."
-			redirect_back(fallback_location: root_path)
-    end
-  end
+				if @user.accountType == 1 && @user.parent_uuid.present?
+					@parent = User.find_by(username: @user.parent_uuid)
+					@domain = @parent.domain
+				elsif @user.accountType == 1 && !@user.parent_uuid.present?
+					@domain = 'reseller.vncdn.vn'
+				elsif @user.accountType == 2 && @user.domain.present?
+					@domain = @user.domain
+
+					puts @domain
+				elsif @user.accountType == 2 && @user.domain.nil?
+					@domain = 'reseller.vncdn.vn'
+				end
+
+				if @domain == request.host
+					@permit = true
+				else
+					@permit = false
+				end
+			end
+  	end
 end

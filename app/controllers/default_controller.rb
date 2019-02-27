@@ -7,6 +7,10 @@ class DefaultController < ApplicationController
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
 
+	def session
+		cookies["_ssid"] = nil
+	end
+
 	def errors
 		@requested_path = request.path
 		flash[:routes_error] = @requested_path

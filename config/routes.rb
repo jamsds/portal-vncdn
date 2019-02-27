@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   post '/account/payment/verify', to: "account#paymentVerify"
   post '/account/payment/remove', to: "account#paymentRemove"
 
+  post '/users/_session?destroy', to: "default#session"
+
   # Reseller Management
   get '/reseller', to: "reseller#index"
   get '/reseller/customer', to: "reseller#customer"
