@@ -24,6 +24,8 @@ class ServiceWorker
 				ApplicationController::SyncProcess.new("#{@requestURI}").postRequest()
 			end
 
+			puts "Service Workder Run"
+
 	    # NotificationMailer.trial_email(@id).deliver
 	  end
   end

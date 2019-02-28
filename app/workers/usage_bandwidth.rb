@@ -87,6 +87,9 @@ class UsageBandwidth
 				end
 			end
 
+			puts @bwdTotal
+			puts @bwdLimit
+
 			if @bwdTotal > @bwdLimit
 				subscription.update(status: 2)
 
