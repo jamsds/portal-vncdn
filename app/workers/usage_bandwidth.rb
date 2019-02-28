@@ -89,6 +89,8 @@ class UsageBandwidth
 
 			if @bwdTotal > @bwdLimit
 				subscription.update(status: 2)
+
+				ServiceWorker::StopService.perform_in(1.minutes, @user.id)
 			end
 		end
   end
