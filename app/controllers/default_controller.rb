@@ -32,8 +32,8 @@ class DefaultController < ApplicationController
 		end
 
 		# Define data usage on this month
-		@thisMonth = Date.today.strftime("%Y-%m")
-		@previousMonth = (Date.current - 1.month).strftime("%Y-%m")
+		@thisMonth = Date.current.strftime("%Y-%m")
+		@previousMonth = (Date.current - 1.months).strftime("%Y-%m")
 
 
     if current_user.subscription.nil?
