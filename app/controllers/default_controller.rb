@@ -71,7 +71,11 @@ class DefaultController < ApplicationController
 	    @previousPrice = (stgPrice * (@stgPreviousMonth / 1000000000.00)) + (bwdPrice * (@bwdPreviousMonth / 1000000000.00))
       @currentPrice = (stgPrice * (@stgCurrentMonth / 1000000000.00)) + (bwdPrice * (@bwdCurrentMonth / 1000000000.00))
 
-      @percent = (@currentPrice/@previousPrice) * 100.00
+      if @previousPrice > @currentPrice
+      	@percent = 100 - ((@currentPrice/@previousPrice) * 100.00)
+     	else
+     		@percent = (@currentPrice/@previousPrice) * 100.00
+     	end
     end
 
     if current_user.accountType == 2
