@@ -96,6 +96,18 @@ class ChargeMonthly
             @user.subscription.update(status: 2)
           end
         end
+
+        # Effect only with subscription type manual payment
+        if @user.subscription.payment_type == 3
+          # Create invoice in previous month, default status is unpaid
+          @user.credit.invoices.create(
+            description: @description,
+            invoice_type: 'Check Out',
+            amount: @totalPrice,
+            status: 'unpaid',
+            monthly: @previousMonth
+          )
+        end
       end
 		end
 
