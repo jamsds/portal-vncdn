@@ -23,7 +23,6 @@ class UsageBandwidth
 			@user = User.find(subscription.user_id)
 
 			@bwdLimit = subscription.bwd_limit
-			@bwdTotal = 0
 
 			# Because every bandwidth log will be generated once time per month,
 			# so we need to a defining month of logs, if it exists we don't need to create new
@@ -77,7 +76,6 @@ class UsageBandwidth
 						bandwidth["volumes"].each do |value|
 							# Test
 							# puts value["value"]
-							@bwdTotal += value["value"]
 
 							# Data save on database be converted MB for decrease the decimal string length
 							# Update new bandwidth value by increase data of bandwidth log
@@ -87,10 +85,7 @@ class UsageBandwidth
 				end
 			end
 
-			puts @bwdTotal
-			puts @bwdLimit
-
-			if @bwdTotal > @bwdLimit
+			if @user.bandwidths.bandwidth_usage > @bwdLimit
 				subscription.update(status: 2)
 
 				ServiceWorker::StopService.perform_in(1.minutes, @user.id)
