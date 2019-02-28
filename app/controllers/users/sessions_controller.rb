@@ -24,11 +24,11 @@ class Users::SessionsController < Devise::SessionsController
 					@parent = User.find_by(username: @user.parent_uuid)
 					@domain = @parent.domain
 				elsif @user.present? &&  @user.accountType == 1 && !@user.parent_uuid.present?
-					@domain = '127.0.0.1'
+					@domain = 'reseller.vncdn.vn'
 				elsif @user.present? &&  @user.accountType == 2 && @user.domain.present?
 					@domain = @user.domain
 				elsif @user.present? && @user.accountType == 2 && @user.domain.nil?
-					@domain = '127.0.0.1'
+					@domain = 'reseller.vncdn.vn'
 				end
 
 				if @domain == request.host
