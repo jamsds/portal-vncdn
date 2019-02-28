@@ -110,7 +110,7 @@
 		          <%= f.label :type, 'Policy Type', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9">
 		            <%= f.select :type, options_for_select([["Whitelist", "allow"], ["Blacklist", "deny"], ["Token Secret Access", "token"]]), {}, {class: 'form-control'} %>
-								<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/d">Secret Token Here</a></small>
+								<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>">Secret Token Here</a></small>
 		          </div>
 		        </div>
 						<% end %>
