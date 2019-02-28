@@ -4,4 +4,7 @@ class Credit < ApplicationRecord
 
 	# Transactions
 	has_many :transactions, dependent: :destroy
+
+	# Invoices
+	has_many :invoices, dependent: :destroy
 end

@@ -33,6 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       ## Reseller Branding
       t.attachment  :logo
       t.string      :domain
+      t.string      :color
 
       ## Recoverable
       t.string   :reset_password_token

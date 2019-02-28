@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_044247) do
+ActiveRecord::Schema.define(version: 2019_02_14_180008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 2019_02_26_044247) do
     t.string "funding"
     t.boolean "active", default: true
     t.index ["user_id"], name: "index_credits_on_user_id", unique: true
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "credit_id"
+    t.string "description"
+    t.string "invoice_type"
+    t.decimal "amount", precision: 15, scale: 2, default: "0.0"
+    t.string "status"
+    t.decimal "value", precision: 15, scale: 2, default: "0.0"
+    t.string "monthly"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
