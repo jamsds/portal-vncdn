@@ -606,7 +606,7 @@
 													color: #24b47e;
 													background-color: #24b47e33;
 												}
-												&-failed {
+												&-failed, &-unpaid {
 													color: $black-5nd;
 													background-color: $gray-nd;
 												}

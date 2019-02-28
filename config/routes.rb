@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/account/notification', to: "account#notification"
 
   get '/account/transaction', to: "account#transaction"
+  get '/account/invoice', to: "account#invoice"
 
   get '/account/subscription', to: "account#subscription"
   post '/account/subscription/add', to: "account#subscriptionAdd"
