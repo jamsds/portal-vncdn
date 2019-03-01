@@ -85,7 +85,7 @@ class UsageBandwidth
 				end
 			end
 
-			if @user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage > @bwdLimit
+			if @user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage > @bwdLimit || @user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage == @bwdLimit
 				subscription.update(status: 2)
 
 				ServiceWorker::StopService.perform_in(1.minutes, @user.id)
