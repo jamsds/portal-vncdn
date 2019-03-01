@@ -1,7 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 	layout 'signin'
 	prepend_before_action :checkSSID, only: [:new]
-	skip_before_action :verify_authenticity_token, only: [:destroy]
 
   private
   	def checkSSID
