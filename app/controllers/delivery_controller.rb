@@ -1,7 +1,5 @@
 class DeliveryController < ApplicationController
 	require 'will_paginate/array'
-	skip_before_action :verify_authenticity_token, only: [:deliveryStop, :deliveryStart, :deliveryDelete, :deliveryUpdate, :deliveryCreatePolicy, :deliveryDeletePolicy, :deliveryDelete]
-
 	before_action :verify_subscription, except: [:deliveryStop]
 
 	# Set Request Method
