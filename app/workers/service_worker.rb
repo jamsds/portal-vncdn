@@ -6,9 +6,9 @@ class ServiceWorker
   		# Concept
   		# General email only receive username, and then exec email information with this username
   		# E.g which every user only one username, we can find name of user by username in template
-	  	@id = id
+	  	@user = User.find(id)
 
-			@requestURI = "/api/v1.1/customerDelivery/?id=#{@id}"
+			@requestURI = "/api/v1.1/customerDelivery/?id=#{@user.uuid}"
 			@delivery = JSON.parse(ApplicationController::SyncProcess.new("#{@requestURI}").getRequest())
 
 			@delivery.each do |delivery|
@@ -16,7 +16,7 @@ class ServiceWorker
 				ApplicationController::SyncProcess.new("#{@requestURI}").postRequest()
 			end
 
-			@requestURI = "/api/v1.1/customerDownload/?id=#{@id}"
+			@requestURI = "/api/v1.1/customerDownload/?id=#{@user.uuid}"
 			@download = JSON.parse(ApplicationController::SyncProcess.new("#{@requestURI}").getRequest())
 
 			@download.each do |download|
