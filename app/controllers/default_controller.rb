@@ -72,9 +72,9 @@ class DefaultController < ApplicationController
       @currentPrice = (stgPrice * (@stgCurrentMonth / 1000000000.00)) + (bwdPrice * (@bwdCurrentMonth / 1000000000.00))
 
       if @previousPrice > @currentPrice
-      	@percent = 100 - ((@previousPrice/@currentPrice) * 100.00)
+      	@percent = ((@previousPrice/@currentPrice) * 100.00) - 100
       else
-      	@percent = ((@currentPrice/@previousPrice) * 100.00) - 100
+      	@percent = 100 - ((@currentPrice/@previousPrice) * 100.00)
       end
     end
 
