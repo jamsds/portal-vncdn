@@ -73,8 +73,10 @@ class DefaultController < ApplicationController
 
       if @previousPrice > @currentPrice
       	@percent = ((@previousPrice/@currentPrice) * 100.00) - 100
-      else
+      elsif @currentPrice > @previousPrice
       	@percent = 100 - ((@currentPrice/@previousPrice) * 100.00)
+      else
+      	@percent = 0
       end
     end
 
