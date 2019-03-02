@@ -93,17 +93,15 @@
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
 					<%= form_for "", url: {action: :deliveryCreatePolicy, controller: :delivery}, method: :post, html: { id: 'form', multipart: true } do |f|%>
-		        <div class="form-group row">
-	            <label class="col-sm-2 col-form-label text-right">Policy Name</label>
-	            <div class="col-sm-8 col-form-value">
-	              <p><%= "#{params[:propertyId]}_#{params[:ptype]}_#{rand(1000..9999)}" %></p>
-	              <small>Policy name auto generated base on your PropertyId and our rules.</small>
-	              <%= f.hidden_field :name, value: "#{params[:propertyId]}_#{params[:ptype]}_#{rand(1000..9999)}" %>
-	              <%= f.hidden_field :dtype, value: params[:type] %>
+	          <div class="form-group vertical row">
+		          <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
+		          <div class="col-sm-9">
+		            <%= f.text_field :name, class: 'form-control', required: true %>
+		            <%= f.hidden_field :dtype, value: params[:type] %>
 								<%= f.hidden_field :ptype, value: params[:ptype] %>
 								<%= f.hidden_field :propertyId, value: params[:propertyId] %>
-	            </div>
-	          </div>
+		          </div>
+		        </div>
 
 						<% if params[:ptype] == 'a' %>
 						<div class="form-group vertical row">
@@ -134,7 +132,7 @@
 		          <%= f.label :location, 'GEO Restriction', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9">
 		            <%= f.text_field :location, class: 'form-control' %>
-								<small id="locationHelp" class="form-text text-muted">The GEO code format with ISO standard e.g Vietnam = VI.</small>
+								<small id="locationHelp" class="form-text text-muted">The GEO code format with ISO standard e.g Vietnam = VN.</small>
 		          </div>
 		        </div>
 		        <div class="form-group vertical row">
