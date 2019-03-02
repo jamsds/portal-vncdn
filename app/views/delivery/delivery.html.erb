@@ -129,7 +129,10 @@
 												<tr>
 													<td><% if item["active"] == true %><span class="running_ic mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M115.8,38.8a9.506,9.506,0,0,1,7.1-2.9,9.9,9.9,0,0,1,7.1,2.9,9.506,9.506,0,0,1,2.9,7.1A9.9,9.9,0,0,1,130,53a9.506,9.506,0,0,1-7.1,2.9,9.9,9.9,0,0,1-7.1-2.9,9.506,9.506,0,0,1-2.9-7.1A9.732,9.732,0,0,1,115.8,38.8Zm5.1,11.5,6-4.5-6-4.5Z" transform="translate(-112.9 -35.9)" fill="#41c300"/></svg></span><% else %><span class="stopped_ic mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M4.9,38.8A9.506,9.506,0,0,1,12,35.9a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,45.9,9.9,9.9,0,0,1,19.1,53,9.506,9.506,0,0,1,12,55.9,9.9,9.9,0,0,1,4.9,53,9.506,9.506,0,0,1,2,45.9,9.732,9.732,0,0,1,4.9,38.8Zm6.1,11v-8H9v8Zm4,0v-8H13v8Z" transform="translate(-2 -35.9)" fill="#B1B1B1"/></svg></span><% end %><a href="<%= cdn_url %>/<%= item["id"] %>/f"><%= item["name"] %></a></td>
 													<td><span>Large File Download</span></td>
-													<td><a href="<%= cdn_url %>/<%= item["id"] %>/f/edit" class="btn btn-default primary outline btn-sm">Edit</a></td>
+													<td>
+														<a href="<%= cdn_url %>/<%= item["id"] %>/f/edit" class="btn btn-default primary outline btn-sm">Edit</a>
+														<a class="btn btn-sm ml-2" data-method="post" href="/cdn/<%= item["id"] %>/f/stop?streamingService=<%= item["streamingService"] %>">Disable</a>
+													</td>
 												</tr>
 											<% end %>
 										<% end %>
