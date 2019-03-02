@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
 	skip_before_action :verify_authenticity_token
 
 	# Swiftfederation Config
-	$ACCESS_KEY_ID = '69v2T495p43iA1UG'
-	$ACCESS_KEY_SECRET = 'C9568ZD460K4zbKrLKs50J08VJiEgTRo'
+	$ACCESS_KEY_ID = '0cavp8cG1vd149Oy'
+	$ACCESS_KEY_SECRET = 'M6yji4lILlMz9E9zd869YyG7pf1Q811a'
 	$X_SPD_NONCE = rand(10000..99999)
-	$ROOT_ID = "13434"
+	$ROOT_ID = "30133"
 
 	def set_request_host
 	  Thread.current[:request_host] = request.host

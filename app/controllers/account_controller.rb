@@ -19,8 +19,17 @@ class AccountController < ApplicationController
       @totalPrice = 0
       @threshold = 0
     else
-      bwdPrice = current_user.subscription.bwd_price
-      stgPrice = current_user.subscription.stg_price
+      if current_user.subscription.bwd_price.present?
+        bwdPrice = current_user.subscription.bwd_price
+      else
+        bwdPrice = 0
+      end
+
+      if current_user.subscription.stg_price.present?
+        stgPrice = current_user.subscription.stg_price
+      else
+        stgPrice = 0
+      end
 
       if current_user.bandwidths.where(monthly: @thisMonth).present?
         bwdUsage = current_user.bandwidths.find_by(monthly: @thisMonth).bandwidth_usage / 1000000.00
