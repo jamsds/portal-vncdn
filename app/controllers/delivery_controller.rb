@@ -344,20 +344,29 @@ class DeliveryController < ApplicationController
 	end
 
 	def deliveryCreatePolicy
-		if params[:ptype] == 'a'
-			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
-			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
-		elsif params[:ptype] == 'c'
-			@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
-			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
-		elsif params[:ptype] == 'r'
-			@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections"
-			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"redirectionURL\":\"#{params[:redirectionURL]}\",\"statusCode\":\"#{params[:statusCode]}\"}"
+		@ip = Regexp.new('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')
+		@subnet = Regexp.new('([0-9]|[0-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\/\d+')
+
+		if (params[:subnet] =~ @ip) != 0 && (params[:subnet] =~ @subnet) != 0
+			flash[:confirm_notice] = "IP Restriction invalid. Please check again."
+      redirect_back(fallback_location: root_path)
+      return
+		else
+			if params[:ptype] == 'a'
+				@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
+				@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+			elsif params[:ptype] == 'c'
+				@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
+				@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
+			elsif params[:ptype] == 'r'
+				@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections"
+				@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"redirectionURL\":\"#{params[:redirectionURL]}\",\"statusCode\":\"#{params[:statusCode]}\"}"
+			end
+
+			RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+			redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
 		end
-
-		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
-
-		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
 	end
 
 	def deliveryDeletePolicy

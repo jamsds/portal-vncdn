@@ -92,6 +92,12 @@
 		<div class="dashboard__container">
 			<div class="dashboard__container-card clearfix">
 				<div class="dashboard__container-card-item">
+					<h5 class="mb-3">Create Policy Rule</h5>
+
+					<% if flash[:confirm_notice] %>
+            <div class="alert alert-warning"><%= flash[:confirm_notice] %></div>
+          <% end %>
+
 					<%= form_for "", url: {action: :deliveryCreatePolicy, controller: :delivery}, method: :post, html: { id: 'form', multipart: true } do |f|%>
 	          <div class="form-group vertical row">
 		          <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
