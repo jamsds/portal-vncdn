@@ -196,7 +196,6 @@ class DeliveryController < ApplicationController
 		else
 			if params[:ftpPassword] != params[:ftpPasswordConfirm]
 	      flash[:confirm_notice] = "Error! Confirm password not match, please check again."
-	      redirect_back(fallback_location: root_path)
 	    end
 
 			@requestURI = "/v1.0/filedownloads"
