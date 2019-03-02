@@ -93,6 +93,17 @@ $(document).on('turbolinks:load', function() {
     })
   })
 
+  $("#subnet").on('keyup', function(){
+    ip = new RegExp(/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/g)
+    subnet = new RegExp(/([0-9]|[0-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\/\d+/g)
+
+    if (ip.test($(this).val()) == true || subnet.test($(this).val()) == true) {
+      $("#subnetHelp").addClass("notice")
+    } else {
+      $("#subnetHelp").removeClass("notice")
+    }
+  })
+
   $(".readable").on('click', function() {
     $(this).toggleClass( "true" );
     if ($("#user_password").attr("type") == "password") {
