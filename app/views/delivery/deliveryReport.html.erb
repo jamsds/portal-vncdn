@@ -142,12 +142,12 @@
 			trigger: 'axis',
       formatter: function (params) {
 				let bandwidth = formatBandwidthUnit(params[0].data);
-				let traffic = formatVolumeUnit(params[1].data);
-				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f1f1f1;"></span>Traffic: '+bandwidth+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:var(--main-color);"></span>Bandwidth: '+traffic;
+				let volume = formatVolumeUnit(params[1].data);
+				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f1f1f1;"></span>Volume: '+volume+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:var(--main-color);"></span>Bandwidth: '+traffic;
 			}
 		},
     legend: {
-      data:['Bandwidth','Traffic']
+      data:['Bandwidth','Volume']
     },
     xAxis: {
       type: 'category',
@@ -191,7 +191,7 @@
     },
     series: [
     	{
-        name:'Traffic',
+        name:'Volume',
         type:'line',
         itemStyle: {
 	      	normal: {
@@ -200,7 +200,7 @@
 	      		}
 	      	}
 	      },
-        stack: 'Traffic',
+        stack: 'Volume',
         data:[
         	<% @trafficValue.each do |value| %>
         		<%= value %>,
