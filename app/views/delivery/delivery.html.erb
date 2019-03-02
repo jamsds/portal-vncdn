@@ -131,7 +131,11 @@
 													<td><span>Large File Download</span></td>
 													<td>
 														<a href="<%= cdn_url %>/<%= item["id"] %>/f/edit" class="btn btn-default primary outline btn-sm">Edit</a>
-														<a class="btn btn-default warning outline btn-sm ml-2" data-method="post" href="/cdn/<%= item["id"] %>/f/stop?streamingService=<%= item["streamingService"] %>">Disable</a>
+														<% if item["active"] == true %>
+															<a class="btn btn-default warning outline btn-sm ml-2" data-method="post" href="/cdn/<%= item["id"] %>/f/stop?streamingService=<%= item["streamingService"] %>">Disable</a>
+														<% else %>
+															<a class="btn btn-default primary outline btn-sm ml-2" data-method="post" href="/cdn/<%= item["id"] %>/f/start?streamingService=<%= item["streamingService"] %>">Start</a>
+														<% end %>
 													</td>
 												</tr>
 											<% end %>
