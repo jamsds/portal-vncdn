@@ -66,6 +66,11 @@
 					<div class="dashboard__container-card-item">
 						<div class="delivery">
 							<h5><% if params[:type].nil? %>Add Website Acceleration<% else %>Add Large File Download<% end %></h5>
+
+							<% if flash[:confirm_notice] %>
+		            <div class="alert alert-warning mt-3"><%= flash[:confirm_notice] %></div>
+		          <% end %>
+
 							<% if params[:type].nil? %>
 								<%= form_for "", url: {action: :deliveryAdd, controller: :delivery}, method: :post, html: { class: 'mt-3', id: 'form', multipart: true } do |f|%>
 									<div class="form-group">
