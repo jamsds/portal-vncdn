@@ -194,6 +194,11 @@ class DeliveryController < ApplicationController
 	  	@requestURI = "/v1.0/domains"
 			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
 		else
+			if params[:ftpPassword] != params[:ftpPasswordConfirm]
+	      flash[:confirm_notice] = "Error! Confirm password not match, please check again."
+	      redirect_back(fallback_location: root_path)
+	    end
+
 			@requestURI = "/v1.0/filedownloads"
 			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"\",\"ftpPassword\":\"#{params[:ftpPassword]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
 		end

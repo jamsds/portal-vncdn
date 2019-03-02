@@ -105,8 +105,13 @@
 
 									<div class="form-group">
 										<%= f.label :ftpPassword, 'Ftp Password' %>
-										<%= f.text_field :ftpPassword, class: 'form-control' %>
+										<%= f.password_field :ftpPassword, class: 'form-control' %>
 										<small id="domainlHelp" class="form-text text-muted">Password must be strong e.g: include number and character, avoid using name.</small>
+									</div>
+
+									<div class="form-group">
+										<%= f.label :ftpPasswordConfirm, 'Ftp Password Confirm' %>
+										<%= f.password_field :ftpPasswordConfirm, class: 'form-control' %>
 									</div>
 									
 									<div class="switch-group mb-3 clearfix">
