@@ -141,8 +141,8 @@
 		tooltip: {
 			trigger: 'axis',
       formatter: function (params) {
-				let bandwidth = formatBandwidthUnit(params[0].data);
-				let volume = formatVolumeUnit(params[1].data);
+				let bandwidth = formatVolumeUnit(params[0].data);
+				let volume = formatBandwidthUnit(params[1].data);
 				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f1f1f1;"></span>Volume: '+bandwidth+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:var(--main-color);"></span>Bandwidth: '+volume;
 			}
 		},
@@ -232,8 +232,8 @@
         type: 'shadow'
       },
       formatter: function (params) {
-      	let avgBandwidth = formatVolumeUnit(params[0].data);
-				let maxBandwidth = formatVolumeUnit(params[1].data);
+      	let avgBandwidth = formatBandwidthUnit(params[0].data);
+				let maxBandwidth = formatBandwidthUnit(params[1].data);
 				return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:var(--main-color);"></span>Max Bandwidth: '+maxBandwidth+'<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#e1e1e1;"></span>Avg Bandwidth: '+avgBandwidth+''
       }
     },
