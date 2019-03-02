@@ -196,13 +196,14 @@ class DeliveryController < ApplicationController
 		else
 			if params[:ftpPassword] != params[:ftpPasswordConfirm]
 	      flash[:confirm_notice] = "Error! Confirm password not match, please check again."
+	      redirect_back(fallback_location: root_path)
+	      return
+	    else
+	    	@requestURI = "/v1.0/filedownloads"
+				@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"\",\"ftpPassword\":\"#{params[:ftpPassword]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
+	    	@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 	    end
-
-			@requestURI = "/v1.0/filedownloads"
-			@requestBody = "{\"name\":\"#{params[:deliveryUrl]}\",\"customerId\":#{current_user.uuid},\"originUrl\":\"\",\"ftpPassword\":\"#{params[:ftpPassword]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
 		end
-
-		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
 
 		if @response
 			redirect_to cdn_path
