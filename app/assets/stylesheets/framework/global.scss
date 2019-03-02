@@ -310,6 +310,19 @@ a.btn {
       border: 2px solid var(--main-color);
     }
   }
+  &.warning {
+    color: $light;
+    background-color: #dc3545;
+    &:focus, &:active, &:hover,
+    &:not(:disabled):not(.disabled):active:focus {
+      box-shadow: 0 0 0 0.2rem rgba(252, 109, 29, 0.33);
+    }
+    &.outline {
+      color: #dc3545;
+      background-color: transparent;
+      border: 2px solid #dc3545;
+    }
+  }
   &.dark {
     color: $light;
     background-color: $dark;
