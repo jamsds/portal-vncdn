@@ -146,6 +146,13 @@ $(document).on('turbolinks:load', function() {
 
   $(".policy-edit-close").on('click', function() {
     $(".dashboard__container-policy-edit").addClass("hidden")
-    $("input").val('');
+    $("#policyId").val('');
+    $("#name").val('');
+    $("#url").val('');
+    $("#location").val('');
+    $("#subnet").val('');
+    $("#type").val('');
+    $("#hostHeader").val('');
+    $("#ttl").val('');
   })
 })
