@@ -145,19 +145,4 @@ $(document).on('turbolinks:load', function() {
       $("#ignoreQueryString").click()
     }
   })
-
-  $(".policy-edit-close").on('click', function() {
-    $(".dashboard__container-policy-edit").addClass("hidden")
-    $("#policyId").val('');
-    $("#name").val('');
-    $("#url").val('');
-    $("#location").val('');
-    $("#subnet").val('');
-    $("#type").val('');
-    $("#hostHeader").val('');
-    $("#ttl").val('');
-    $("#ignoreClientNoCache").unbind('click');
-    $("#ignoreOriginNoCache").unbind('click');
-    $("#ignoreQueryString").unbind('click');
-  })
 })
