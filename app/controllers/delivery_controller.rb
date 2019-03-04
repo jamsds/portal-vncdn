@@ -61,6 +61,10 @@ class DeliveryController < ApplicationController
 		end
 
 		@response = JSON.parse(RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest())
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -187,6 +191,10 @@ class DeliveryController < ApplicationController
 		else
 			redirect_to cdn_path
 		end
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -212,6 +220,11 @@ class DeliveryController < ApplicationController
 		if @response
 			redirect_to cdn_path
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -242,6 +255,11 @@ class DeliveryController < ApplicationController
 				redirect_to cdn_path
 			end
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -262,6 +280,11 @@ class DeliveryController < ApplicationController
   	if @response
 			redirect_back(fallback_location: root_path)
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -282,6 +305,11 @@ class DeliveryController < ApplicationController
   	if @response
 			redirect_back(fallback_location: root_path)
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -300,6 +328,11 @@ class DeliveryController < ApplicationController
 		if @response
 			redirect_to cdn_path
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
@@ -345,6 +378,15 @@ class DeliveryController < ApplicationController
 		elsif params[:ptype] != 'a' || params[:ptype] != 'c' || params[:ptype] != 'r'
 			redirect_to "/cdn/#{params[:propertyId]}/d"
 		end
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
+	rescue SocketError => e
+  	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	end
 
 	def deliveryCreatePolicy
@@ -371,6 +413,15 @@ class DeliveryController < ApplicationController
 		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
 		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
+	rescue SocketError => e
+  	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	end
 
 	def deliveryUpdatePolicy
@@ -388,6 +439,15 @@ class DeliveryController < ApplicationController
 		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
 
 		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
+	rescue SocketError => e
+  	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	end
 
 	def deliveryDeletePolicy
@@ -397,6 +457,15 @@ class DeliveryController < ApplicationController
 		end
 
 		redirect_back(fallback_location: root_path)
+
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
+	rescue SocketError => e
+  	flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	end
 
   private
