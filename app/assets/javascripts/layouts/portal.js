@@ -132,15 +132,21 @@ $(document).on('turbolinks:load', function() {
     $("#ttl").val($(this).attr("data-ttl"));
 
     if ($(this).attr("data-ignore-client") == "true") {
-      $("#ignoreClientNoCache").click()
+      $("#ignoreClientNoCache").is(':checked');
+    } else {
+      $("#ignoreClientNoCache").is(':not(:checked)');
     }
 
     if ($(this).attr("data-ignore-origin") == "true") {
-      $("#ignoreOriginNoCache").click()
+      $("#ignoreOriginNoCache").is(':checked');
+    } else {
+      $("#ignoreOriginNoCache").is(':not(:checked)');
     }
 
     if ($(this).attr("data-ignore-query") == "true") {
-      $("#ignoreQueryString").click()
+      $("#ignoreQueryString").is(':checked');
+    } else {
+      $("#ignoreQueryString").is(':not(:checked)');
     }
   })
 
