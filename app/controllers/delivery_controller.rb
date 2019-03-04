@@ -132,6 +132,10 @@ class DeliveryController < ApplicationController
 		else
 			redirect_to cdn_path
 		end
+	rescue TypeError => e
+    flash[:method_error] = e.message
+  	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
+  	redirect_to errors_path
 	rescue SocketError => e
   	flash[:method_error] = e.message
   	flash[:reffer_error] = "Controller: #{controller_name} - Action: #{action_name} - UUID: #{current_user.username}"
