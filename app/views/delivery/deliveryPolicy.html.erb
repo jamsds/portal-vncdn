@@ -349,8 +349,8 @@
                   	<td><%= cache["hostHeader"] %></td>
                   	<td><%= cache["ttl"] %></td>
                   	<td>
-                      <% if cache["ignoreOriginNoCache"] == true %>Origin Server <% end %>
-                  		<% if cache["ignoreClientNoCache"] == true %>Client <% end %>
+                      <% if cache["ignoreOriginNoCache"] == true %>Origin Server, <% end %>
+                  		<% if cache["ignoreClientNoCache"] == true %>Client, <% end %>
                   		<% if cache["ignoreQueryString"] == true %>Query String<% end %>
                   	</td>
                   	<td>
