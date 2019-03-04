@@ -55,29 +55,29 @@ Rails.application.routes.draw do
 
   # Content Delivery Network(CDN)
   get '/cdn', to: "delivery#delivery"
-  get '/cdn/:propertyId/:type', to: "delivery#deliveryDetail"
-  get '/cdn/:propertyId/:type/reports', to: "delivery#deliveryReport"
-  get '/cdn/:propertyId/:type/logs', to: "delivery#deliveryLog"
+  get '/cdn/:propertyId/:dtype', to: "delivery#deliveryDetail"
+  get '/cdn/:propertyId/:dtype/reports', to: "delivery#deliveryReport"
+  get '/cdn/:propertyId/:dtype/logs', to: "delivery#deliveryLog"
 
-  get '/cdn/:propertyId/:type/policies/:ptype', to: "delivery#deliveryPolicy"
+  get '/cdn/:propertyId/:dtype/policies/:ptype', to: "delivery#deliveryPolicy"
 
-  get '/cdn/:propertyId/:type/policies/:ptype/add', to: "delivery#deliveryAddPolicy"
+  get '/cdn/:propertyId/:dtype/policies/:ptype/add', to: "delivery#deliveryAddPolicy"
 
-  get '/cdn/:propertyId/:type/policies/:ptype/:policyId', to: "delivery#deliveryEditPolicy"
+  post '/cdn/:propertyId/:dtype/policies/:ptype/', to: "delivery#deliveryUpdatePolicy"
 
   post '/cdn/policies/create', to: "delivery#deliveryCreatePolicy"
-  delete '/cdn/:propertyId/:type/policies/:ptype/:policyId', to: "delivery#deliveryDeletePolicy"
+  delete '/cdn/:propertyId/:dtype/policies/:ptype/:policyId', to: "delivery#deliveryDeletePolicy"
 
   get '/cdn/create', to: "delivery#deliveryCreate"
   post '/cdn/add', to: "delivery#deliveryAdd"
 
-  get '/cdn/:propertyId/:type/edit', to: "delivery#deliveryEdit"
+  get '/cdn/:propertyId/:dtype/edit', to: "delivery#deliveryEdit"
 
   put '/cdn/update', to: "delivery#deliveryUpdate"
 
-  post '/cdn/:propertyId/:type/stop', to: "delivery#deliveryStop"
-  post '/cdn/:propertyId/:type/start', to: "delivery#deliveryStart"
-  post '/cdn/:propertyId/:type/delete', to: "delivery#deliveryDelete"
+  post '/cdn/:propertyId/:dtype/stop', to: "delivery#deliveryStop"
+  post '/cdn/:propertyId/:dtype/start', to: "delivery#deliveryStart"
+  post '/cdn/:propertyId/:dtype/delete', to: "delivery#deliveryDelete"
 
   # API
   namespace :api do

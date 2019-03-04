@@ -17,7 +17,7 @@
 				<span class="notice">Select one of the policies in bellow to manage:</span>
 			</div>
 			<div class="main__options-list">
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a" class="main__options-list-item clearfix<% if params[:ptype] == 'a'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a" class="main__options-list-item clearfix<% if params[:ptype] == 'a'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M204.8,244.6a2.051,2.051,0,0,1,2,2v16a2.051,2.051,0,0,1-2,2h-16a2.051,2.051,0,0,1-2-2v-16a2.051,2.051,0,0,1,2-2Zm0,18v-16h-16v16Zm-2-14v12h-12v-12h4v2h-2v8h8v-8h-3v2.2a1.856,1.856,0,0,1,1,1.7,2,2,0,0,1-4,0,1.673,1.673,0,0,1,1-1.7v-2.2a2.051,2.051,0,0,1,2-2Z" transform="translate(-186.8 -244.6)"/></svg>
@@ -35,7 +35,7 @@
             <% end %>
           </div>
         </a>
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/c" class="main__options-list-item clearfix<% if params[:ptype] == 'c'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/c" class="main__options-list-item clearfix<% if params[:ptype] == 'c'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)" fill="#fff"/></svg>
@@ -53,7 +53,7 @@
             <% end %>
           </div>
         </a>
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/r" class="main__options-list-item clearfix<% if params[:ptype] == 'r'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/r" class="main__options-list-item clearfix<% if params[:ptype] == 'r'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="16.1" height="16" viewBox="0 0 16.1 16"><path d="M495,37.8h5.5v5.5l-2.1-2.1L485.8,53.8l-1.4-1.4L497,39.9ZM491.1,43l-1.4,1.4-5.2-5.2,1.4-1.4Zm4.2,4.2,3.1,3.1,2.1-2.1v5.5H495l2.1-2.1L494,48.5Z" transform="translate(-484.4 -37.8)"/></svg>
@@ -103,7 +103,7 @@
 		          <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9">
 		            <%= f.text_field :name, class: 'form-control', required: true %>
-		            <%= f.hidden_field :dtype, value: params[:type] %>
+		            <%= f.hidden_field :dtype, value: params[:dtype] %>
 								<%= f.hidden_field :ptype, value: params[:ptype] %>
 								<%= f.hidden_field :propertyId, value: params[:propertyId] %>
 		          </div>
@@ -114,7 +114,7 @@
 		          <%= f.label :type, 'Policy Type', class: 'col-sm-2 col-form-label text-right' %>
 		          <div class="col-sm-9">
 		            <%= f.select :type, options_for_select([["Whitelist", "allow"], ["Blacklist", "deny"], ["Token Secret Access", "token"]]), {}, {class: 'form-control'} %>
-								<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>">Secret Token Here</a></small>
+								<small id="typeHelp" class="form-text text-muted">Whitelist to allow, Blacklist to deny and Token Secret Access to allow a special people, who you was sent Secret Token. <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>">Secret Token Here</a></small>
 		          </div>
 		        </div>
 						<% end %>
@@ -220,7 +220,7 @@
 					      <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
 						      Create
 						    <% end %>
-						    <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Back</a>
+						    <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Back</a>
 		          </div>
 		        </div>
 					<% end %>

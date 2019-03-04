@@ -5,11 +5,11 @@ class DeliveryController < ApplicationController
 	# Set Request Method
 	before_action :post_method, only: [:deliveryAdd, :deliveryReport, :deliveryLog, :deliveryCreatePolicy]
 	before_action :get_method, only: [:delivery, :deliveryDetail, :deliveryEdit, :deliveryPolicy]
-	before_action :put_method, only: [:deliveryUpdate, :deliveryStop, :deliveryStart]
+	before_action :put_method, only: [:deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryUpdatePolicy]
 	before_action :delete_method, only: [:deliveryDelete, :deliveryDeletePolicy]
 
 	# Set End Point Request
-	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete, :deliveryPolicy, :deliveryCreatePolicy, :deliveryDeletePolicy]
+	before_action :cdn_endpoint, only: [:delivery, :deliveryDetail, :deliveryReport, :deliveryAdd, :deliveryLog, :deliveryEdit, :deliveryUpdate, :deliveryStop, :deliveryStart, :deliveryDelete, :deliveryPolicy, :deliveryCreatePolicy, :deliveryEditPolicy, :deliveryUpdatePolicy]
 
 	def delivery
 		@domainList = []
@@ -40,9 +40,9 @@ class DeliveryController < ApplicationController
   end
 
   def deliveryDetail
-  	if params[:type] == "d"
+  	if params[:dtype] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-  	elsif params[:type] == "f"
+  	elsif params[:dtype] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 		end
 
@@ -54,9 +54,9 @@ class DeliveryController < ApplicationController
   end
 
   def deliveryEdit
-  	if params[:type] == "d"
+  	if params[:dtype] == "d"
 	  	@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-  	elsif params[:type] == "f"
+  	elsif params[:dtype] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 		end
 
@@ -245,10 +245,10 @@ class DeliveryController < ApplicationController
   end
 
   def deliveryStop
-  	if params[:type] == "d"
+  	if params[:dtype] == "d"
   		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
 			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":false}"
-		elsif params[:type] == "f"
+		elsif params[:dtype] == "f"
 			@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@requestBody = "{\"streamingService\":#{params[:streamingService]},\"active\":false}"
   	end
@@ -265,10 +265,10 @@ class DeliveryController < ApplicationController
   end
 
   def deliveryStart
-  	if params[:type] == "d"
+  	if params[:dtype] == "d"
   		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
 			@requestBody = "{\"originUrl\":\"#{params[:originUrl]}\",\"streamingService\":#{params[:streamingService]},\"active\":true}"
-		elsif params[:type] == "f"
+		elsif params[:dtype] == "f"
 			@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 			@requestBody = "{\"streamingService\":#{params[:streamingService]},\"active\":true}"
   	end
@@ -285,9 +285,9 @@ class DeliveryController < ApplicationController
   end
 
   def deliveryDelete
-  	if params[:type] == "d"
+  	if params[:dtype] == "d"
   		@requestURI = "/v1.0/domains/#{params[:propertyId]}"
-  	elsif params[:type] == "f"
+  	elsif params[:dtype] == "f"
 	  	@requestURI = "/v1.0/filedownloads/#{params[:propertyId]}"
 		end
 
@@ -344,29 +344,40 @@ class DeliveryController < ApplicationController
 	end
 
 	def deliveryCreatePolicy
-		@ip = Regexp.new('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')
-		@subnet = Regexp.new('([0-9]|[0-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\/\d+')
+		if params[:ptype] == 'a'
+			@ip = Regexp.new('^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')
+			@subnet = Regexp.new('([0-9]|[0-9]\d|1\d{2}|2[0-4]\d|25[0-5])(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\/\d+')
 
-		if (params[:subnet] =~ @ip) != 0 && (params[:subnet] =~ @subnet) != 0
-			flash[:confirm_notice] = "IP Restriction invalid. Please check again."
-      redirect_back(fallback_location: root_path)
-      return
-		else
-			if params[:ptype] == 'a'
-				@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
-				@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
-			elsif params[:ptype] == 'c'
-				@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
-				@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
-			elsif params[:ptype] == 'r'
-				@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections"
-				@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"redirectionURL\":\"#{params[:redirectionURL]}\",\"statusCode\":\"#{params[:statusCode]}\"}"
+			if (params[:subnet] =~ @ip) != 0 && (params[:subnet] =~ @subnet) != 0
+				flash[:confirm_notice] = "IP Restriction invalid. Please check again."
+	      redirect_back(fallback_location: root_path)
+	      return
 			end
 
-			RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
-
-			redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+		elsif params[:ptype] == 'c'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
+		elsif params[:ptype] == 'r'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"redirectionURL\":\"#{params[:redirectionURL]}\",\"statusCode\":\"#{params[:statusCode]}\"}"
 		end
+
+		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
+	end
+
+	def deliveryUpdatePolicy
+		if params[:ptype] == 'a'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls/#{params[:policyId]}"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+		end
+
+		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()
+
+		redirect_to "/cdn/#{params[:propertyId]}/#{params[:dtype]}/policies/#{params[:ptype]}"
 	end
 
 	def deliveryDeletePolicy

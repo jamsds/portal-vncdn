@@ -112,4 +112,14 @@ $(document).on('turbolinks:load', function() {
       $("#user_password").attr("type", "password");
     }
   })
+
+  $(".policy-edit").on('click', function() {
+    $(".dashboard__container-policy-edit").removeClass("hidden")
+    $("#policyId").val($(this).attr("data-id"));
+    $("#name").val($(this).attr("data-name"));
+    $("#url").val($(this).attr("data-url"));
+    $("#location").val($(this).attr("data-location"));
+    $("#subnet").val($(this).attr("data-subnet"));
+    $("#type").val($(this).attr("data-type"));
+  })
 })

@@ -1,7 +1,7 @@
 <div class="portal__main-left expanded">
 	<div class="panel">
 		<div class="panel__heading">
-			<a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>" class="btn btn-default btn-sm ml-2">
+			<a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>" class="btn btn-default btn-sm ml-2">
 		    <span class="back_ic">
 		      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12">
 		        <path d="M353.6,392.8v2H339.4l3.6,3.6-1.4,1.4-6-6,6-6,1.4,1.4-3.6,3.6Z" transform="translate(-335.6 -387.8)" fill="#333333"/>
@@ -17,7 +17,7 @@
 				<span class="notice">Select one of the policies in bellow to manage:</span>
 			</div>
 			<div class="main__options-list">
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a" class="main__options-list-item clearfix<% if params[:ptype] == 'a'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a" class="main__options-list-item clearfix<% if params[:ptype] == 'a'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M204.8,244.6a2.051,2.051,0,0,1,2,2v16a2.051,2.051,0,0,1-2,2h-16a2.051,2.051,0,0,1-2-2v-16a2.051,2.051,0,0,1,2-2Zm0,18v-16h-16v16Zm-2-14v12h-12v-12h4v2h-2v8h8v-8h-3v2.2a1.856,1.856,0,0,1,1,1.7,2,2,0,0,1-4,0,1.673,1.673,0,0,1,1-1.7v-2.2a2.051,2.051,0,0,1,2-2Z" transform="translate(-186.8 -244.6)"/></svg>
@@ -35,7 +35,7 @@
             <% end %>
           </div>
         </a>
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/c" class="main__options-list-item clearfix<% if params[:ptype] == 'c'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/c" class="main__options-list-item clearfix<% if params[:ptype] == 'c'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M78.9,1084.8v12h12v2h-12a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4v-12Zm4-4v2h-2a2.051,2.051,0,0,1,2-2Zm0,4v2h-2v-2Zm0,4v2h-2v-2Zm0,6a1.816,1.816,0,0,1-1.4-.6,1.974,1.974,0,0,1-.6-1.4h2Zm4-14v2h-2v-2Zm0,12v2h-2v-2Zm2-10v-2h2v2Zm0,12v-2h2v2Zm4-14a2.051,2.051,0,0,1,2,2h-2Zm0,6v-2h2v2Zm0,4v-2h2v2Zm0,4v-2h2a2.051,2.051,0,0,1-2,2Z" transform="translate(-76.9 -1080.8)" fill="#fff"/></svg>
@@ -53,7 +53,7 @@
             <% end %>
           </div>
         </a>
-        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/r" class="main__options-list-item clearfix<% if params[:ptype] == 'r'%> active<% end %>">
+        <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/r" class="main__options-list-item clearfix<% if params[:ptype] == 'r'%> active<% end %>">
           <div class="main__options-list-item-ic">
             <div class="was_ic">
               <svg xmlns="http://www.w3.org/2000/svg" width="16.1" height="16" viewBox="0 0 16.1 16"><path d="M495,37.8h5.5v5.5l-2.1-2.1L485.8,53.8l-1.4-1.4L497,39.9ZM491.1,43l-1.4,1.4-5.2-5.2,1.4-1.4Zm4.2,4.2,3.1,3.1,2.1-2.1v5.5H495l2.1-2.1L494,48.5Z" transform="translate(-484.4 -37.8)"/></svg>
@@ -90,182 +90,242 @@
 			</div>
 		</div>
 		<div class="dashboard__container">
-			<% if params[:ptype] == 'a' %>
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item">
-          <div class="dashboard__container-border-item-heading">
-            <h6>WhiteList</h6>
-            <div class="dashboard__container-message success mt-3">
-              <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>Every URL path in below auto allow requests from users</span></p>
-            </div>
-          </div>
-					<table class="table croped mt-3 mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>URL Path</th>
-                <th>GEO</th>
-                <th>IP</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @whitelists.each do |whitelist| %>
-                <tr>
-                	<td><%= whitelist["name"] %></td>
-                	<td><%= whitelist["matchType"].capitalize %></td>
-                	<td><%= whitelist["url"] %></td>
-                	<td><%= whitelist["location"] %></td>
-                	<td><%= whitelist["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= whitelist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
-                </tr>
+      <div class="dashboard__container-policy">
+        <div class="dashboard__container-policy-edit hidden">
+          <div class="dashboard__container-policy-edit-wrapper">
+            <h5 class="mb-3">Edit Policy</h5>  
+            <%= form_for "", url: {action: :deliveryUpdatePolicy, controller: :delivery}, method: :post, html: { id: 'form', multipart: true } do |f|%>
+              <div class="form-group vertical row">
+                <%= f.label :name, 'Name', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :name, class: 'form-control', required: true %>
+                  <%= f.hidden_field :dtype, value: params[:dtype] %>
+                  <%= f.hidden_field :ptype, value: params[:ptype] %>
+                  <%= f.hidden_field :propertyId, value: params[:propertyId] %>
+                  <%= f.hidden_field :policyId %>
+                  <%= f.hidden_field :type %>
+                </div>
+              </div>
+              <div class="form-group vertical row">
+                <%= f.label :matchType, 'Match Type', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.select :matchType, options_for_select([["Prefix", "prefix"], ["Regex", "regex"]]), {}, {class: 'form-control'} %>
+                </div>
+              </div>
+              <div class="form-group vertical row">
+                <%= f.label :url, 'URL Path', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :url, class: 'form-control', value: "/", required: true %>
+                  <small id="urlHelp" class="form-text text-muted">Enter the URL prefix or pattern for request match. E.g. /abc  or /abc_*.png.</small>
+                </div>
+              </div>
+              <% if params[:ptype] == 'a' %>
+              <div class="form-group vertical row">
+                <%= f.label :location, 'GEO Restriction', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :location, class: 'form-control' %>
+                  <small id="locationHelp" class="form-text text-muted">The GEO code format with ISO standard e.g Vietnam = VN.</small>
+                </div>
+              </div>
+              <div class="form-group vertical row">
+                <%= f.label :subnet, 'IP Restriction', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :subnet, class: 'form-control' %>
+                  <small id="subnetHelp" class="form-text text-muted">The IP/Subnet field format e.g 0.0.0.0/24.</small>
+                </div>
+              </div>
               <% end %>
-            </tbody>
-          </table>
-				</div>
-				<div class="dashboard__container-card-item">
-          <div class="dashboard__container-border-item-heading">
-            <h6>BlackList</h6>
-            <div class="dashboard__container-message danger mt-3">
-              <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>User can't request to resources with URL paths in below</span></p>
-            </div>
+              <div class="row mt-3">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-9">
+                  <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
+                    Update
+                  <% end %>
+                  <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Cancel</a>
+                </div>
+              </div>
+            <% end %>
           </div>
-					<table class="table croped mt-3 mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>URL Path</th>
-                <th>GEO</th>
-                <th>IP</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @blacklists.each do |blacklist| %>
-                <tr>
-                	<td><%= blacklist["name"] %></td>
-                	<td><%= blacklist["matchType"].capitalize %></td>
-                	<td><%= blacklist["url"] %></td>
-                	<td><%= blacklist["location"] %></td>
-                	<td><%= blacklist["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= blacklist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-				</div>
-				<div class="dashboard__container-card-item">
-          <div class="dashboard__container-border-item-heading">
-            <h6>Token Secret Access</h6>
-            <div class="dashboard__container-message warning mt-3">
-              <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>Requests URL path in below will be able to access protected content with the authentication token</span></p>
+        </div>
+  			<% if params[:ptype] == 'a' %>
+  			<div class="dashboard__container-card clearfix">
+  				<div class="dashboard__container-card-item">
+            <div class="dashboard__container-border-item-heading">
+              <h6>WhiteList</h6>
+              <div class="dashboard__container-message success mt-3">
+                <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>Every URL path in below auto allow requests from users</span></p>
+              </div>
             </div>
-          </div>
-					<table class="table croped mt-3 mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>URL Path</th>
-                <th>GEO</th>
-                <th>IP</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @tokens.each do |token| %>
+  					<table class="table croped mt-3 mb-0">
+              <thead>
                 <tr>
-                	<td><%= token["name"] %></td>
-                	<td><%= token["matchType"].capitalize %></td>
-                	<td><%= token["url"] %></td>
-                	<td><%= token["location"] %></td>
-                	<td><%= token["subnet"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= token["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  <th>Name</th>
+                  <th>Match Type</th>
+                  <th>URL Path</th>
+                  <th>GEO</th>
+                  <th>IP</th>
+                  <th>Actions</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-				</div>
-			</div>
-			<% elsif params[:ptype] == 'c' %>
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item">
-          <div class="dashboard__container-border-item-heading">
-            <h6>Cache Control</h6>
-            <div class="dashboard__container-message warning mt-3">
-              <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>By created rule, not match or wrong, your Delivery EDGE may not work. Hope you sure what are you doing</span></p>
+              </thead>
+              <tbody>
+                <% @whitelists.each do |whitelist| %>
+                  <tr>
+                  	<td><%= whitelist["name"] %></td>
+                  	<td><%= whitelist["matchType"].capitalize %></td>
+                  	<td><%= whitelist["url"] %></td>
+                  	<td><%= whitelist["location"] %></td>
+                  	<td><%= whitelist["subnet"] %></td>
+                  	<td>
+                      <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit" data-id="<%= whitelist["id"] %>" data-name="<%= whitelist["name"] %>" data-type="allow" data-url="<%= whitelist["url"] %>" data-location="<%= whitelist["location"] %>" data-subnet="<%= whitelist["subnet"] %>">Edit</a>
+                      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= whitelist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+  				</div>
+  				<div class="dashboard__container-card-item">
+            <div class="dashboard__container-border-item-heading">
+              <h6>BlackList</h6>
+              <div class="dashboard__container-message danger mt-3">
+                <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>User can't request to resources with URL paths in below</span></p>
+              </div>
             </div>
-          </div>
-					<table class="table croped mt-3 mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>URL Path</th>
-                <th>Host Header</th>
-                <th>TTL</th>
-                <th>Ignore No Caches</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @caches.each do |cache| %>
+  					<table class="table croped mt-3 mb-0">
+              <thead>
                 <tr>
-                	<td><%= cache["name"] %></td>
-                	<td><%= cache["matchType"].capitalize %></td>
-                	<td><%= cache["url"] %></td>
-                	<td><%= cache["hostHeader"] %></td>
-                	<td><%= cache["ttl"] %></td>
-                	<td>
-                		<% if cache["ignoreClientNoCache"] == true %>Client, <% end %>
-                		<% if cache["ignoreOriginNoCache"] == true %>Origin Server<% end %>
-                		<% if cache["ignoreQueryString"] == true %>, Query String<% end %>
-                	</td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= cache["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  <th>Name</th>
+                  <th>Match Type</th>
+                  <th>URL Path</th>
+                  <th>GEO</th>
+                  <th>IP</th>
+                  <th>Actions</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-				</div>
-			</div>
-			<% elsif params[:ptype] == 'r' %>
-			<div class="dashboard__container-card clearfix">
-				<div class="dashboard__container-card-item">
-          <div class="dashboard__container-border-item-heading">
-            <h6>Redirect Control</h6>
-            <div class="dashboard__container-message warning mt-3">
-              <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>By created rule, not match or wrong, your Delivery EDGE may not work. Hope you sure what are you doing</span></p>
+              </thead>
+              <tbody>
+                <% @blacklists.each do |blacklist| %>
+                  <tr>
+                  	<td><%= blacklist["name"] %></td>
+                  	<td><%= blacklist["matchType"].capitalize %></td>
+                  	<td><%= blacklist["url"] %></td>
+                  	<td><%= blacklist["location"] %></td>
+                  	<td><%= blacklist["subnet"] %></td>
+                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= blacklist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+  				</div>
+  				<div class="dashboard__container-card-item">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Token Secret Access</h6>
+              <div class="dashboard__container-message warning mt-3">
+                <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>Requests URL path in below will be able to access protected content with the authentication token</span></p>
+              </div>
             </div>
-          </div>
-					<table class="table croped mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Match Type</th>
-                <th>URL Path</th>
-                <th>Redirect URL Location</th>
-                <th>Status Code</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @redirects.each do |redirect| %>
+  					<table class="table croped mt-3 mb-0">
+              <thead>
                 <tr>
-                	<td><%= redirect["name"] %></td>
-                	<td><%= redirect["matchType"].capitalize %></td>
-                	<td><%= redirect["url"] %></td>
-                	<td><%= redirect["redirectionURL"] %></td>
-                	<td><%= redirect["statusCode"] %></td>
-                	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:type] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  <th>Name</th>
+                  <th>Match Type</th>
+                  <th>URL Path</th>
+                  <th>GEO</th>
+                  <th>IP</th>
+                  <th>Actions</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-				</div>
-			</div>
-			<% end %>
+              </thead>
+              <tbody>
+                <% @tokens.each do |token| %>
+                  <tr>
+                  	<td><%= token["name"] %></td>
+                  	<td><%= token["matchType"].capitalize %></td>
+                  	<td><%= token["url"] %></td>
+                  	<td><%= token["location"] %></td>
+                  	<td><%= token["subnet"] %></td>
+                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= token["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+  				</div>
+  			</div>
+  			<% elsif params[:ptype] == 'c' %>
+  			<div class="dashboard__container-card clearfix">
+  				<div class="dashboard__container-card-item">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Cache Control</h6>
+              <div class="dashboard__container-message warning mt-3">
+                <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>By created rule, not match or wrong, your Delivery EDGE may not work. Hope you sure what are you doing</span></p>
+              </div>
+            </div>
+  					<table class="table croped mt-3 mb-0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Match Type</th>
+                  <th>URL Path</th>
+                  <th>Host Header</th>
+                  <th>TTL</th>
+                  <th>Ignore No Caches</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @caches.each do |cache| %>
+                  <tr>
+                  	<td><%= cache["name"] %></td>
+                  	<td><%= cache["matchType"].capitalize %></td>
+                  	<td><%= cache["url"] %></td>
+                  	<td><%= cache["hostHeader"] %></td>
+                  	<td><%= cache["ttl"] %></td>
+                  	<td>
+                  		<% if cache["ignoreClientNoCache"] == true %>Client, <% end %>
+                  		<% if cache["ignoreOriginNoCache"] == true %>Origin Server<% end %>
+                  		<% if cache["ignoreQueryString"] == true %>, Query String<% end %>
+                  	</td>
+                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= cache["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+  				</div>
+  			</div>
+  			<% elsif params[:ptype] == 'r' %>
+  			<div class="dashboard__container-card clearfix">
+  				<div class="dashboard__container-card-item">
+            <div class="dashboard__container-border-item-heading">
+              <h6>Redirect Control</h6>
+              <div class="dashboard__container-message warning mt-3">
+                <p><span class="alert_ic"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"><path d="M4.9,4A9.6,9.6,0,0,1,12,1a10.068,10.068,0,0,1,7.1,2.9A9.506,9.506,0,0,1,22,11a9.9,9.9,0,0,1-2.9,7.1A9.506,9.506,0,0,1,12,21,9.9,9.9,0,0,1,2,11,9.669,9.669,0,0,1,4.9,4ZM13,12V6H11v6Zm0,4V14H11v2Z" transform="translate(-2 -1)" fill="#24b47e"/></svg></span><span>By created rule, not match or wrong, your Delivery EDGE may not work. Hope you sure what are you doing</span></p>
+              </div>
+            </div>
+  					<table class="table croped mb-0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Match Type</th>
+                  <th>URL Path</th>
+                  <th>Redirect URL Location</th>
+                  <th>Status Code</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @redirects.each do |redirect| %>
+                  <tr>
+                  	<td><%= redirect["name"] %></td>
+                  	<td><%= redirect["matchType"].capitalize %></td>
+                  	<td><%= redirect["url"] %></td>
+                  	<td><%= redirect["redirectionURL"] %></td>
+                  	<td><%= redirect["statusCode"] %></td>
+                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+  				</div>
+  			</div>
+  			<% end %>
+      </div>
 		</div>
 	</div>
 </div>
