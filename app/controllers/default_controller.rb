@@ -6,15 +6,6 @@ class DefaultController < ApplicationController
 
 	# Set End Point Request
 	before_action :base_endpoint, only: [:index]
-
-	def session
-		cookies.signed["_ssid"] = nil
-	end
-
-	def errors
-		@requested_path = request.path
-		flash[:routes_error] = @requested_path
-	end
 	
 	def index
 		if current_user.uuid.nil?
@@ -115,6 +106,15 @@ class DefaultController < ApplicationController
 		  	@totalStorage << @monthlyStorage
 		  end
 	  end
+
+	def sessions
+		cookies.signed["_ssid"] = nil
+	end
+
+	def errors
+		@requested_path = request.path
+		flash[:routes_error] = @requested_path
+	end
 
   rescue NoMethodError => e
   	if e.message == "undefined method `transactions' for nil:NilClass"
