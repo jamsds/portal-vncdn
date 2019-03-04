@@ -106,6 +106,7 @@
                   <%= f.hidden_field :type %>
                 </div>
               </div>
+
               <div class="form-group vertical row">
                 <%= f.label :matchType, 'Match Type', class: 'col-sm-2 col-form-label text-right' %>
                 <div class="col-sm-9">
@@ -119,6 +120,7 @@
                   <small id="urlHelp" class="form-text text-muted">Enter the URL prefix or pattern for request match. E.g. /abc  or /abc_*.png.</small>
                 </div>
               </div>
+
               <% if params[:ptype] == 'a' %>
               <div class="form-group vertical row">
                 <%= f.label :location, 'GEO Restriction', class: 'col-sm-2 col-form-label text-right' %>
@@ -132,6 +134,71 @@
                 <div class="col-sm-9">
                   <%= f.text_field :subnet, class: 'form-control' %>
                   <small id="subnetHelp" class="form-text text-muted">The IP/Subnet field format e.g 0.0.0.0/24.</small>
+                </div>
+              </div>
+              <% elsif params[:ptype] == 'c' %>
+              <div class="form-group vertical row">
+                <%= f.label :hostHeader, 'Host Header', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :hostHeader, class: 'form-control' %>
+                  <small id="hostHeaderHelp" class="form-text text-muted">Override the default host header used to make requests to the origin</small>
+                </div>
+              </div>
+              <div class="form-group vertical row">
+                <%= f.label :ttl, 'TTL', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :ttl, class: 'form-control' %>
+                  <small id="ttlHelp" class="form-text text-muted">The length of time in seconds to cache the origin content</small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= f.label :ignoreOriginNoCache, 'Ignore Origin', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9 col-form-value">
+                  <div class="switch-group clearfix">
+                    <label class="switch">
+                      <%= f.check_box :ignoreOriginNoCache, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                      <span class="slider round"></span>
+                    </label>
+                    <%= f.label :ignoreOriginNoCache, 'Enable this option to ignore no-cache header(s) sent by the origin server', class: 'switch-group-label' %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= f.label :ignoreClientNoCache, 'Ignore Client', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9 col-form-value">
+                  <div class="switch-group clearfix">
+                    <label class="switch">
+                      <%= f.check_box :ignoreClientNoCache, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                      <span class="slider round"></span>
+                    </label>
+                    <%= f.label :ignoreClientNoCache, 'Enable this option to ignore no-cache header(s) from clients', class: 'switch-group-label' %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= f.label :ignoreQueryString, 'Ignore Query String', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9 col-form-value">
+                  <div class="switch-group clearfix">
+                    <label class="switch">
+                      <%= f.check_box :ignoreQueryString, { class: 'custom-control-input', checked: false }, "true", "false" %>
+                      <span class="slider round"></span>
+                    </label>
+                    <%= f.label :ignoreQueryString, 'Enable this option to ignore any URL query string when caching an object', class: 'switch-group-label' %>
+                  </div>
+                </div>
+              </div>
+              <% elsif params[:ptype] == 'r' %>
+              <div class="form-group vertical row">
+                <%= f.label :redirectionURL, 'Redirect Destination', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.text_field :redirectionURL, class: 'form-control' %>
+                  <small id="redirectionURLHelp" class="form-text text-muted">It will redirect to this URL for matched requests.</small>
+                </div>
+              </div>
+              <div class="form-group vertical row">
+                <%= f.label :statusCode, 'Match Type', class: 'col-sm-2 col-form-label text-right' %>
+                <div class="col-sm-9">
+                  <%= f.select :statusCode, options_for_select([["301 - Permanent Redirect", "301"], ["302 - Temporary Redirect", "302"]]), {}, {class: 'form-control'} %>
                 </div>
               </div>
               <% end %>
@@ -209,7 +276,9 @@
                   	<td><%= blacklist["url"] %></td>
                   	<td><%= blacklist["location"] %></td>
                   	<td><%= blacklist["subnet"] %></td>
-                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= blacklist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  	<td>
+                      <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit" data-id="<%= blacklist["id"] %>" data-name="<%= blacklist["name"] %>" data-type="deny" data-url="<%= blacklist["url"] %>" data-location="<%= blacklist["location"] %>" data-subnet="<%= blacklist["subnet"] %>">Edit</a>
+                      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= blacklist["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -241,7 +310,9 @@
                   	<td><%= token["url"] %></td>
                   	<td><%= token["location"] %></td>
                   	<td><%= token["subnet"] %></td>
-                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= token["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  	<td>
+                      <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit" data-id="<%= token["id"] %>" data-name="<%= token["name"] %>" data-type="token" data-url="<%= token["url"] %>" data-location="<%= token["location"] %>" data-subnet="<%= token["subnet"] %>">Edit</a>
+                      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= token["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -282,7 +353,10 @@
                   		<% if cache["ignoreOriginNoCache"] == true %>Origin Server<% end %>
                   		<% if cache["ignoreQueryString"] == true %>, Query String<% end %>
                   	</td>
-                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= cache["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  	<td>
+                      <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit-cache" data-id="<%= cache["id"] %>" data-name="<%= cache["name"] %>" data-match="<%= cache["matchType"] %>" data-url="<%= cache["url"] %>" data-host="<%= cache["hostHeader"] %>" data-ttl="<%= cache["ttl"] %>" data-ignore-client="<%= cache["ignoreClientNoCache"] %>" data-ignore-origin="<%= cache["ignoreOriginNoCache"] %>" data-ignore-query="<%= cache["ignoreQueryString"] %>">Edit</a>
+                      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= cache["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>
@@ -317,7 +391,10 @@
                   	<td><%= redirect["url"] %></td>
                   	<td><%= redirect["redirectionURL"] %></td>
                   	<td><%= redirect["statusCode"] %></td>
-                  	<td><a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a><a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a></td>
+                  	<td>
+                      <a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a>
+                      <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>

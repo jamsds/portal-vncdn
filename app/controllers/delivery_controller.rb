@@ -373,6 +373,12 @@ class DeliveryController < ApplicationController
 		if params[:ptype] == 'a'
 			@requestURI = "/v1.0/services/#{params[:propertyId]}/access_controls/#{params[:policyId]}"
 			@requestBody = "{\"name\":\"#{params[:name]}\",\"type\":\"#{params[:type]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"subnet\":\"#{params[:subnet]}\",\"location\":\"#{params[:location]}\"}"
+		elsif params[:ptype] == 'c'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/cache_controls/#{params[:policyId]}"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"hostHeader\":\"#{params[:hostHeader]}\",\"ttl\":\"#{params[:ttl]}\",\"ignoreClientNoCache\":\"#{params[:ignoreClientNoCache]}\",\"ignoreOriginNoCache\":\"#{params[:ignoreOriginNoCache]}\",\"ignoreQueryString\":\"#{params[:ignoreQueryString]}\"}"
+		elsif params[:ptype] == 'r'
+			@requestURI = "/v1.0/services/#{params[:propertyId]}/redirections/#{params[:policyId]}"
+			@requestBody = "{\"name\":\"#{params[:name]}\",\"matchType\":\"#{params[:matchType]}\",\"url\":\"#{params[:url]}\",\"redirectionURL\":\"#{params[:redirectionURL]}\",\"statusCode\":\"#{params[:statusCode]}\"}"
 		end
 
 		RestAPI.new("#{@requestURI}", "#{@requestBody}").openRequest()

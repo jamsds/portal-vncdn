@@ -1063,12 +1063,41 @@
 								z-index: 1;
 								background-color: rgba(0,0,0,0.25);
 								&-wrapper {
-									width: 75%;
+									width: 90%;
 									margin: 2.5rem auto;
 									padding: 1rem;
 									border-radius: 0.25rem;
 									background-color: $light;
 									box-shadow: $shadow-default;
+									.form-group {
+										margin-bottom: 0;
+										.col-form-label {
+											padding: 0;
+											font-size: 0.875rem;
+											color: $black-5nd;
+											line-height: unset;
+										}
+										.col-form-value {
+											p {
+												margin-bottom: 0;
+												font-size: 0.875rem;
+												font-weight: 500;
+											}
+											small {
+												a {
+													font-size: inherit;
+												}
+											}
+										}
+										&:not(:last-child) {
+											margin-bottom: 1rem;
+										}
+										&.vertical {
+											.col-form-label {
+												margin-top: 0.9375rem;
+											}
+										}
+									}
 								}
 							}
 						}

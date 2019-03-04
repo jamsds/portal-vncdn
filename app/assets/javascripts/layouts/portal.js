@@ -122,4 +122,25 @@ $(document).on('turbolinks:load', function() {
     $("#subnet").val($(this).attr("data-subnet"));
     $("#type").val($(this).attr("data-type"));
   })
+
+  $(".policy-edit-cache").on('click', function() {
+    $(".dashboard__container-policy-edit").removeClass("hidden")
+    $("#policyId").val($(this).attr("data-id"));
+    $("#name").val($(this).attr("data-name"));
+    $("#url").val($(this).attr("data-url"));
+    $("#hostHeader").val($(this).attr("data-host"));
+    $("#ttl").val($(this).attr("data-ttl"));
+
+    if ($(this).attr("data-ignore-client") == "true") {
+      $("#ignoreClientNoCache").click()
+    }
+
+    if ($(this).attr("data-ignore-origin") == "true") {
+      $("#ignoreOriginNoCache").click()
+    }
+
+    if ($(this).attr("data-ignore-query") == "true") {
+      $("#ignoreQueryString").click()
+    }
+  })
 })
