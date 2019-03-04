@@ -392,7 +392,7 @@
                   	<td><%= redirect["redirectionURL"] %></td>
                   	<td><%= redirect["statusCode"] %></td>
                   	<td>
-                      <a href="" class="btn btn-default primary outline btn-sm mr-2">Edit</a>
+                      <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit-redirect" data-id="<%= redirect["id"] %>" data-name="<%= redirect["name"] %>" data-match="<%= redirect["matchType"] %>" data-url="<%= redirect["url"] %>" data-redirect="<%= redirect["redirectionURL"] %>" data-code="<%= redirect["statusCode"] %>">Edit</a>
                       <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/a/<%= redirect["id"] %>" data-method="delete" class="btn btn-default outline btn-sm" data-confirm="Are you sure?">Delete</a>
                     </td>
                   </tr>
