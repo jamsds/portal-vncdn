@@ -1056,16 +1056,16 @@
 							padding: 1rem;
 							position: relative;
 							&-edit {
-								width: 100%;
-								height: 100%;
-								position: absolute;
-								left: 0;
-								top: 0;
+								width: calc(100% * 3/4);
+								height: inherit;
+								position: fixed;
+								right: 0;
+								top: 105px;
 								z-index: 1;
 								background-color: rgba(0,0,0,0.25);
 								&-wrapper {
 									width: 90%;
-									height: 85.75%;
+									height: 71.75%;
     							overflow-y: scroll;
 									margin: 2.5rem auto;
 									padding: 1rem;
