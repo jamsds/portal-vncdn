@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 	$X_SPD_NONCE = rand(10000..99999)
 	$ROOT_ID = "30133"
 
-	protect_from_forgery
+	protect_from_forgery with: :exception
 
 	def set_request_host
 	  Thread.current[:request_host] = request.host
