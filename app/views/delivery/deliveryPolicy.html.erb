@@ -349,9 +349,9 @@
                   	<td><%= cache["hostHeader"] %></td>
                   	<td><%= cache["ttl"] %></td>
                   	<td>
-                      <% if cache["ignoreOriginNoCache"] == true %>Origin Server, <% end %>
-                  		<% if cache["ignoreClientNoCache"] == true %>Client<% end %>
-                  		<% if cache["ignoreQueryString"] == true %>, Query String<% end %>
+                      <% if cache["ignoreOriginNoCache"] == true %>Origin Server <% end %>
+                  		<% if cache["ignoreClientNoCache"] == true %>Client <% end %>
+                  		<% if cache["ignoreQueryString"] == true %>Query String<% end %>
                   	</td>
                   	<td>
                       <a nohref class="btn btn-default primary outline btn-sm mr-2 policy-edit-cache" data-id="<%= cache["id"] %>" data-name="<%= cache["name"] %>" data-match="<%= cache["matchType"] %>" data-url="<%= cache["url"] %>" data-host="<%= cache["hostHeader"] %>" data-ttl="<%= cache["ttl"] %>" data-ignore-client="<%= cache["ignoreClientNoCache"] %>" data-ignore-origin="<%= cache["ignoreOriginNoCache"] %>" data-ignore-query="<%= cache["ignoreQueryString"] %>">Edit</a>
