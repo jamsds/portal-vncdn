@@ -114,7 +114,8 @@ $(document).on('turbolinks:load', function() {
   })
 
   $(".policy-edit").on('click', function() {
-    $(".dashboard__container-policy-edit").removeClass("hidden")
+    $(".dashboard__container-policy-edit").removeClass("hidden");
+    $(".dashboard__container").addClass("no-scroll");
     $("#policyId").val($(this).attr("data-id"));
     $("#name").val($(this).attr("data-name"));
     $("#url").val($(this).attr("data-url"));
@@ -124,7 +125,8 @@ $(document).on('turbolinks:load', function() {
   })
 
   $(".policy-edit-cache").on('click', function() {
-    $(".dashboard__container-policy-edit").removeClass("hidden")
+    $(".dashboard__container-policy-edit").removeClass("hidden");
+    $(".dashboard__container").addClass("no-scroll");
     $("#policyId").val($(this).attr("data-id"));
     $("#name").val($(this).attr("data-name"));
     $("#url").val($(this).attr("data-url"));
