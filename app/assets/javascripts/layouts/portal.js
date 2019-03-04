@@ -143,4 +143,9 @@ $(document).on('turbolinks:load', function() {
       $("#ignoreQueryString").click()
     }
   })
+
+  $(".policy-edit-close").on('click', function() {
+    $(".dashboard__container-policy-edit").addClass("hidden")
+    $("input").val('');
+  })
 })
