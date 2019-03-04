@@ -132,21 +132,15 @@ $(document).on('turbolinks:load', function() {
     $("#ttl").val($(this).attr("data-ttl"));
 
     if ($(this).attr("data-ignore-client") == "true") {
-      $("#ignoreClientNoCache").is(':checked');
-    } else {
-      $("#ignoreClientNoCache").is(':not(:checked)');
+      $("#ignoreClientNoCache").click()
     }
 
     if ($(this).attr("data-ignore-origin") == "true") {
-      $("#ignoreOriginNoCache").is(':checked');
-    } else {
-      $("#ignoreOriginNoCache").is(':not(:checked)');
+      $("#ignoreOriginNoCache").click()
     }
 
     if ($(this).attr("data-ignore-query") == "true") {
-      $("#ignoreQueryString").is(':checked');
-    } else {
-      $("#ignoreQueryString").is(':not(:checked)');
+      $("#ignoreQueryString").click()
     }
   })
 
@@ -160,5 +154,8 @@ $(document).on('turbolinks:load', function() {
     $("#type").val('');
     $("#hostHeader").val('');
     $("#ttl").val('');
+    $("#ignoreClientNoCache").unbind('click');
+    $("#ignoreOriginNoCache").unbind('click');
+    $("#ignoreQueryString").unbind('click');
   })
 })

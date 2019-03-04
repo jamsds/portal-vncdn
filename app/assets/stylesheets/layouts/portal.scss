@@ -1064,6 +1064,8 @@
 								background-color: rgba(0,0,0,0.25);
 								&-wrapper {
 									width: 90%;
+									height: 85.75%;
+    							overflow-y: scroll;
 									margin: 2.5rem auto;
 									padding: 1rem;
 									border-radius: 0.25rem;

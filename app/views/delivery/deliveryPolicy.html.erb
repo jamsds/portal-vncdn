@@ -208,7 +208,7 @@
                   <%= button_tag(type: "submit", class: "btn btn-default primary mr-3") do %>
                     Update
                   <% end %>
-                  <a nohref class="btn btn-light policy-edit-close">Cancel</a>
+                  <a href="/cdn/<%= params[:propertyId] %>/<%= params[:dtype] %>/policies/<%= params[:ptype] %>" class="btn btn-light">Cancel</a>
                 </div>
               </div>
             <% end %>
