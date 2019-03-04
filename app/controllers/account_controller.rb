@@ -120,6 +120,8 @@ class AccountController < ApplicationController
       payment_type: subscription_params["payment_type"],
       bwd_limit: @package.bwd_limit,
       stg_limit: @package.stg_limit,
+      bwd_price: @package.bwd_price,
+      stg_price: @package.stg_price,
       reseller: @reseller,
       expiration_date: @expiration_date
     )
